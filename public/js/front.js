@@ -45,6 +45,8 @@ camera.position.x = camera_x;
 camera.position.y = camera_y;
 camera.position.z = camera_z;
 
+camera.position.setLength(10);
+
 //camera.scale.x = camera.scale.y = camera.scale.z = 0.1;
 
 const renderer = new THREE.WebGLRenderer({antialias: true, alpha: true});
@@ -54,8 +56,6 @@ renderer.shadowMap.type = THREE.PCFSoftShadowMap; */
 
 //renderer.toneMapping = THREE.ACESFilmicToneMapping;
 renderer.outputEncoding = THREE.sRGBEncoding;
-
-
 
 
 renderer.setPixelRatio( container.innerWidth() / container.innerHeight() );

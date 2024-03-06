@@ -42,7 +42,7 @@ class ProductPartController extends Controller
      */
     public function store(Request $request)
     {
-        dd('store de las partes del producto');
+        //dd('store de las partes del producto');
         $productPart = new ProductPart();
         return $this->update($request, $productPart);
     }
@@ -78,7 +78,6 @@ class ProductPartController extends Controller
      */
     public function update(Request $request, ProductPart $productPart = null)
     {
-        //dd('UPDATE product part', $request->query('api_token'));
         // Auth block
         $api_token = $request->query('api_token');
         $is_logged = AuthenticationHelper::isLogged($api_token);
@@ -136,13 +135,9 @@ class ProductPartController extends Controller
                 }
             }
 
-
-
-
         }
         //$redirect = "<script>window.location.href = window.location.href.replace('action=update', 'action=edit').replace('md=product_part', 'md=product').replace('product_id=".$request->get('product_id')."', 'id=".$request->get('product_id')."');</script>"; //.replace('id=".$request->get('id')."', 'id=".$request->get('product_id')."')
         $redirect = "<script>window.location.href = window.location.href.replace('action=update', 'action=edit').replace('md=product_part', 'md=product').replace('&id=".$request->get('id')."', '').replace('product_id=".$request->get('product_id')."', 'id=".$request->get('product_id')."');</script>"; //
-        //dd($redirect);
         echo $redirect;
     }
 
@@ -229,7 +224,6 @@ class ProductPartController extends Controller
      */
     public function destroy(Request $request, ProductPart $productPart)
     {
-        //dd("destroy " . $productPart->id . "   " . dirname(relative_path() . $productPart->model));
         $productPart->delete();
         $redirect = "<script>window.location.href = window.location.href.replace('action=update', 'action=edit').replace('md=product_part', 'md=product').replace('id=".$request->get('id')."', 'id=".$request->get('product_id')."');</script>";
         return $redirect;

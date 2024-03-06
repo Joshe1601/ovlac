@@ -13,7 +13,7 @@ class Product extends Model
         "camera_y" => 1,
         "camera_z" => 1,
         "camera_min_zoom" => 0,
-        "camera_max_zoom" => 2,
+        "camera_max_zoom" => 10,
         "camera_limit_x" => 180,
         "camera_limit_y" => 180,
         "has_light" => 1,

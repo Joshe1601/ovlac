@@ -113,6 +113,8 @@
             </div>
         </div>
     </form>
+
+
     <div class="accordion-item new-element" style="display: none;">
         <h2 class="accordion-header">
             <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse_new" aria-expanded="false" aria-controls="collapse_new">

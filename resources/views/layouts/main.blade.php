@@ -80,8 +80,7 @@
             <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
                 <a href="{{ controller_path() }}" class="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none">
                     <img src="{{ relative_path() }}/public/images/icon.png" />
-                    <img src="/public/images/icon.png" />
-                    <img src={{ asset('images/icon.png') }}} />
+                    
 
                 </a>
 

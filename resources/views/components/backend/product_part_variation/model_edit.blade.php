@@ -49,7 +49,7 @@
         </div>
     </div>
 
-    
+
 
     @if($variable == 1 && $level < 2)
     <div class="vars_form mt-4">
@@ -73,12 +73,42 @@
                     </div>
                 </div>
             @endforeach
-            
+
         </div>
     </div>
     @else
     <div class="text-end mb-4">
         @if($product_part->id) <button type="submit" name="submit" value="remove_{{$product_part->id}}" class="btn btn-danger btn-remove-part" data-bs-dismiss="modal">{{ tra("Remove part") }}</button>@endif
     </div>
+        <div>
+            <hr>
+            @if ($product_part->id)
+                <button type="button" class="btn btn-success btn-add-part" id_part="{{ $product_part->id }}">{{ tra("Add New Child") }}</button>
+            @endif
+            <!-- added -->
+            <br />
+            @foreach ($product_part->subparts as $subpart)
+                <div
+                    @class([
+                        'accordion-item',
+                        'bg-odd' => $level % 2 == 0,
+                        'bg-even' => $level % 2 != 0,
+                    ])
+                >
+                    <h2 class="accordion-header">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ $subpart->id }}" aria-expanded="false" aria-controls="collapse{{ $subpart->id }}">
+                            {{ $subpart->title }} -  [Nivel {{ $level }}]
+                        </button>
+                    </h2>
+                    <div id="collapse{{ $subpart->id }}" class="accordion-collapse collapse" data-bs-parent="#accordionSubParts{{$level}}">
+                        <div class="accordion-body collapsed">
+                            @include('components.backend.product_part_variation.model_edit', ['action' => "update", 'product' => $product, 'product_part' => $subpart, 'parent_part' => $product_part, 'variable' => 1, 'level' => $level+1])
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+        </div>
     @endif
+
+
 </div>

@@ -52,6 +52,13 @@ use League\Flysystem\Adapter\Local;
 
 //$app = null;
 
+header("Access-Control-Allow-Origin: *");
+header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+header("Cache-Control: post-check=0, pre-check=0", false);
+header("Pragma: no-cache");
+
+
+
 call_user_func(function() {
 
 	/* $adapter = new League\Flysystem\Adapter\Local(__DIR__.'/myfiles');
@@ -112,6 +119,9 @@ call_user_func(function() {
     $request = IlluminateRequest::createFromBase($symfonyRequest);
 
     config(['app.wordpress_mode' => false]);
+
+    clearstatcache();
+    
     echo (new FlightController)->index($request); // routes here
 
 

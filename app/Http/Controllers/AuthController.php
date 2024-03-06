@@ -62,7 +62,6 @@ class AuthController extends Controller
                 ]
             );
             $user = User::where('email', $request->email)->first();
-            dd('user ', $user);
             if (is_null($user)) {
                 $redirect = "<script>window.location.href = window.location.href.replace('action=verify_user', 'action=login').concat('&error=Please, check email and try again.');</script>";
                 return $redirect;

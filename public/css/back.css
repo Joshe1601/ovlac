@@ -80,3 +80,12 @@
 .mr-2 {
   margin-right: 0.5rem;
 }
+
+/*Background color for Tree Menu Product Part*/
+.bg-odd {
+    background-color: #fab1a0;
+}
+
+.bg-even {
+    background-color: #b2bec3;
+}
