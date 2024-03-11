@@ -85,6 +85,8 @@
 					@endforeach
 
 				</div>
+
+                    <div>hola</div>
 				<div id="wizard_footer">
 					<div id="steps">
 						Price: <span id="price_total"></span> €
@@ -99,6 +101,7 @@
 					</button>
 				</div>
 			</div>
+
 		</div>
 
 		<script>

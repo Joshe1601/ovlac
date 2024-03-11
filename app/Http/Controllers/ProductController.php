@@ -132,20 +132,21 @@ class ProductController extends Controller
      */
     public function show(Request $request , ?Product $product)
     {
-
         $data = [];
         $data['parts'] = [];
-
         $data['magnify'] = 1;
-
 
         $data['empty_part'] = new ProductPart();
         $data['product'] = $product;
         $data['cam_debug'] = false;
+        $data['variable_parts'] = ProductPart::tree()
+            ->where('product_id', $product->id)
+            ->where('fixed', 0);
+
         if ($request->get('cam_debug') == 1) $data['cam_debug'] = true;
+        dd('los datos del view product', $data);
         $html = View::make('front', $data)->render();
         return $html;
-
     }
 
     /**

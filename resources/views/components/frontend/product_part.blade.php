@@ -23,7 +23,7 @@
                     @else
                         <span style="background-color: #{{$subpart->color_bg()}};"></span>
                     @endif
-                    
+
                 </label>
             </li>
             @empty

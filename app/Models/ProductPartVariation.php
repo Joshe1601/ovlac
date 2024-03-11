@@ -3,9 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Staudenmeir\LaravelAdjacencyList\Eloquent\HasRecursiveRelationships;
 
 class ProductPartVariation extends Model
 {
+    use HasRecursiveRelationships;
     protected $fillable = [
         'product_part_id',
         'title',
@@ -20,5 +22,6 @@ class ProductPartVariation extends Model
     {
         return $this->belongsToOne(ProductPart::class);
     }
+
 
 }

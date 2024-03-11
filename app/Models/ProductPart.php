@@ -4,9 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\File;
+use Staudenmeir\LaravelAdjacencyList\Eloquent\HasRecursiveRelationships;
 
 class ProductPart extends Model
 {
+    use HasRecursiveRelationships;
     protected $fillable = [
         'product_id',
         'product_part_id',
@@ -105,6 +107,29 @@ class ProductPart extends Model
             //$obj->variations()->delete();
             //$obj->subparts()->delete();
         });
+    }
+
+    public static function tree()
+    {
+        $allProductParts = ProductPart::all();
+
+        $rootProductParts = $allProductParts->whereNull('product_part_id');
+
+        self::formatTree($rootProductParts, $allProductParts);
+
+        return $rootProductParts;
+    }
+
+    private static function formatTree($categories, $allProductParts) {
+
+        foreach($categories as $category) {
+            $category->children = $allProductParts->where('product_part_id', $category->id)->values();
+
+            if($category->children->isNotEmpty()) {
+                self::formatTree($category->children, $allProductParts);
+            }
+
+        }
     }
 
 }
