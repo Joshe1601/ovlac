@@ -87,7 +87,7 @@
 				</div>
 
                     <div>hola</div>
-                    
+                    <h2>Cambio de prueba</h2>
 
                     <div>fin</div>
 				<div id="wizard_footer">
