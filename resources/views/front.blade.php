@@ -87,6 +87,9 @@
 				</div>
 
                     <div>hola</div>
+                    
+
+                    <div>fin</div>
 				<div id="wizard_footer">
 					<div id="steps">
 						Price: <span id="price_total"></span> €
@@ -139,6 +142,8 @@
 
             var has_light = {{ $product->has_light }};
             var has_shadow = {{ $product->has_shadow }};
+
+            var variable_parts = {{ $variable_parts }}
 
 			@foreach ($product->fixed_parts as $part)
 				init_items.push(['{!! $part->model !!}', '{!! $part->color !!}']);

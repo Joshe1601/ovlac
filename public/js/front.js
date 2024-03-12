@@ -36,7 +36,11 @@ if(has_shadow) {
     scene.add( light_shadow );
 }
 
-
+if(variable_parts) {
+    console.log('*** VARIABLE PARTS ***', variable_parts);
+} else {
+    console.log('No hay nada');
+}
 /* camera.position.x = 0.0*magnify;
 camera.position.y = 0.2*magnify;
 camera.position.z = 1*magnify; */
