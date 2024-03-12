@@ -86,10 +86,10 @@
 
 				</div>
 
-                    <div>hola</div>
-                    <h2>Cambio de prueba</h2>
+                    <div>
+                        <x-frontend.categories :categories="$variable_parts" />
+                   </div>
 
-                    <div>fin</div>
 				<div id="wizard_footer">
 					<div id="steps">
 						Price: <span id="price_total"></span> €

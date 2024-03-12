@@ -144,7 +144,7 @@ class ProductController extends Controller
             ->where('fixed', 0);
 
         if ($request->get('cam_debug') == 1) $data['cam_debug'] = true;
-        dd('los datos del view product', $data['variable_parts']);
+        //dd('los datos del view product', strlen($data));
         $html = View::make('front', $data)->render();
         return $html;
     }

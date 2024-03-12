@@ -132,4 +132,9 @@ class ProductPart extends Model
         }
     }
 
+    public function isChild(): bool
+    {
+        return $this->product_part_id !== null;
+    }
+
 }
