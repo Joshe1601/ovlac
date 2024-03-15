@@ -42,7 +42,6 @@ class ProductPartController extends Controller
      */
     public function store(Request $request)
     {
-        //dd('store de las partes del producto');
         $productPart = new ProductPart();
         return $this->update($request, $productPart);
     }
@@ -78,6 +77,10 @@ class ProductPartController extends Controller
      */
     public function update(Request $request, ProductPart $productPart = null)
     {
+//        if($productPart != null) {
+//            $len = count($request->subparts);
+//            //dd('El producto en si', $request->subparts["new594570"]);
+//        }
         // Auth block
         $api_token = $request->query('api_token');
         $is_logged = AuthenticationHelper::isLogged($api_token);
@@ -112,6 +115,7 @@ class ProductPartController extends Controller
             return $this->remove_image($request, $part);
 
         } else {
+
             if (is_null($productPart)) {
                 $productPart = new ProductPart();
             }
@@ -119,6 +123,7 @@ class ProductPartController extends Controller
             $this->part_update($request, $productPart);
 
             $subparts = $request->get('subparts');
+            //dd('Las subpartes y el nuevo', $subparts);
             if (is_array($subparts)) {
                 foreach ($subparts as $part_id => $part_data) {
                     $update = true;
@@ -136,6 +141,8 @@ class ProductPartController extends Controller
             }
 
         }
+        //dd('el id de que?', $request->get('id'));
+        $this->updateIsLastNode($subparts);
         //$redirect = "<script>window.location.href = window.location.href.replace('action=update', 'action=edit').replace('md=product_part', 'md=product').replace('product_id=".$request->get('product_id')."', 'id=".$request->get('product_id')."');</script>"; //.replace('id=".$request->get('id')."', 'id=".$request->get('product_id')."')
         $redirect = "<script>window.location.href = window.location.href.replace('action=update', 'action=edit').replace('md=product_part', 'md=product').replace('&id=".$request->get('id')."', '').replace('product_id=".$request->get('product_id')."', 'id=".$request->get('product_id')."');</script>"; //
         echo $redirect;
@@ -210,8 +217,10 @@ class ProductPartController extends Controller
             move_uploaded_file($file->path(), $dest);
             $productPart->image = "/storage/app/images/".$name.'.'.$extension;
         }
-
-
+//        if ($productPart->product_part_id !== null) {
+//            //dd('el padre', $productPart);
+//            $this->updateIsLastNode($productPart->id);
+//        }
         $productPart->save();
     }
 
@@ -243,5 +252,34 @@ class ProductPartController extends Controller
         $productPart->save();
         $redirect = "<script>window.location.href = window.location.href.replace('action=update', 'action=edit').replace('md=product_part', 'md=product').replace('id=".$request->get('id')."', 'id=".$request->get('product_id')."');</script>";
         return $redirect;
+    }
+
+    public function updateIsLastNode($subparts)
+    {
+        try {
+            if (is_array($subparts)) {
+                foreach ($subparts as $part_id => $part_data) {
+                    if (strpos($part_id, 'new') !== false) {
+                       // dd($part_data);
+                        if($part_data['product_part_id'])
+                        {
+//                            dd('lo tenemos!!');
+                            $product_part_parent = ProductPart::findOrFail($part_data['product_part_id']);
+                            $product_part_parent->isLastNode = 0;
+                            $product_part_parent->save();
+                        }
+
+                    }
+
+                    //$part->fill($part_data);
+                }
+            }
+            // update parent with isLastNode = 0
+
+
+        } catch (\Exception $e)
+        {
+            dd('falla el update isLastNode', $e);
+        }
     }
 }

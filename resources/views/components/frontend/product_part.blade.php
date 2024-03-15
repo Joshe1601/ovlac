@@ -12,7 +12,8 @@
         <ul class="sub_variation">
             @forelse ($product_part->subparts as $key => $subpart)
             <li>
-                <input class="x{{ $product_part->id }}_subvar_radio subvar_radio" @if ($subpart->color) colorize="{{ $subpart->color }}" @endif type="radio" name="{{ $group }}" id="x{{ $product_part->id }}_{{ $subpart->id }}" @if ($key == 0)
+                <input class="x{{ $product_part->id }}_subvar_radio subvar_radio" @if ($subpart->color) colorize="{{ $subpart->color }}" @endif
+                    type="radio" name="{{ $group }}" id="x{{ $product_part->id }}_{{ $subpart->id }}" @if ($key == 0)
                     {{-- checked --}}
                 @endif value="{{ $subpart->model_def() }}" model-group="{{ $group }}" part_base_price="{{ $subpart->price_full() }}">
                 <label title="{{ $subpart->title }}" part_id="{{ $subpart->id }}" for="x{{ $product_part->id }}_{{$subpart->id}}">
@@ -28,7 +29,8 @@
             </li>
             @empty
                 <li>
-                    <input class="x{{ $product_part->id }}_subvar_radio subvar_radio" type="radio" name="{{ $group }}" id="x{{ $product_part->id }}_0" value="{{ $product_part->model }}" model-group="{{ $group }}" part_base_price="{{ $product_part->price_full() }}">
+                    <input class="x{{ $product_part->id }}_subvar_radio subvar_radio" type="radio" name="{{ $group }}" id="x{{ $product_part->id }}_0"
+                           value="{{ $product_part->model }}" model-group="{{ $group }}" part_base_price="{{ $product_part->price_full() }}">
                     <label title="{{ $product_part->title }}" part_id="{{ $subpart->id }}" for="x{{ $product_part->id }}_0">
                         <span style="background-color: #dddddd;"></span>
                     </label>
