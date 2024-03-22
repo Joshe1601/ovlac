@@ -1,0 +1,420 @@
+
+
+body, #main { 
+    margin: 0;
+    height: 100vh;
+}
+
+#adminmenumain, #wpadminbar, #wpfooter {
+    display: none;
+}
+
+#wpbody {
+    padding-top: 0 !important;
+}
+
+html.wp-toolbar, #wpbody-content {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+#wpcontent, #wpfooter {
+    margin-left: 0 !important;
+}
+
+.auto-fold #wpcontent {
+    padding-left: 0 !important;
+}
+
+#main {
+    display: flex;
+    flex-direction: row;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+#canvas_3d {
+    /* height: 100% !important; */
+    flex: 1 1 auto;
+    /* width: auto; */
+
+    /* background: linear-gradient(to bottom,  white 20%, rgb(222, 222, 222) 100%); */
+}
+
+#wizard {
+    /* width: 40%; */
+    /* height: 100%; */
+    flex: 0 0 30%;
+    display: flex;
+    flex-direction: column;
+    
+}
+
+#wizard_title_dsk {
+    display: block;
+}
+
+#wizard_title_mbl {
+    display: none;
+}
+
+.product_part_image {
+    width: 100%;
+    border-radius: 64px;
+}
+
+@media only screen and (max-width: 600px) {
+    #wizard_title_dsk {
+        display: none;
+    }
+    
+    #wizard_title_mbl {
+        display: block;
+    }
+    #main {
+        flex-direction: column;
+    }
+    #canvas_3d {
+        flex: 0 0 20%;
+        position: sticky;
+        top: 0;
+        z-index: 99999999;
+        background-color: white;
+        box-shadow: 0px 10px 10px lightgrey;
+    }
+
+    #wizard {
+        flex: 1%;
+    }
+}
+
+
+
+#wizard_footer {
+    background-color: rgb(0, 30, 80);
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    place-items: center;
+    padding: 2px 16px;
+    
+}
+
+/* .wizard_title {
+    background-color: rgb(0, 30, 80);
+    width: 100%;
+    padding: 8px 16px;	
+    color: white;
+    font-size: 150%;
+} */
+
+.wizard_title {
+    width: 100%;
+    padding: 32px 16px 0px 16px;	
+    color: black;
+    font-size: 180%;
+}
+
+#accordion {
+    flex: 1;
+    padding: 0 0.5rem;
+    overflow-y: scroll;
+}
+
+#accordion .btn-link {
+    color: rgb(0, 30, 80);
+}
+
+.variation_list {
+    padding-left: 0;
+    margin-left:0;
+}
+
+.variation_list>li {
+    list-style-type: none;
+    margin-bottom: .5em;
+
+    padding: 0.6rem;
+    border: 1px solid #999;
+    border-radius: 0.5rem;
+}
+
+.variation_list>li.active {
+    padding: calc(0.6rem - 1px);
+    border: 2px solid black;
+}
+
+.variation_list>li input[type=radio] {
+    display: -moz-inline-box;
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 0.2rem;
+}
+
+.variation_list>li label {
+    display: -moz-inline-box;
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 !important;
+    position: relative;
+    display: block;
+}
+
+/* .variation_text {
+    margin-left: 35px;
+} */
+
+.variation_title {
+    color: #666;
+    font-weight: bolder;
+    font-size: 110%;
+}
+
+.variation_description {
+    color: #666;
+    font-style: italic;
+}
+
+.variation_price {
+    color: #666;
+    float: right;
+    margin-top: 2.7%;
+}
+
+
+.variation_list>li input {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+.variation_list>li input {
+    visibility: hidden;
+    position: absolute;
+    right: 0;
+}
+
+
+.variation_list>li label i:before{
+    content: '';
+    display: block;
+    height: 18px;
+    width: 18px;
+    background: red;
+    border-radius: 100%;
+    position: absolute;
+    z-index: 1;
+    top: 4px;
+    left: 4px;
+    background:#2AC176;
+    transition: all 0.25s ease; /* Todas las propiedades | tiempo | tipo movimiento */
+    transform: scale(0) /* Lo reducimos a 0*/ ;
+    opacity: 0; /* Lo ocultamos*/
+}
+
+.variation_list>li label i {
+    background: #f0f0f0;
+    border:2px solid rgba(0,0,0,0.2);
+    position: absolute; 
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.variation_list>li input[type=radio]:checked + label i:before{
+    transform: scale(1);
+    opacity: 1;
+}
+
+.variation_list>li:hover input[type=radio]:not(:checked) + i{
+    background: #B1E8CD;
+}
+
+/* Estas reglas se aplicarán a todos los i despues de un input de tipo radio*/
+.variation_list>li label i {
+    height: 30px;
+    width: 30px;
+    border-radius: 100%;
+}
+
+#steps {
+    color: white;
+    font-size: 120%;
+}
+
+.next_button {
+    font-size: 120%;
+    text-align: center;
+    margin-top: 8px;
+    margin-bottom: 8px;
+
+    border-color: white;
+    appearance: button;
+    position: relative;
+    display: inline-flex;
+    text-align: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    min-height: 44px;
+    min-width: 44px;
+    padding-top: 0px;
+    padding-right: 16px;
+    padding-left: 16px;
+    border-top-width: 2px;
+    border-right-width: 2px;
+    border-bottom-width: 2px;
+    border-left-width: 2px;
+    border-top-style: solid;
+    border-right-style: solid;
+    border-bottom-style: solid;
+    border-left-style: solid;
+    border-image-source: initial;
+    border-image-slice: initial;
+    border-image-width: initial;
+    border-image-outset: initial;
+    border-image-repeat: initial;
+    border-top-left-radius: 500px;
+    border-top-right-radius: 500px;
+    border-bottom-right-radius: 500px;
+    border-bottom-left-radius: 500px;
+    transition-duration: 0.2s;
+    transition-timing-function: ease-in-out;
+    transition-delay: 0s;
+    transition-property: all;
+    text-decoration-line: none;
+    cursor: pointer;
+    background-image: initial;
+    background-position-x: initial;
+    background-position-y: initial;
+    background-size: initial;
+    background-repeat-x: initial;
+    background-repeat-y: initial;
+    background-attachment: initial;
+    background-origin: initial;
+    background-clip: initial;
+    background-color: rgb(255, 255, 255);
+    border-top-color: rgb(255, 255, 255);
+    color: rgb(0, 30, 80);
+}
+
+.next_button_inner {
+    -webkit-box-align: center;
+    align-items: center;
+    display: inline-grid;
+    grid-template-columns: repeat(1, auto) max-content;
+    column-gap: 8px;
+}
+
+.card .btn.btn-link {
+    font-size: 100%;
+
+}
+
+.variation_img {
+    width: 60px;
+    height: 60px;
+    border-radius: 60px;
+}
+
+.variation_head {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.variation_vars {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.8rem;
+}
+
+
+
+.sub_variation {
+    display: flex;
+    flex-direction: row;
+    /* justify-content: center; */
+    place-items: center;
+    gap: 3px;
+    flex-wrap: wrap;
+}
+
+@media only screen and (max-width: 600px) {
+    .sub_variation {
+        gap: 5px;
+    }
+}
+
+@media (min-width: 600px) {
+    .collapse.dont-collapse-sm {
+      display: block !important;
+      height: auto !important;
+      visibility: visible;
+    }
+  }
+
+.sub_variation {
+    margin-top: 1rem;
+    padding-right: 0 !important;
+    padding-inline-start: 0;
+}
+
+.sub_variation > li {
+    list-style: none !important;
+}
+
+.sub_variation > li > label {
+    display: block;
+    border-radius: 30px;
+    padding: 0.2rem;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.sub_variation > li > input:checked + label, .sub_variation > li:hover > label {
+    border: 2px solid gray;
+}
+
+.sub_variation > li > label > span {
+    display: block;
+    width: 32px;
+    height: 32px;
+    border-radius: 30px;
+    cursor: pointer;
+}
+
+.sub_variation > li > input {
+    display: none;
+}
+
+#main .card-body, #main {
+    padding: 0;
+}
+
+#main .card {
+    max-width: none !important;
+    border: 0;
+    border-bottom: 1px solid rgb(0,0,0,.125);
+    border-radius: 0;
+    margin-top: 0;
+    padding: 16px 16px;	
+}
+
+#main .card:first-child {
+    margin-top: 0 !important;
+}
+
+#main .card:last-child {
+    border-bottom: 0px;
+    box-shadow: none;
+}
+
+.part-header .btn.btn-link {
+    padding: .75rem 0;
+    color: black !important;
+}
