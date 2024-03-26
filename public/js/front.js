@@ -117,8 +117,8 @@ function init() {
    // const light = new THREE.AmbientLight( 0x202020 ); // soft white light
    // scene.add( light );
 
-    /* var loader = new THREE.TextureLoader();
-    var backgroundTexture = loader.load( 'https://i.imgur.com/upWSJlY.jpg' ); */
+    // var loader = new THREE.TextureLoader();
+    // var backgroundTexture = loader.load( 'https://i.imgur.com/upWSJlY.jpg' );
 
 
     var skyColor = 0xB1E1FF; // light blue
@@ -150,16 +150,19 @@ function init() {
     //scene.background = envmap;
     controls.enableDamping = false;
 
-    /* new THREE.RGBELoader().load(relative_path + '/public/models/test/background.hdr', texture => {
-        const gen = new THREE.PMREMGenerator(renderer);
-        const envMap = gen.fromEquirectangular(texture).texture;
-        scene.environment = envMap;
-        scene.background = envMap;
+    //var loader = new THREE.TextureLoader();
+    //var texture = loader.load( 'https://i.imgur.com/upWSJlY.jpg' );
 
-        texture.dispose();
-        gen.dispose();
-      }); */
-
+    // var hdr = new THREE.RGBELoader().load(relative_path + '/public/models/test/background.hdr', texture => {
+    //     const gen = new THREE.PMREMGenerator(renderer);
+    //     const envMap = gen.fromEquirectangular(texture).texture;
+    //     scene.environment = envMap;
+    //     scene.background = envMap;
+    //
+    //     texture.dispose();
+    //     gen.dispose();
+    //   });
+    //scene.add(hdr);
 
 
     for (let i = 0; i < init_items.length; i ++) {
@@ -208,7 +211,7 @@ function add_model(model_file, model_group, model_color) {
                 }
             },
             (xhr) => {
-                console.log((xhr.loaded / xhr.total) * 100 + '% loaded')
+                //console.log((xhr.loaded / xhr.total) * 100 + '% loaded')
             },
             (error) => {
                 console.log(error)
@@ -352,7 +355,7 @@ function add_model(model_file, model_group, model_color) {
 
         },
         (xhr) => {
-            console.log((xhr.loaded / xhr.total) * 100 + '% loaded')
+            //console.log((xhr.loaded / xhr.total) * 100 + '% loaded')
         },
         (error) => {
             console.log(error)

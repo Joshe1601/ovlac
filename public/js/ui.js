@@ -27,15 +27,41 @@ $(document).ready(function() {
     });
 
 
+    $('.selectedModels').change(function(){
+
+        // get data for selected models
+        const selectedModels = $( this ).val();
+        let items = selectedModels.split(':')
+        let clean_items = items.map( str => str.replaceAll( "\\", '').replaceAll('"', ''))
+        console.log('Clean Models', clean_items)
+        let models_collection = []
+        for(let i = 0; i < clean_items.length; i++) {
+            if(clean_items[i] !== '') {
+                let data = clean_items[i].substring(1, clean_items[i].length - 1)
+                let modelo_array = data.split(',')
+                let modelo = {
+                    url_model: modelo_array[0],
+                    price_model: modelo_array[1],
+                    color_model: modelo_array[2]
+                }
+                models_collection.push(modelo)
+            }
+        }
+        console.log('Ay Joder...', models_collection)
+
+        // print the selected models
+
+        
+        // update the price for totals
+
+
+        // remove the other models
+    });
+
+
     /* $("#cta_button").on("click", function() {
-
-
-
     }); */
-
-
     update_totals();
-
     console.log('UI loaded');
 });
 

@@ -1,14 +1,22 @@
 @php
-    if(!isset($models)) $models = [];
+    if(!isset($models)) $models = '';
 @endphp
 
 <div class="{{ $category->isLastNode == 1 ? 'lastNode' : '' }}">
     @php
-        if ($category->model !== null) array_push($models, $category->model)
+        if ($category->model !== '') {
+            $data_model = json_encode(array($category->model, $category->price, $category->color));
+            $models = $models . ':' . $data_model;
+
+        }
     @endphp
-    {{ $category->title }} {{ $category->is_last_node == 1 ? '*****' : '' }}
-    @if ( $category->is_last_node == 1 && isset($models) )
-{{--        {{ dd( $models ) }}--}}
+
+    @if ( $category->is_last_node == 1 )
+{{--                {{ dd( $models[1]) }}--}}
+        <label for="">{{ $category->title }}</label>
+        <input type="radio" class="selectedModels" name="is_last_node" value="{{ $models }}" >
+    @else
+        {{ $category->title }} / {{ $category->is_last_node == 1 ? '*****' : '' }}
     @endif
 
 </div>
