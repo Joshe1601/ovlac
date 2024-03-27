@@ -30,6 +30,8 @@ $(document).ready(function() {
     $('.selectedModels').change(function(){
 
         // get data for selected models
+        const model_group = $(this).attr('model-group');
+        console.log('MODEL GROUP', model_group)
         const selectedModels = $( this ).val();
         let items = selectedModels.split(':')
         let clean_items = items.map( str => str.replaceAll( "\\", '').replaceAll('"', ''))
@@ -50,8 +52,11 @@ $(document).ready(function() {
         console.log('Ay Joder...', models_collection)
 
         // print the selected models
+        models_collection.forEach(model => {
+            console.log('alla vamos', model)
+            add_model(relative_path + model.ulr_model, model_group, model.model_color);
+        })
 
-        
         // update the price for totals
 
 

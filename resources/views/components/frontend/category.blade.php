@@ -14,7 +14,7 @@
     @if ( $category->is_last_node == 1 )
 {{--                {{ dd( $models[1]) }}--}}
         <label for="">{{ $category->title }}</label>
-        <input type="radio" class="selectedModels" name="is_last_node" value="{{ $models }}" >
+        <input type="radio" class="selectedModels" name="is_last_node" value="{{ $models }}" model-group="{{ $category->id }}">
     @else
         {{ $category->title }} / {{ $category->is_last_node == 1 ? '*****' : '' }}
     @endif
