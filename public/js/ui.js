@@ -27,34 +27,44 @@ $(document).ready(function() {
     });
 
 
-    $('.selectedModels').change(function(){
 
+    $('.selectedModels').change(function(){
         // get data for selected models
         const model_group = $(this).attr('model-group');
-        console.log('MODEL GROUP', model_group)
         const selectedModels = $( this ).val();
+
+        // Remove previous selectedModels, those which do not match with selected one
+        if (model_group !== null) {
+            console.log(' ====== SELECTED MODEL GROUP ', model_group)
+            console.log(' ====== MODEL SOURCE', modelsrn)
+            clean_scene_from_old_models(model_group)
+        }
+
+
+
         let items = selectedModels.split(':')
         let clean_items = items.map( str => str.replaceAll( "\\", '').replaceAll('"', ''))
-        console.log('Clean Models', clean_items)
         let models_collection = []
         for(let i = 0; i < clean_items.length; i++) {
             if(clean_items[i] !== '') {
                 let data = clean_items[i].substring(1, clean_items[i].length - 1)
                 let modelo_array = data.split(',')
-                let modelo = {
-                    url_model: modelo_array[0],
-                    price_model: modelo_array[1],
-                    color_model: modelo_array[2]
+                if(modelo_array[0] !== '') {
+                    let modelo = {
+                        url_model: modelo_array[0],
+                        price_model: modelo_array[1],
+                        color_model: modelo_array[2],
+                        model_group: model_group
+                    }
+                    models_collection.push(modelo)
                 }
-                models_collection.push(modelo)
             }
         }
-        console.log('Ay Joder...', models_collection)
+        //console.log('los models...', models_collection)
 
         // print the selected models
         models_collection.forEach(model => {
-            console.log('alla vamos', model)
-            add_model(relative_path + model.ulr_model, model_group, model.model_color);
+            add_model(relative_path + model.url_model, model_group, model.color_model);
         })
 
         // update the price for totals
@@ -138,7 +148,7 @@ function submit_form(custom) {
 
 function get_total_price() {
     let price = parseFloat($("#input_product_price").val());
-    console.log(price);
+    //console.log(price);
     $(".subvar_radio:checked").each(function() {
         let part_price = parseFloat($(this).attr("part_base_price"));
         console.log(part_price);

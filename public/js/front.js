@@ -180,6 +180,9 @@ function init() {
 
 
 function add_model(model_file, model_group, model_color) {
+   // console.log('ADDED MODEL => ', model_file)
+   // console.log('MODEL GROUP => ', model_group)
+   // console.log('MODEL COLOR => ', model_color)
     const material = new THREE.MeshBasicMaterial({ color: 0x00ff00, wireframe: true });
     if (model_file.endsWith('.obj')) {
         init_controls = false;
@@ -300,12 +303,13 @@ function add_model(model_file, model_group, model_color) {
             const md = gltf.scene.children[0];
             /* md.position.set(0, 0, 0);
             md.scale.set(30,30,30); */
+            /*
             console.log(model_file);
             console.log(gltf);
             console.log(gltf.animations);
             console.log(gltf.scene);
             console.log(md);
-
+*/
 
             /* // VISIBLE / INVISIBLE
             wheel_A = md.getObjectByName( "RIM_TypeA" );
@@ -461,6 +465,21 @@ function remove_model_group(model_group) {
                 delete modelsrn[group][key];
             }
             delete modelsrn[group];
+        }
+    }
+}
+
+function clean_scene_from_old_models(selected_model) {
+    for (let group in modelsrn) {
+        if (group != selected_model) {
+            let models_to_remove = modelsrn[group]
+            for (let key in models_to_remove) {
+                let model = models_to_remove[key]
+                console.log('DELETE ' + model.name + ' because not belong to: ' + selected_model)
+                scene.remove(model)
+                delete modelsrn[group][key]
+            }
+            delete modelsrn[group]
         }
     }
 }
