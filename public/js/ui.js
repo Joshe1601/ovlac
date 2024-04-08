@@ -28,49 +28,48 @@ $(document).ready(function() {
 
 
 
-    $('.selectedModels').change(function(){
+    $(".selectedModels").change(function(){
         // get data for selected models
         const model_group = $(this).attr('model-group');
         const selectedModels = $( this ).val();
 
         // Remove previous selectedModels, those which do not match with selected one
         if (model_group !== null) {
-            console.log(' ====== SELECTED MODEL GROUP ', model_group)
-            console.log(' ====== MODEL SOURCE', modelsrn)
+            // console.log(' ====== SELECTED MODEL GROUP ', model_group)
+            // console.log(' ====== MODEL SOURCE', modelsrn)
             clean_scene_from_old_models(model_group)
         }
 
-
-
         let items = selectedModels.split(':')
         let clean_items = items.map( str => str.replaceAll( "\\", '').replaceAll('"', ''))
-        let models_collection = []
+        var models_collection = []
         for(let i = 0; i < clean_items.length; i++) {
             if(clean_items[i] !== '') {
                 let data = clean_items[i].substring(1, clean_items[i].length - 1)
                 let modelo_array = data.split(',')
                 if(modelo_array[0] !== '') {
                     let modelo = {
-                        url_model: modelo_array[0],
-                        price_model: modelo_array[1],
-                        color_model: modelo_array[2],
-                        model_group: model_group
+                        url: modelo_array[0],
+                        price: modelo_array[1],
+                        color: modelo_array[2],
+                        group: model_group
                     }
                     models_collection.push(modelo)
                 }
             }
         }
-        //console.log('los models...', models_collection)
+        // console.log('los models...', models_collection)
 
         // print the selected models
-        models_collection.forEach(model => {
-            add_model(relative_path + model.url_model, model_group, model.color_model);
-        })
+        // models_collection.forEach(async (model) => {
+        //     //await add_model(relative_path + model.url_model, model_group, model.color_model);
+        //     await add_group_model_gltf(relative_path + model.url_model, model.model_group, model.color_model);
+        // })
+        add_group_model_gltf(models_collection)
 
         // update the price for totals
 
 
-        // remove the other models
     });
 
 

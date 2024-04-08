@@ -31,6 +31,7 @@
 		<script src="{{ relative_path() }}/public/js/threejs/examples/js/libs/fflate.min.js"></script>
 
 
+
 		<form style="display: none;">
 			<input type="hidden" id="input_product_id" name="input_product_id" value="{{ $product->id }}">
 			<input type="hidden" id="input_product_title" name="input_product_title" value="{{ $product->title }}">

@@ -171,7 +171,6 @@ function init() {
         add_model(relative_path + model, 'base', model_color);
     }
 
-
     animate();
 }
 
@@ -287,7 +286,7 @@ function add_model(model_file, model_group, model_color) {
 
 
     } else {
-        var loader = new THREE.GLTFLoader();
+        const loader = new THREE.GLTFLoader();
 
         var dracoLoader = new THREE.DRACOLoader();
         dracoLoader.setDecoderPath( '/js/draco/gltf/' );
@@ -345,14 +344,19 @@ function add_model(model_file, model_group, model_color) {
 
             gltf.scene.castShadow = true;
             gltf.scene.receiveShadow = true;
-            scene.add( gltf.scene );
+            // console.log('Adding to the scene: ', model_file, gltf.scene)
+            // try clone
+            const cloneGLTF = gltf.scene.clone()
+            // scene.add( gltf.scene );
+            scene.add(cloneGLTF);
+            scene.add(gltf.scene);
 
             if (!gltf.scene.name) gltf.scene.name = gltf.scene.uuid;
 
             if (model_group != 'base') {
                 remove_model_group(model_group);
                 if (!modelsrn[model_group]) modelsrn[model_group] = [];
-                modelsrn[model_group].push(gltf.scene);
+                modelsrn[model_group].push(cloneGLTF);
             }
             //scene.add( md );
             console.log("DONE");
@@ -470,18 +474,68 @@ function remove_model_group(model_group) {
 }
 
 function clean_scene_from_old_models(selected_model) {
+    console.log('modelsrn array =======> ', modelsrn)
     for (let group in modelsrn) {
         if (group != selected_model) {
             let models_to_remove = modelsrn[group]
             for (let key in models_to_remove) {
                 let model = models_to_remove[key]
                 console.log('DELETE ' + model.name + ' because not belong to: ' + selected_model)
-                scene.remove(model)
+                let result = scene.remove(model)
+                console.log('Hemos borrado', result)
                 delete modelsrn[group][key]
             }
             delete modelsrn[group]
         }
     }
+}
+
+const add_group_model_gltf = (models_collection) => {
+    console.log("LA COLLECTION DE MODELS", models_collection)
+    const loader = new THREE.GLTFLoader();
+    const dracoLoader = new THREE.DRACOLoader();
+    dracoLoader.setDecoderPath( '/js/draco/gltf/' );
+    loader.setDRACOLoader( dracoLoader );
+    //
+    // models_collection.forEach(model => {
+    //     loader.load( model.model_file, (gltf) => {
+    //         if (model.model_color !== "") { colorize_model(gltf.scene, model.model_color); }
+    //         gltf.scene.castShadow = true;
+    //         gltf.scene.receiveShadow = true;
+    //         scene.add( gltf.scene );
+    //         if (!gltf.scene.name) gltf.scene.name = model.model_group;
+    //         if (model.model_group !== 'base') {
+    //             remove_model_group(model.model_group);
+    //             if (!modelsrn[model.model_group]) modelsrn[model.model_group] = [];
+    //             modelsrn[model.model_group].push(gltf.scene);
+    //         }
+    //     });
+    // });
+
+    for(let i = 0; i < models_collection.length; i++ ) {
+        console.log('EL ELEMENTO ITERADO',models_collection[i])
+        loader.load( relative_path + models_collection[i].url, (gltf) => {
+            if (models_collection[i].color !== "") { colorize_model(gltf.scene, models_collection[i].color); }
+            gltf.scene.castShadow = true;
+            gltf.scene.receiveShadow = true;
+            scene.add( gltf.scene );
+            if (!gltf.scene.name) gltf.scene.name = models_collection[i].group;
+            if (models_collection[i].group !== 'base') {
+                remove_model_group(models_collection[i].group);
+                if (!modelsrn[models_collection[i].group]) modelsrn[models_collection[i].group] = [];
+                modelsrn[models_collection[i].group].push(gltf.scene);
+            }
+        });
+    }
+
+
+    animate_group_model()
+}
+
+const animate_group_model = () => {
+    requestAnimationFrame( animate );
+    if (camPositionSpan) camPositionSpan.innerHTML = `Position: (${camera.position.x.toFixed(1)}, ${camera.position.y.toFixed(1)}, ${camera.position.z.toFixed(1)})`
+    renderer.render( scene, camera );
 }
 
 
