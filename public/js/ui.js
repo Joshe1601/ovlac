@@ -27,15 +27,50 @@ $(document).ready(function() {
     });
 
 
+
+    $(".selectedModels").change(function(){
+        // get data for selected models
+        const model_group = $(this).attr('model-group');
+        const selectedModels = $( this ).val();
+
+        // Remove previous selectedModels, those which do not match with selected one
+        clean_scene_from_old_models()
+
+
+        let items = selectedModels.split(':')
+        let clean_items = items.map( str => str.replaceAll( "\\", '').replaceAll('"', ''))
+        const models_collection = []
+        for(let i = 0; i < clean_items.length; i++) {
+            if(clean_items[i] !== '') {
+                let data = clean_items[i].substring(1, clean_items[i].length - 1)
+                let model_array = data.split(',')
+                if(model_array[0] !== '') {
+                    let model = {
+                        id: (Math.random() + 1).toString(36).substring(2),
+                        url: model_array[0],
+                        price: model_array[1],
+                        color: model_array[2],
+                        group: model_group
+                    }
+                    models_collection.push(model)
+                }
+            }
+        }
+
+        for(const model of models_collection) {
+            add_model(relative_path + model.url, model.group, model.color, model.id)
+        }
+       // add_group_model_gltf(models_collection)
+
+        // update the price for totals
+
+
+    });
+
+
     /* $("#cta_button").on("click", function() {
-
-
-
     }); */
-
-
     update_totals();
-
     console.log('UI loaded');
 });
 

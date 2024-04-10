@@ -1,5 +1,5 @@
 @php
-    if(!isset($models)) $models = [];
+    if(!isset($models)) $models = '';
 @endphp
 
 @foreach($categories as $category)

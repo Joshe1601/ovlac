@@ -13,6 +13,7 @@ var wheel_B;
 var container = jQuery("#canvas_3d");
 
 var modelsrn = [];
+var models_added = [];
 
 var clock = new THREE.Clock();
 var scene = new THREE.Scene();
@@ -117,8 +118,8 @@ function init() {
    // const light = new THREE.AmbientLight( 0x202020 ); // soft white light
    // scene.add( light );
 
-    /* var loader = new THREE.TextureLoader();
-    var backgroundTexture = loader.load( 'https://i.imgur.com/upWSJlY.jpg' ); */
+    // var loader = new THREE.TextureLoader();
+    // var backgroundTexture = loader.load( 'https://i.imgur.com/upWSJlY.jpg' );
 
 
     var skyColor = 0xB1E1FF; // light blue
@@ -150,16 +151,19 @@ function init() {
     //scene.background = envmap;
     controls.enableDamping = false;
 
-    /* new THREE.RGBELoader().load(relative_path + '/public/models/test/background.hdr', texture => {
-        const gen = new THREE.PMREMGenerator(renderer);
-        const envMap = gen.fromEquirectangular(texture).texture;
-        scene.environment = envMap;
-        scene.background = envMap;
+    //var loader = new THREE.TextureLoader();
+    //var texture = loader.load( 'https://i.imgur.com/upWSJlY.jpg' );
 
-        texture.dispose();
-        gen.dispose();
-      }); */
-
+    // var hdr = new THREE.RGBELoader().load(relative_path + '/public/models/test/background.hdr', texture => {
+    //     const gen = new THREE.PMREMGenerator(renderer);
+    //     const envMap = gen.fromEquirectangular(texture).texture;
+    //     scene.environment = envMap;
+    //     scene.background = envMap;
+    //
+    //     texture.dispose();
+    //     gen.dispose();
+    //   });
+    //scene.add(hdr);
 
 
     for (let i = 0; i < init_items.length; i ++) {
@@ -168,7 +172,6 @@ function init() {
         add_model(relative_path + model, 'base', model_color);
     }
 
-
     animate();
 }
 
@@ -176,7 +179,7 @@ function init() {
 
 
 
-function add_model(model_file, model_group, model_color) {
+function add_model(model_file, model_group, model_color, model_id = null) {
     const material = new THREE.MeshBasicMaterial({ color: 0x00ff00, wireframe: true });
     if (model_file.endsWith('.obj')) {
         init_controls = false;
@@ -208,7 +211,7 @@ function add_model(model_file, model_group, model_color) {
                 }
             },
             (xhr) => {
-                console.log((xhr.loaded / xhr.total) * 100 + '% loaded')
+                //console.log((xhr.loaded / xhr.total) * 100 + '% loaded')
             },
             (error) => {
                 console.log(error)
@@ -281,7 +284,9 @@ function add_model(model_file, model_group, model_color) {
 
 
     } else {
-        var loader = new THREE.GLTFLoader();
+        // this case is the only one which is clone the object before add it to the scene !!!
+
+        const loader = new THREE.GLTFLoader();
 
         var dracoLoader = new THREE.DRACOLoader();
         dracoLoader.setDecoderPath( '/js/draco/gltf/' );
@@ -291,73 +296,27 @@ function add_model(model_file, model_group, model_color) {
         //const material = new THREE.MeshBasicMaterial({ color: 0x00ff00, wireframe: true });
         //const material = new THREE.MeshPhongMaterial( { specular: 0x122222,shininess: 10,map: texture} );
 
-
         loader.load( model_file, (gltf) => {
-
-            const md = gltf.scene.children[0];
-            /* md.position.set(0, 0, 0);
-            md.scale.set(30,30,30); */
-            console.log(model_file);
-            console.log(gltf);
-            console.log(gltf.animations);
-            console.log(gltf.scene);
-            console.log(md);
-
-
-            /* // VISIBLE / INVISIBLE
-            wheel_A = md.getObjectByName( "RIM_TypeA" );
-            wheel_B = md.getObjectByName( "RIM_TypeB" );
-            if (wheel_B) wheel_B.visible = false;
-
-            body = md.getObjectByName( "Door_FR" );
-            if (body) set_material(md, material, 'Body');
-
-
-            // Create an AnimationMixer, and get the list of AnimationClip instances
-            mixer = new THREE.AnimationMixer( md );
-            const clips = md.animations;
-
-            // Update the mixer on each frame
-            function update () {
-                mixer.update( deltaSeconds );
-            }
-
-            // Play a specific animation
-            if (gltf.animations.length > 0) {
-            //const clip = THREE.AnimationClip.findByName( clips, "Take 001" );
-                const clip = gltf.animations[0];
-                const action = mixer.clipAction( clip );
-                //action.setLoop( THREE.LoopOnce );
-                action.play();
-            } */
-
-
-            if (model_color != "") {
-                colorize_model(gltf.scene, model_color);
-            }
-
+            if (model_color !== "") { colorize_model(gltf.scene, model_color); }
             gltf.scene.castShadow = true;
             gltf.scene.receiveShadow = true;
-            scene.add( gltf.scene );
 
-            if (!gltf.scene.name) gltf.scene.name = gltf.scene.uuid;
+            // scene.add( gltf.scene );
+            if (!gltf.scene.name) gltf.scene.name = model_id;
+            // try clone
+            const cloneGLTF = gltf.scene.clone();
+            cloneGLTF.name = model_id;
+            scene.add(cloneGLTF);
 
-            if (model_group != 'base') {
+
+            if (model_group !== 'base') {
                 remove_model_group(model_group);
                 if (!modelsrn[model_group]) modelsrn[model_group] = [];
                 modelsrn[model_group].push(gltf.scene);
+                models_added.push(model_id); // new line to handle infinite tree models
             }
-            //scene.add( md );
-            console.log("DONE");
 
-        },
-        (xhr) => {
-            console.log((xhr.loaded / xhr.total) * 100 + '% loaded')
-        },
-        (error) => {
-            console.log(error)
         });
-
 
 
         // LA BONA
@@ -383,10 +342,6 @@ function add_model(model_file, model_group, model_color) {
 
         };
     }
-
-
-
-
 
 }
 
@@ -460,6 +415,60 @@ function remove_model_group(model_group) {
             delete modelsrn[group];
         }
     }
+}
+
+/**
+ * Removing 3D models from the scene
+ */
+function clean_scene_from_old_models() {
+    for(let element of models_added) {
+        const objectToRemove = scene.getObjectByName(element)
+        if(objectToRemove !== undefined) {
+            scene.remove(objectToRemove)
+        }
+    }
+    models_added = [] // clean old models, variable parts
+}
+
+/**
+ * Add a collection of 3D models to the scene, glb/gltf format
+ * @param models_collection
+ */
+const add_group_model_gltf = (models_collection) => {
+    const loader = new THREE.GLTFLoader();
+    const dracoLoader = new THREE.DRACOLoader();
+    dracoLoader.setDecoderPath( '/js/draco/gltf/' );
+    loader.setDRACOLoader( dracoLoader );
+
+    for(let i = 0; i < models_collection.length; i++ ) {
+        loader.load( relative_path + models_collection[i].url, (gltf) => {
+            if (models_collection[i].color !== "") { colorize_model(gltf.scene, models_collection[i].color); }
+            gltf.scene.castShadow = true;
+            gltf.scene.receiveShadow = true;
+            // scene.add( gltf.scene );
+            if (!gltf.scene.name) gltf.scene.name = models_collection[i].id;
+            if (models_collection[i].group !== 'base') {
+                remove_model_group(models_collection[i].group);
+                if (!modelsrn[models_collection[i].group]) modelsrn[models_collection[i].group] = [];
+                modelsrn[models_collection[i].group].push(gltf.scene);
+            }
+            // clone model
+            const cloneGLTF = gltf.scene.clone();
+            cloneGLTF.name = models_collection[i].id;
+            scene.add(cloneGLTF);
+            models_added.push(models_collection[i].url);
+        });
+    }
+    animate_group_model()
+}
+
+/**
+ *
+ */
+const animate_group_model = () => {
+    requestAnimationFrame( animate );
+    if (camPositionSpan) camPositionSpan.innerHTML = `Position: (${camera.position.x.toFixed(1)}, ${camera.position.y.toFixed(1)}, ${camera.position.z.toFixed(1)})`
+    renderer.render( scene, camera );
 }
 
 
