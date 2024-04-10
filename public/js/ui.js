@@ -34,38 +34,33 @@ $(document).ready(function() {
         const selectedModels = $( this ).val();
 
         // Remove previous selectedModels, those which do not match with selected one
-        if (model_group !== null) {
-            // console.log(' ====== SELECTED MODEL GROUP ', model_group)
-            // console.log(' ====== MODEL SOURCE', modelsrn)
-            clean_scene_from_old_models(model_group)
-        }
+        clean_scene_from_old_models()
+
 
         let items = selectedModels.split(':')
         let clean_items = items.map( str => str.replaceAll( "\\", '').replaceAll('"', ''))
-        var models_collection = []
+        const models_collection = []
         for(let i = 0; i < clean_items.length; i++) {
             if(clean_items[i] !== '') {
                 let data = clean_items[i].substring(1, clean_items[i].length - 1)
-                let modelo_array = data.split(',')
-                if(modelo_array[0] !== '') {
-                    let modelo = {
-                        url: modelo_array[0],
-                        price: modelo_array[1],
-                        color: modelo_array[2],
+                let model_array = data.split(',')
+                if(model_array[0] !== '') {
+                    let model = {
+                        id: (Math.random() + 1).toString(36).substring(2),
+                        url: model_array[0],
+                        price: model_array[1],
+                        color: model_array[2],
                         group: model_group
                     }
-                    models_collection.push(modelo)
+                    models_collection.push(model)
                 }
             }
         }
-        // console.log('los models...', models_collection)
 
-        // print the selected models
-        // models_collection.forEach(async (model) => {
-        //     //await add_model(relative_path + model.url_model, model_group, model.color_model);
-        //     await add_group_model_gltf(relative_path + model.url_model, model.model_group, model.color_model);
-        // })
-        add_group_model_gltf(models_collection)
+        for(const model of models_collection) {
+            add_model(relative_path + model.url, model.group, model.color, model.id)
+        }
+       // add_group_model_gltf(models_collection)
 
         // update the price for totals
 
@@ -147,7 +142,7 @@ function submit_form(custom) {
 
 function get_total_price() {
     let price = parseFloat($("#input_product_price").val());
-    //console.log(price);
+    console.log(price);
     $(".subvar_radio:checked").each(function() {
         let part_price = parseFloat($(this).attr("part_base_price"));
         console.log(part_price);
