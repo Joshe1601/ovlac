@@ -276,22 +276,29 @@ class ProductController extends Controller
 
     public function submit_form(Request $request)
     {
-        //dd($request->all());
         $prod_data = $request->get('prod_data');
         $prod_data = base64_decode($prod_data);
         $prod_data = json_decode($prod_data, true);
-        //dd($prod_data);
+       // dd($prod_data['selected_models'][0]['model_id']);
 
+        // put the selected models on product_parts array
+        $selected_models_ids = [];
+        foreach($prod_data['selected_models'] as $selected) {
+
+            $selected_models_ids[] = $selected['model_id'];
+            //$selected_models[] = clone ProductPart::whereIn('id', $selected['model_id'])->get();
+        }
+
+        $product_parts_selected = ProductPart::whereIn('id', $selected_models_ids)->get();
+        //dd($product_parts_selected);
         $product = Product::find($prod_data['product_id']);
         $prod_data["product"] = $product;
 
-        $parts_data = $prod_data["product_selected_ids"];
-        $items = ProductPart::whereIn('id', $parts_data)->get();
-        $prod_data["product_parts"] = $items;
-        //dd($items);
+        //$parts_data = $prod_data["product_selected_ids"];
+        //$items = ProductPart::whereIn('id', $parts_data)->get();
+        //$prod_data["product_parts"] = $items;
+        $prod_data["product_parts"] = $product_parts_selected;
 
-        /* $html = View::make('pdf', $prod_data)->render();
-        return $html; */
 
         $pdf = Pdf::loadView('pdf', $prod_data);
         $pdf_data = $pdf->output();

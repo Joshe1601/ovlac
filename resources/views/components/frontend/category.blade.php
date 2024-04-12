@@ -5,7 +5,7 @@
 <div class="{{ $category->is_last_node == 1 ? 'lastNode' : '' }}">
     @php
         if ($category->model !== '') {
-            $data_model = json_encode(array($category->model, $category->price, $category->color));
+            $data_model = json_encode(array($category->model, $category->price, $category->color, $category->id));
             $models = $models . ':' . $data_model;
 
         }

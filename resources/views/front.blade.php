@@ -90,15 +90,23 @@
                     <div>
                         <x-frontend.categories :categories="$variable_parts" />
                     </div>
+
+
 				<div id="wizard_footer">
 					<div id="steps">
 						Price: <span id="price_total"></span> €
 					</div>
-					<button id="cta_button" class="next_button" @if (config('app.custom_submit', false)) onclick="submit_form(true)" @else onclick="submit_form(false)" @endif>
+					<button id="cta_button" class="next_button"
+                            @if (config('app.custom_submit', false)) onclick="submit_form(true)"
+                            @else onclick="submit_form(false)"
+                        @endif>
 						<div class="next_button_inner">
 							<div id="">{{ tra("Finish") }}</div>
 							<span class="">
-								<svg role="img" width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><path d="m15.99 5.377-.887.99a80.64 80.64 0 0 1 4.782 4.635H1.991v1.33h17.877a88.117 88.117 0 0 1-4.764 4.583l.886.99c.06-.054 6-5.386 6-6.239 0-.876-5.94-6.235-6-6.289z"></path></svg>
+								<svg role="img" width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+                                     fill="currentColor">
+                                    <path d="m15.99 5.377-.887.99a80.64 80.64 0 0 1 4.782 4.635H1.991v1.33h17.877a88.117 88.117 0 0 1-4.764 4.583l.886.99c.06-.054 6-5.386 6-6.239 0-.876-5.94-6.235-6-6.289z"></path>
+                                </svg>
 							</span>
 						</div>
 					</button>
@@ -141,6 +149,9 @@
 
             var has_light = {{ $product->has_light }};
             var has_shadow = {{ $product->has_shadow }};
+
+
+            var selected_models_collection = [];
 
             @if ($variable_parts)
                 var product_parts_menu = 'hola'; //{{ $variable_parts }}
