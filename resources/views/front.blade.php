@@ -60,32 +60,32 @@
 				<div id="wizard_title_dsk" class="wizard_title">
 					{{ tra("Customize your") }} {{ $product->title }}
 				</div>
-				<div id="accordion">
-					@foreach ($product->variable_parts as $index => $part)
-						<div class="card">
-							<div class="part-header {{-- card-header --}}" id="heading{{ $index }}">
-								<h5 class="mb-0">
-								<button class="btn btn-link" data-toggle="collapse" data-target="#collapse{{ $index }}" aria-expanded="true" aria-controls="collapse{{ $index }}">
-									{{ tra("Choose a") }} {{ $part->title }}
-								</button>
-								</h5>
-							</div>
-							<div id="collapse{{ $index }}" class="collapse show" aria-labelledby="heading{{ $index }}" >
-								<div class="card-body">
-									<fieldset>
-										<ul class="variation_list">
-											@foreach ($part->subparts as $kpart => $subpart)
-												{{-- <x-frontend.product_part :part="$subpart" :kpart="$kpart" :first="$loop->first"/> --}}
-													@include('components.frontend.product_part', ['product' => $product, 'product_part' => $subpart, 'group' => $part->id])
-											@endforeach
-										</ul>
-									</fieldset>
-								</div>
-							</div>
-						</div>
-					@endforeach
+{{--				<div id="accordion">--}}
+{{--					@foreach ($product->variable_parts as $index => $part)--}}
+{{--						<div class="card">--}}
+{{--							<div class="part-header --}}{{-- card-header --}}{{--" id="heading{{ $index }}">--}}
+{{--								<h5 class="mb-0">--}}
+{{--								<button class="btn btn-link" data-toggle="collapse" data-target="#collapse{{ $index }}" aria-expanded="true" aria-controls="collapse{{ $index }}">--}}
+{{--									{{ tra("Choose a") }} {{ $part->title }}--}}
+{{--								</button>--}}
+{{--								</h5>--}}
+{{--							</div>--}}
+{{--							<div id="collapse{{ $index }}" class="collapse show" aria-labelledby="heading{{ $index }}" >--}}
+{{--								<div class="card-body">--}}
+{{--									<fieldset>--}}
+{{--										<ul class="variation_list">--}}
+{{--											@foreach ($part->subparts as $kpart => $subpart)--}}
+{{--												--}}{{-- <x-frontend.product_part :part="$subpart" :kpart="$kpart" :first="$loop->first"/> --}}
+{{--													@include('components.frontend.product_part', ['product' => $product, 'product_part' => $subpart, 'group' => $part->id])--}}
+{{--											@endforeach--}}
+{{--										</ul>--}}
+{{--									</fieldset>--}}
+{{--								</div>--}}
+{{--							</div>--}}
+{{--						</div>--}}
+{{--					@endforeach--}}
 
-				</div>
+{{--				</div>--}}
 
                     <div>
                         <x-frontend.categories :categories="$variable_parts" />
