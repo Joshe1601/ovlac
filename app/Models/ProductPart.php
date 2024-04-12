@@ -42,19 +42,19 @@ class ProductPart extends Model
 
     public function title_full() {
         $title = $this->title;
-        $parent = $this->parent_part;
-        if ($parent) {
-            $title = $parent->title_full() . " - " . $title;
-        }
+//        $parent = $this->parent_part;
+//        if ($parent) {
+//            $title = $parent->title_full() . " - " . $title;
+//        }
         return $title;
     }
 
     public function price_full() {
         $price = $this->price;
-        $parent = $this->parent_part;
-        if ($parent) {
-            $price += $parent->price_full();
-        }
+//        $parent = $this->parent_part;
+//        if ($parent) {
+//            $price += $parent->price_full();
+//        }
         return $price;
     }
 
