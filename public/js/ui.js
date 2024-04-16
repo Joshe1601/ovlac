@@ -69,7 +69,10 @@ $(document).ready(function() {
         update_totals(total_price)
     });
 
+    $("#finish_button").click(function(){
 
+        //takeshot_selected_models();
+    });
 
     // Update price label when we selected a collection of models
 
@@ -78,9 +81,50 @@ $(document).ready(function() {
     console.log('UI loaded');
 });
 
+
+
+function saveAsImage() {
+
+
+    try {
+
+
+
+        const cav = document.querySelector('#canvas_3d');
+        console.log('cav', cav)
+        const base64 = cav.toDataURL('img/png');
+        var imagen = document.createElement('img')
+        imagen.src = base64;
+        var mainElement = document.getElementById('main');
+        mainElement.appendChild(imagen)
+
+
+    } catch (e) {
+        console.log(e);
+        return;
+    }
+
+}
+
+var saveFile = function (strData, filename) {
+    var link = document.createElement('a');
+    if (typeof link.download === 'string') {
+        document.body.appendChild(link); //Firefox requires the link to be in the body
+        link.download = filename;
+        link.href = strData;
+        link.click();
+        document.body.removeChild(link); //remove the link when done
+    } else {
+        location.replace(uri);
+    }
+}
+
+
+
 function submit_form(custom) {
+
+    //saveAsImage(); // take a screenshot of the scene for adding it to the pdf report
     update_totals();
-    //alert(selected_models_collection[0][0])
 
     let data_prod = {};
     data_prod['product_id'] = $("#input_product_id").val();
@@ -102,7 +146,6 @@ function submit_form(custom) {
 
     data_prod['total_price'] = get_total_price_selected_models(selected_models_collection)
 
-    //console.log(data_prod);
     let submit_url = "";
     if (custom) {
         submit_url = $("#input_submit_url").val();
@@ -113,7 +156,14 @@ function submit_form(custom) {
 
     let pd = btoa(JSON.stringify(data_prod));
     submit_url = submit_url + "&prod_data=" + pd;
-    window.open(submit_url, "_blank");
+    if(selected_models_collection.length > 0) {
+        window.open(submit_url, "_blank");
+    } else {
+        const h2MessageElement = document.getElementById('message-selection')
+        h2MessageElement.textContent = "Please, select an option"
+        console.log("NEED TO SELECT AN OPTION")
+    }
+
 }
 
 const get_total_price_selected_models = (selected_models) => {
@@ -129,7 +179,6 @@ const get_total_price_selected_models = (selected_models) => {
 
 function get_total_price() {
     let price = parseFloat($("#input_product_price").val());
-    // console.log('get total price', price);
     $(".subvar_radio:checked").each(function() {
         let part_price = parseFloat($(this).attr("part_base_price"));
         console.log('part price', part_price);
