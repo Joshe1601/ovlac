@@ -98,9 +98,7 @@
 
 
                     <div >
-                        <h2 id="message-selection">
-
-                        </h2>
+                        <h2 id="message-selection"></h2>
                     </div>
 
 				<div id="wizard_footer">

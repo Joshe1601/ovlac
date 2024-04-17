@@ -46,7 +46,9 @@ class FlightController extends Controller
         $actions = [
             'index', 'create', 'store', 'edit', 'update', 'destroy', 'show',
             'install_db', 'submit_form', 'activate',
-            'login', 'verify_user', 'logout'];
+            'login', 'verify_user', 'logout',
+//            'save_image'
+        ];
         if (!in_array($action, $actions)) dd("INVALID ACTION", $action);
 
         $controller = null;

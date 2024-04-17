@@ -83,47 +83,75 @@ $(document).ready(function() {
 
 
 
-function saveAsImage() {
+// function captureScreenshot() {
+//     try {
+//         var canvas = document.getElementById('visor_3d');
+//         var imageData = canvas.toDataURL('image/png'); // Get image data as Data URL
+//         console.log('imagen data => ', imageData);
+//         // Send image data to backend to save
+//         saveImageWithForm(imageData, );
+//     } catch (error) {
+//         console.error('Error capturing screenshot:', error);
+//     }
+// }
 
+// function sameImageWithForm(imageData, saveDirectory) {
+//     // Create a form element
+//     var form = document.createElement('form');
+//     form.setAttribute('method', 'post');
+//     form.setAttribute('action', "{{ controller_path() }}{{ controller_sep() }}md=product&action=save_image");
+//     // "{{ controller_path() }}{{ controller_sep() }}md=product&action=save_image" / 'save_image'
+//     form.setAttribute('enctype', 'multipart/form-data');
+//     form.style.display = 'none'; // Hide the form
+//
+//     // Create input fields for imageData and saveDirectory
+//     var imageDataInput = document.createElement('input');
+//     imageDataInput.setAttribute('type', 'hidden');
+//     imageDataInput.setAttribute('name', 'imageData');
+//     imageDataInput.setAttribute('value', imageData);
+//
+//     var saveDirectoryInput = document.createElement('input');
+//     saveDirectoryInput.setAttribute('type', 'hidden');
+//     saveDirectoryInput.setAttribute('name', 'saveDirectory');
+//     saveDirectoryInput.setAttribute('value', saveDirectory);
+//
+//     // Append input fields to the form
+//     form.appendChild(imageDataInput);
+//     form.appendChild(saveDirectoryInput);
+//
+//     // Append the form to the document body
+//     document.body.appendChild(form);
+//
+//     // Submit the form
+//     form.submit();
+// }
 
-    try {
-
-
-
-        const cav = document.querySelector('#canvas_3d');
-        console.log('cav', cav)
-        const base64 = cav.toDataURL('img/png');
-        var imagen = document.createElement('img')
-        imagen.src = base64;
-        var mainElement = document.getElementById('main');
-        mainElement.appendChild(imagen)
-
-
-    } catch (e) {
-        console.log(e);
-        return;
-    }
-
-}
-
-var saveFile = function (strData, filename) {
-    var link = document.createElement('a');
-    if (typeof link.download === 'string') {
-        document.body.appendChild(link); //Firefox requires the link to be in the body
-        link.download = filename;
-        link.href = strData;
-        link.click();
-        document.body.removeChild(link); //remove the link when done
-    } else {
-        location.replace(uri);
-    }
-}
-
+// Function to send image data to backend to save
+// function saveImageToServer(imageData) {
+//     fetch('/save-file', {
+//         method: 'POST',
+//         headers: {
+//             'Content-Type': 'application/json',
+//         },
+//         body: JSON.stringify({ imageData: imageData }), // Send image data in JSON format
+//     })
+//         .then(response => response.json())
+//         .then(data => {
+//             if (data.success) {
+//                 console.log('Image saved successfully at:', data.imagePath);
+//             } else {
+//                 console.error('Error saving image:', data.error);
+//             }
+//         })
+//         .catch(error => {
+//             console.error('Error saving image to server:', error);
+//         });
+// }
 
 
 function submit_form(custom) {
 
-    //saveAsImage(); // take a screenshot of the scene for adding it to the pdf report
+    //captureScreenshot(); // take a screenshot of the scene for adding it to the pdf report
     update_totals();
 
     let data_prod = {};
@@ -160,10 +188,9 @@ function submit_form(custom) {
         window.open(submit_url, "_blank");
     } else {
         const h2MessageElement = document.getElementById('message-selection')
-        h2MessageElement.textContent = "Please, select an option"
+        h2MessageElement.textContent = "Please, select an option."
         console.log("NEED TO SELECT AN OPTION")
     }
-
 }
 
 const get_total_price_selected_models = (selected_models) => {

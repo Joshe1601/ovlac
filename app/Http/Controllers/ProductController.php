@@ -279,33 +279,42 @@ class ProductController extends Controller
         $prod_data = $request->get('prod_data');
         $prod_data = base64_decode($prod_data);
         $prod_data = json_decode($prod_data, true);
-       // dd($prod_data['selected_models'][0]['model_id']);
 
         // put the selected models on product_parts array
         $selected_models_ids = [];
         foreach($prod_data['selected_models'] as $selected) {
-
             $selected_models_ids[] = $selected['model_id'];
-            //$selected_models[] = clone ProductPart::whereIn('id', $selected['model_id'])->get();
         }
-
         $product_parts_selected = ProductPart::whereIn('id', $selected_models_ids)->get();
-        //dd($product_parts_selected);
+        $prod_data["product_parts"] = $product_parts_selected;
+
         $product = Product::find($prod_data['product_id']);
         $prod_data["product"] = $product;
 
-        //$parts_data = $prod_data["product_selected_ids"];
-        //$items = ProductPart::whereIn('id', $parts_data)->get();
-        //$prod_data["product_parts"] = $items;
-        $prod_data["product_parts"] = $product_parts_selected;
-
-
         $pdf = Pdf::loadView('pdf', $prod_data);
         $pdf_data = $pdf->output();
-
 
         $view_data['pdf_data'] = $pdf_data;
         $html = View::make('file_download', $view_data)->render();
         return $html;
     }
+
+
+//    public function save_image(Request $request) {
+//
+//        $imageData = $request->input('imageData');
+//        $saveDirectory = $request->input('saveDirectory');
+//
+//        // Convert data url to image file
+//        $image = str_replace('data:image/png;base64,', '', $imageData);
+//        $image = str_replace(' ', '+', $image);
+//        $imageData = base64_decode($image);
+//
+//        // Save image file to specified directory
+//        $imageName = 'screenshot.png';
+//        $path = storage_path('app/' . $saveDirectory . '/') . $imageName;
+//        file_put_contents($path, $imageData);
+//
+//        return response()->json(['success' => true, 'imagePath' => $path]);
+//    }
 }

@@ -13,6 +13,8 @@
 |
 */
 
+$router->post('save-file', ['as' => 'save.file', 'uses' => 'ProductController@saveFile']);
+
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });

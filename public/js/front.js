@@ -49,7 +49,11 @@ camera.position.z = camera_z;
 camera.position.setLength(10);
 //camera.scale.x = camera.scale.y = camera.scale.z = 0.1;
 
-const renderer = new THREE.WebGLRenderer({antialias: true, alpha: true});
+const renderer = new THREE.WebGLRenderer({
+    antialias: true,
+    alpha: true,
+    //preserveDrawingBuffer: true
+});
 
 /* renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap; */
@@ -110,6 +114,7 @@ function init() {
     //scene.background = new THREE.Color( 0xffffff );
     //scene.add(new THREE.AxesHelper(5));
     renderer.setSize( container.innerWidth(), container.innerHeight() );
+    renderer.domElement.id = 'visor_3d';
     renderer.autoClear = false;
     renderer.setClearColor(0x00ff00, 0.0);
     container.get(0).appendChild( renderer.domElement );
@@ -351,9 +356,6 @@ function colorize_model(model, color) {
 
     var color_obj = new THREE.Color( "#" + color );
 
-    /* console.log(color);
-    console.log(color_obj); */
-
     for (let i = 0; i < model.children.length; i++) {
         let part = model.children[i];
         if (part.material) {
@@ -383,23 +385,11 @@ function set_material(part, material, name) {
             set_material(part.children[i], material, name);
         }
     }
-
 }
 
-function remove_model(model_name) {
-    scene.remove(scene.getObjectByName(model_name));
-    for (var group in modelsrn) {
-        let models = modelsrn[group];
-        for (var key in models) {
-            let model = models[key];
-            if (model.name == model_name) {
-                console.log("delete: " + model_name);
-                delete modelsrn[group][key];
-                return;
-            }
-        }
-    }
-}
+
+
+
 
 function remove_model_group(model_group) {
     for (var group in modelsrn) {
@@ -430,46 +420,46 @@ function clean_scene_from_old_models() {
     models_added = [] // clean old models, variable parts
 }
 
-/**
- * Add a collection of 3D models to the scene, glb/gltf format
- * @param models_collection
- */
-const add_group_model_gltf = (models_collection) => {
-    const loader = new THREE.GLTFLoader();
-    const dracoLoader = new THREE.DRACOLoader();
-    dracoLoader.setDecoderPath( '/js/draco/gltf/' );
-    loader.setDRACOLoader( dracoLoader );
+// /**
+//  * Add a collection of 3D models to the scene, glb/gltf format
+//  * @param models_collection
+//  */
+// const add_group_model_gltf = (models_collection) => {
+//     const loader = new THREE.GLTFLoader();
+//     const dracoLoader = new THREE.DRACOLoader();
+//     dracoLoader.setDecoderPath( '/js/draco/gltf/' );
+//     loader.setDRACOLoader( dracoLoader );
+//
+//     for(let i = 0; i < models_collection.length; i++ ) {
+//         loader.load( relative_path + models_collection[i].url, (gltf) => {
+//             if (models_collection[i].color !== "") { colorize_model(gltf.scene, models_collection[i].color); }
+//             gltf.scene.castShadow = true;
+//             gltf.scene.receiveShadow = true;
+//             // scene.add( gltf.scene );
+//             if (!gltf.scene.name) gltf.scene.name = models_collection[i].id;
+//             if (models_collection[i].group !== 'base') {
+//                 remove_model_group(models_collection[i].group);
+//                 if (!modelsrn[models_collection[i].group]) modelsrn[models_collection[i].group] = [];
+//                 modelsrn[models_collection[i].group].push(gltf.scene);
+//             }
+//             // clone model
+//             const cloneGLTF = gltf.scene.clone();
+//             cloneGLTF.name = models_collection[i].id;
+//             scene.add(cloneGLTF);
+//             models_added.push(models_collection[i].url);
+//         });
+//     }
+//     animate_group_model()
+// }
 
-    for(let i = 0; i < models_collection.length; i++ ) {
-        loader.load( relative_path + models_collection[i].url, (gltf) => {
-            if (models_collection[i].color !== "") { colorize_model(gltf.scene, models_collection[i].color); }
-            gltf.scene.castShadow = true;
-            gltf.scene.receiveShadow = true;
-            // scene.add( gltf.scene );
-            if (!gltf.scene.name) gltf.scene.name = models_collection[i].id;
-            if (models_collection[i].group !== 'base') {
-                remove_model_group(models_collection[i].group);
-                if (!modelsrn[models_collection[i].group]) modelsrn[models_collection[i].group] = [];
-                modelsrn[models_collection[i].group].push(gltf.scene);
-            }
-            // clone model
-            const cloneGLTF = gltf.scene.clone();
-            cloneGLTF.name = models_collection[i].id;
-            scene.add(cloneGLTF);
-            models_added.push(models_collection[i].url);
-        });
-    }
-    animate_group_model()
-}
-
-/**
- *
- */
-const animate_group_model = () => {
-    requestAnimationFrame( animate );
-    if (camPositionSpan) camPositionSpan.innerHTML = `Position: (${camera.position.x.toFixed(1)}, ${camera.position.y.toFixed(1)}, ${camera.position.z.toFixed(1)})`
-    renderer.render( scene, camera );
-}
+// /**
+//  *
+//  */
+// const animate_group_model = () => {
+//     requestAnimationFrame( animate );
+//     if (camPositionSpan) camPositionSpan.innerHTML = `Position: (${camera.position.x.toFixed(1)}, ${camera.position.y.toFixed(1)}, ${camera.position.z.toFixed(1)})`
+//     renderer.render( scene, camera );
+// }
 
 
 
