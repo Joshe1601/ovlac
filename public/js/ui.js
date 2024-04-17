@@ -69,7 +69,10 @@ $(document).ready(function() {
         update_totals(total_price)
     });
 
+    $("#finish_button").click(function(){
 
+        //takeshot_selected_models();
+    });
 
     // Update price label when we selected a collection of models
 
@@ -78,9 +81,78 @@ $(document).ready(function() {
     console.log('UI loaded');
 });
 
+
+
+// function captureScreenshot() {
+//     try {
+//         var canvas = document.getElementById('visor_3d');
+//         var imageData = canvas.toDataURL('image/png'); // Get image data as Data URL
+//         console.log('imagen data => ', imageData);
+//         // Send image data to backend to save
+//         saveImageWithForm(imageData, );
+//     } catch (error) {
+//         console.error('Error capturing screenshot:', error);
+//     }
+// }
+
+// function sameImageWithForm(imageData, saveDirectory) {
+//     // Create a form element
+//     var form = document.createElement('form');
+//     form.setAttribute('method', 'post');
+//     form.setAttribute('action', "{{ controller_path() }}{{ controller_sep() }}md=product&action=save_image");
+//     // "{{ controller_path() }}{{ controller_sep() }}md=product&action=save_image" / 'save_image'
+//     form.setAttribute('enctype', 'multipart/form-data');
+//     form.style.display = 'none'; // Hide the form
+//
+//     // Create input fields for imageData and saveDirectory
+//     var imageDataInput = document.createElement('input');
+//     imageDataInput.setAttribute('type', 'hidden');
+//     imageDataInput.setAttribute('name', 'imageData');
+//     imageDataInput.setAttribute('value', imageData);
+//
+//     var saveDirectoryInput = document.createElement('input');
+//     saveDirectoryInput.setAttribute('type', 'hidden');
+//     saveDirectoryInput.setAttribute('name', 'saveDirectory');
+//     saveDirectoryInput.setAttribute('value', saveDirectory);
+//
+//     // Append input fields to the form
+//     form.appendChild(imageDataInput);
+//     form.appendChild(saveDirectoryInput);
+//
+//     // Append the form to the document body
+//     document.body.appendChild(form);
+//
+//     // Submit the form
+//     form.submit();
+// }
+
+// Function to send image data to backend to save
+// function saveImageToServer(imageData) {
+//     fetch('/save-file', {
+//         method: 'POST',
+//         headers: {
+//             'Content-Type': 'application/json',
+//         },
+//         body: JSON.stringify({ imageData: imageData }), // Send image data in JSON format
+//     })
+//         .then(response => response.json())
+//         .then(data => {
+//             if (data.success) {
+//                 console.log('Image saved successfully at:', data.imagePath);
+//             } else {
+//                 console.error('Error saving image:', data.error);
+//             }
+//         })
+//         .catch(error => {
+//             console.error('Error saving image to server:', error);
+//         });
+// }
+
+
 function submit_form(custom) {
+
+    //captureScreenshot(); // take a screenshot of the scene for adding it to the pdf report
     update_totals();
-    //alert(selected_models_collection[0][0])
 
     let data_prod = {};
     data_prod['product_id'] = $("#input_product_id").val();
@@ -102,7 +174,6 @@ function submit_form(custom) {
 
     data_prod['total_price'] = get_total_price_selected_models(selected_models_collection)
 
-    //console.log(data_prod);
     let submit_url = "";
     if (custom) {
         submit_url = $("#input_submit_url").val();
@@ -113,7 +184,13 @@ function submit_form(custom) {
 
     let pd = btoa(JSON.stringify(data_prod));
     submit_url = submit_url + "&prod_data=" + pd;
-    window.open(submit_url, "_blank");
+    if(selected_models_collection.length > 0) {
+        window.open(submit_url, "_blank");
+    } else {
+        const h2MessageElement = document.getElementById('message-selection')
+        h2MessageElement.textContent = "Please, select an option."
+        console.log("NEED TO SELECT AN OPTION")
+    }
 }
 
 const get_total_price_selected_models = (selected_models) => {
@@ -129,7 +206,6 @@ const get_total_price_selected_models = (selected_models) => {
 
 function get_total_price() {
     let price = parseFloat($("#input_product_price").val());
-    // console.log('get total price', price);
     $(".subvar_radio:checked").each(function() {
         let part_price = parseFloat($(this).attr("part_base_price"));
         console.log('part price', part_price);

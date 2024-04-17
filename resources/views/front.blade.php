@@ -31,8 +31,13 @@
 		<script src="{{ relative_path() }}/public/js/threejs/examples/js/libs/fflate.min.js"></script>
 
 
+        <script type="text/javascript"
+            src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 
-		<form style="display: none;">
+
+
+
+    <form style="display: none;">
 			<input type="hidden" id="input_product_id" name="input_product_id" value="{{ $product->id }}">
 			<input type="hidden" id="input_product_title" name="input_product_title" value="{{ $product->title }}">
 			<input type="hidden" id="input_product_price" name="input_product_price" value="{{ $product->price }}">
@@ -92,6 +97,10 @@
                     </div>
 
 
+                    <div >
+                        <h2 id="message-selection"></h2>
+                    </div>
+
 				<div id="wizard_footer">
 					<div id="steps">
 						Price: <span id="price_total"></span> €
@@ -101,7 +110,7 @@
                             @else onclick="submit_form(false)"
                         @endif>
 						<div class="next_button_inner">
-							<div id="">{{ tra("Finish") }}</div>
+							<div id="finish_button">{{ tra("Finish") }}</div>
 							<span class="">
 								<svg role="img" width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
                                      fill="currentColor">
@@ -110,6 +119,9 @@
 							</span>
 						</div>
 					</button>
+                    <form method="POST" enctype="multipart/form-data" action="save.php" id="myForm">
+                        <input type="hidden" name="img_val" id="img_val" value="" />
+                    </form>
 				</div>
 			</div>
 		</div>
