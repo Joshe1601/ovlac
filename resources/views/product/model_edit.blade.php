@@ -3,6 +3,7 @@
 @endif
 
 @section('content')
+    {{--<x-backend.layout :product="$product">--}}
     <div class="container mx-auto px-4 py-2">
         <div>
             <h2 class="flex text-center mx-auto text-6xl px-8 py-4">{{ __('Product') }}</h2>
@@ -20,7 +21,13 @@
             <div class="col-md-12 mb-3">
                 @if (isset($product))
                     <div class="text-end" style="margin-left: 1.5rem">
-                        <a target="_blank"  href="{{ controller_path() }}{{ controller_sep() }}module=product&action=show&id={{ $product->id }}" type="button" class="btn btn-primary">{{ tra("View Product") }}</a>
+                        <a
+                            target="_blank"
+                            href="{{ controller_path() }}{{ controller_sep() }}module=product&action=show&id={{ $product->id }}"
+                            type="button"
+                            class="text-white bg-red-ovlac hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
+                            {{ tra("View Product") }}
+                        </a>
                     </div>
                 @endif
             </div>
@@ -31,12 +38,12 @@
 
 
 
-                <form
-                    method="POST"
-                    action="{{ controller_path() }}{{ controller_sep() }}md=user&action={{ $form_action }}&api_token={{ $api_token }}"
-                    aria-label="{{ __('Register') }}"
-                    class="max-w-dm mx-auto"
-                >
+                    <form
+                        method="POST"
+                        action="{{ controller_path() }}{{ controller_sep() }}md=product&action={{ $form_action }}@if ($product->id)&id={{$product->id}}@endif&api_token={{ $api_token }}"
+                        enctype="multipart/form-data"
+                        class="max-w-dm mx-auto"
+                    >
 
 
                     <div class="grid gap-6 mb-6 md:grid-cols-2">
@@ -77,16 +84,24 @@
                         </div>
                         <div>
                             <label for="file" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ tra("Product Image") }}</label>
-                            @if ($product->image) <img src="{{ relative_path() }}{{ $product->image }}" alt="product img" class="rounded rounded-xl" style="max-width: 200px;">@endif
+                            @if ($product->image)
+                                <img src="{{ relative_path() }}{{ $product->image }}" alt="product img" class="rounded rounded-xl m-2" style="max-width: 200px;">
+                                <button type="submit" name="submit" value="delete_image_{{$product->id}}" class="btn button-file-delete" data-bs-dismiss="modal">
+                                    <i class="fa-solid fa-trash" style="color: #ff2600;"></i>
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="red" class="w-6 h-6">
+                                        <path fill-rule="evenodd" d="M16.5 4.478v.227a48.816 48.816 0 0 1 3.878.512.75.75 0 1 1-.256 1.478l-.209-.035-1.005 13.07a3 3 0 0 1-2.991 2.77H8.084a3 3 0 0 1-2.991-2.77L4.087 6.66l-.209.035a.75.75 0 0 1-.256-1.478A48.567 48.567 0 0 1 7.5 4.705v-.227c0-1.564 1.213-2.9 2.816-2.951a52.662 52.662 0 0 1 3.369 0c1.603.051 2.815 1.387 2.815 2.951Zm-6.136-1.452a51.196 51.196 0 0 1 3.273 0C14.39 3.05 15 3.684 15 4.478v.113a49.488 49.488 0 0 0-6 0v-.113c0-.794.609-1.428 1.364-1.452Zm-.355 5.945a.75.75 0 1 0-1.5.058l.347 9a.75.75 0 1 0 1.499-.058l-.346-9Zm5.48.058a.75.75 0 1 0-1.498-.058l-.347 9a.75.75 0 0 0 1.5.058l.345-9Z" clip-rule="evenodd" />
+                                    </svg>
+
+
+                                </button>
+                            @endif
                             <input
                                 type="file"
                                 id="file"
-                                name="file"
+                                name="image"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-red-500 dark:focus:border-red-500"
                             />
-                            <button type="submit" name="submit" value="delete_image_{{$product->id}}" class="btn button-file-delete" data-bs-dismiss="modal">
-                                <i class="fa-solid fa-trash" style="color: #ff2600;"></i>
-                            </button>
+
                         </div>
 
 
@@ -206,14 +221,6 @@
 
 
 
-
-
-
-
-
-
-
-
                     </div> <!-- aqui terminan las dos columnas -->
 
 
@@ -223,11 +230,15 @@
                         {{ tra("Save Changes") }}
                     </button>
 
-                    <button
-                        type="submit"
-                        class="text-white bg-gray-500 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
+                    <a
+                        type="button"
+                        href="{{ controller_path() }}{{ controller_sep() }}module=product&action=index&api_token={{ $api_token }}"
+                        class="text-white bg-gray-500 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
+                    >
                         {{ tra("Cancel") }}
-                    </button>
+                    </a>
+
+
 
 
 
