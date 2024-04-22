@@ -2,62 +2,20 @@
 
 @section('content')
 
-<div class="container mx-auto bg-white">
-    <div class="row justify-content-center">
-        <div class="row">
-            @if (!empty($_GET['error']))
-                <div class="col-md-12 alert alert-danger">
-                    {{ $_GET['error'] }}
+
+
+    <section class="container mx-auto bg-white">
+
+        <div class="flex flex-col items-center justify-center px-6 py-0 mx-auto md:h-screen lg:py-0">
+            <div class="justify-center">
+                <div class="row p-2">
+                    @if (!empty($_GET['error']))
+                        <div class="col-md-12 alert alert-danger">
+                            {{ $_GET['error'] }}
+                        </div>
+                    @endif
                 </div>
-            @endif
-        </div>
-
-
-{{--        <div class="col-md-8">--}}
-{{--            <div class="card">--}}
-{{--                <div class="card-header">{{ __('Login') }}</div>--}}
-
-{{--                <div class="card-body">--}}
-{{--                    <form method="POST" action="{{ controller_path() }}{{ controller_sep() }}md=auth&action={{ $form_action }}"--}}
-{{--                          aria-label="{{ __('Login') }}">--}}
-
-{{--                        <div class="form-group row">--}}
-{{--                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('Email') }}</label>--}}
-
-{{--                            <div class="col-md-6">--}}
-{{--                                <input id="email" type="email" class="form-control' }}"--}}
-{{--                                       name="email" value="" required>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-
-{{--                        <div class="form-group row">--}}
-{{--                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>--}}
-
-{{--                            <div class="col-md-6">--}}
-{{--                                <input id="password" type="password" class="form-control' }}"--}}
-{{--                                       name="password" required>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-
-
-{{--                        <div class="form-group row mb-0">--}}
-{{--                            <div class="col-md-6 offset-md-4">--}}
-{{--                                <button type="submit" class="btn btn-primary">--}}
-{{--                                    {{ __('Login') }}--}}
-{{--                                </button>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                    </form>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--        <div class="row col-md-8">--}}
-{{--            <a href="{{ route('auth.forgot_password') }}">Forgot your password?</a>--}}
-{{--        </div>--}}
-    </div>
-
-    <section class="">
-        <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+            </div>
 
                 <a href="#" class="flex items-center mb-6 text-4xl font-semibold text-gray-900 dark:text-white m-4 p-2 mx-auto">
                     <img src="{{ relative_path() }}/public/images/ovlac/logo_ovlac_fondo_blanco.jpg" alt="Ovlac Logo" class="h-12"/>
@@ -106,9 +64,6 @@
     </section>
 
 
-
-
-</div>
 
 
 @endsection

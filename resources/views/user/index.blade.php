@@ -21,7 +21,7 @@
                         <a
                             href="{{ controller_path() }}{{ controller_sep() }}md=user&action=create&api_token={{$api_token}}"
                             type="button"
-                            class="bg-red-ovlac px-6 py-3 m-4 rounded rounded-xl text-white hover:bg-red-700">
+                            class="bg-red-ovlac px-6 py-3 m-4 rounded-xl text-white hover:bg-red-700">
                             {{ tra("New User") }}
                         </a>
                     </div>
@@ -56,19 +56,10 @@
                             <p class="fw-bold mb 1">@if ($user->is_admin ) Admin @endif</p>
                         </td>
                         <td>
-                            {{--                    <a--}}
-                            {{--                        href="{{ controller_path() }}{{ controller_sep() }}action=show&module=user&id={{ $user->id }}"--}}
-                            {{--                        target="_blank"--}}
-                            {{--                        type="button"--}}
-                            {{--                        class="btn btn-success btn-rounded btn-sm fw-bold mr-2"--}}
-                            {{--                        data-mdb-ripple-color="dark"--}}
-                            {{--                    >--}}
-                            {{--                        {{ tra("View") }}--}}
-                            {{--                    </a>--}}
                             <a
                                 href="{{ controller_path() }}{{ controller_sep() }}action=edit&module=user&id={{ $user->id }}&api_token={{$api_token}}"
                                 type="button"
-                                class="btn btn-primary btn-rounded btn-sm fw-bold mr-2 hover:underline hover:text-green-500"
+                                class="rounded-xl px-6 py-3 text-bold mr-2 hover:underline hover:text-green-500 hover:bg-green-50 hover:rounded-xl"
                                 data-mdb-ripple-color="dark"
                             >
                                 {{ tra("Edit") }}
@@ -76,7 +67,8 @@
                             <a
                                 href="{{ controller_path() }}{{ controller_sep() }}action=destroy&module=user&id={{ $user->id }}&api_token={{$api_token}}"
                                 type="button"
-                                class="btn btn-danger btn-rounded btn-sm fw-bold mr-2 hover:underline hover:text-red-500"
+{{--                                class="btn btn-danger btn-rounded btn-sm fw-bold mr-2 hover:underline hover:text-red-500"--}}
+                                class="rounded-xl px-6 py-3 text-bold mr-2 hover:underline hover:text-red-500 hover:bg-red-50 hover:rounded-xl"
                                 data-mdb-ripple-color="dark"
                             >
                                 {{ tra("Delete") }}
