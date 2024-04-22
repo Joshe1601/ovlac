@@ -17,13 +17,13 @@
         </div>
 
         <div class="px-3 py-2 mb-3 ">
-            <div class="card w-2/5 mx-auto">
+            <div class="mx-auto md:w-3/5">
 
                 <form
                     method="POST"
                     action="{{ controller_path() }}{{ controller_sep() }}md=user&action={{ $form_action }}&api_token={{ $api_token }}"
                     aria-label="{{ __('Register') }}"
-                    class="max-w-sm mx-auto"
+                    class="max-w-full sm:w-full mx-auto py-6"
                 >
                     <div class="mb-5">
                         <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ __('Email') }}</label>
