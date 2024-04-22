@@ -5,7 +5,7 @@
                 src="{{ $product->product_image() }}"
                 alt=""
                 style="width: 48px; height: 48px; margin: 4px"
-                class="rounded rounded-3xl"
+                class="rounded-3xl"
             />
             <div class="ms-3">
                 <p class="font-bold">{{ $product->title }}</p>
@@ -24,7 +24,7 @@
             href="{{ controller_path() }}{{ controller_sep() }}action=show&module=product&id={{ $product->id }}"
             target="_blank"
             type="button"
-            class="btn btn-success btn-rounded btn-sm fw-bold mr-2 px-4 py-2 hover:underline hover:text-blue-500"
+            class="text-bold mr-2 px-4 py-2 hover:underline hover:text-blue-500"
             data-mdb-ripple-color="dark"
         >
             View
@@ -34,7 +34,7 @@
             <a
                 href="{{ controller_path() }}{{ controller_sep() }}action=edit&module=product&id={{ $product->id }}&api_token={{ $apitoken }}"
                 type="button"
-                class="btn btn-primary btn-rounded btn-sm fw-bold mr-2 px-4 py-2 hover:underline hover:text-green-500"
+                class="text-bold mr-2 px-4 py-2 hover:underline hover:text-green-500"
                 data-mdb-ripple-color="dark"
             >
                 Edit
@@ -42,7 +42,7 @@
             <a
                 href="{{ controller_path() }}{{ controller_sep() }}action=destroy&module=product&id={{ $product->id }}&api_token={{ $apitoken }}"
                 type="button"
-                class="btn btn-danger btn-rounded btn-sm fw-bold mr-2 px-4 py-2 hover:underline hover:text-red-500"
+                class="text-bold mr-2 px-4 py-2 hover:underline hover:text-red-500"
                 data-mdb-ripple-color="dark"
             >
                 Delete

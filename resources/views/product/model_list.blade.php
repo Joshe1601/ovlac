@@ -14,17 +14,14 @@
 
 
     <div class="px-3 py-2 mb-3">
-        <div class="container d-flex flex-wrap justify-content-center">
-            <form class="col-12 col-lg-auto mb-2 mb-lg-0 me-lg-auto" role="search">
-                {{-- <input type="search" class="form-control" placeholder="Search..." aria-label="Search"> --}}
-            </form>
+        <div class="container flex flex-col justify-end">
 
             @if(isset($is_admin) && $is_admin == 1)
                 <div class="text-end">
                     <a
                         href="{{ controller_path() }}{{ controller_sep() }}module=product&action=create&api_token={{ $api_token }}"
                         type="button"
-                        class="bg-red-ovlac px-6 py-3 m-4 rounded rounded-xl text-white hover:bg-red-700">
+                        class="bg-red-ovlac px-6 py-3 m-4 rounded-xl text-white hover:bg-red-700">
                         {{ tra("New Product") }}
                     </a>
                 </div>
@@ -35,7 +32,7 @@
                     <a target="_blank"
                        href="{{ controller_path() }}{{ controller_sep() }}module=product&action=show&id={{ $product->id }}"
                        type="button"
-                       class="btn btn-primary">{{ tra("View Product") }}</a>
+                       class="rounded-xl bg-gray-300 px-6 py-3">{{ tra("View Product") }}</a>
                 </div>
             @endif
 
