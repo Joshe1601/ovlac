@@ -1,5 +1,5 @@
 <tr class="border-b py-6">
-    <th>
+    <td>
         <div class="flex  flex-row justify-items-center ">
             <img
                 src="{{ $product->product_image() }}"
@@ -8,11 +8,11 @@
                 class="rounded rounded-3xl"
             />
             <div class="ms-3">
-                <p class="fw-bold mb-1">{{ $product->title }}</p>
-                <p class="text-muted mb-0">{{ $product->short_description() }}</p>
+                <p class="font-bold">{{ $product->title }}</p>
+                <p class="text-sm mb-0">{{ $product->short_description() }}</p>
             </div>
         </div>
-    </th>
+    </td>
     <td>
         <p class="fw-normal mb-1">{{ $product->price }} €</p>
     </td>

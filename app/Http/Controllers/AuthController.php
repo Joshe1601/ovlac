@@ -92,20 +92,17 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
+//        dd('logout', $request->api_token);
         try {
-            $user = User::findOrFail($request->user_id);
-            $user->api_token = null;
+
+            $user = User::where('api_token', $request->api_token);
+            dd('user to logout', $user->id);
+            //$user->api_token = null;
             $user->save();
             auth()->guard('web')->logout();
+            $redirect = "<script>window.location.href = window.location.href.replace('action=index', 'action=logout').replace('md=product', 'md=auth').replace('md=user', 'md=auth');</script>";
 
-            //return redirect()->route('auth.login');
-            // href="{{ controller_path() }}{{ controller_sep() }}md=user&action=index"
-            $redirect = "<script>window.location.href = window.location.href.replace('action=index', 'action=login').replace('md=product', 'md=auth').replace('md=user', 'md=auth');</script>";
-            dd('vamos a redirect', window.location.href);
-            //return $redirect;
         } catch (\Exception $e) {
-            //dd('Algo falla en el logout');
-            //return redirect()->route('auth.login');
             $redirect = "<script>window.location.href = window.location.href.replace('action=logout', 'action=login');</script>";
             return $redirect;
         }
