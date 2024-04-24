@@ -41,60 +41,56 @@
 
 <header>
 
-
-    <nav class="bg-red-ovlac border-gray-200 dark:bg-gray-900 ">
-        <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-0 max-h-24">
-            <a href="" class="flex items-center space-x-3 rtl:space-x-reverse">
-                <img src="{{ relative_path() }}/public/images/ovlac/logo_ovlac_fondo_rojo.jpg" alt="Ovlac Logo" class="h-16"/>
+    <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-red-ovlac border-bottom">
+        <h5 class="my-0 mr-md-auto font-weight-small">
+            <a href="#" class="flex items-center space-x-3 rtl:space-x-reverse">
+                <img src="{{ relative_path() }}/public/images/ovlac/logo_ovlac_fondo_rojo.jpg" alt="Ovlac Logo" class="h-10"/>
             </a>
-            <div class="hidden w-full md:block md:w-auto" id="navbar-default">
-                <ul class="font-medium flex flex-col p-4 md:p-0 mt-2 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-red-ovlac dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+        </h5>
+        <nav class="my-2 my-md-0 mr-md-3">
+            @if(isset($api_token))
 
-                    @if(isset($api_token))
-                        <li>
-                            <a
-                                href="{{ controller_path() }}{{ controller_sep() }}md=auth&action=logout"
-                                type="button"
-                                class="py-2 px-3 text-white bg-red-ovlac md:text-white md:p-0 dark:text-white md:dark:text-white px-4 hover:bg-red-700 hover:rounded-xl"
-                            >
-                                {{ tra("Logout") }}
-                            </a>
-                        </li>
+                    <a
+                        href="{{ controller_path() }}{{ controller_sep() }}md=auth&action=logout"
+                        type="button"
+                        class="py-2 px-3 text-white bg-red-ovlac px-4 hover:bg-red-700 hover:rounded-xl fs-5"
+                    >
+                        {{ tra("Logout") }}
+                    </a>
 
-                        <li>
-                            <a
-                                href="{{ controller_path() }}{{ controller_sep() }}md=user&action=index&api_token={{ $api_token }}"
-                                type="button"
-                                class="block py-2 px-3 text-white bg-red-ovlac rounded-xl md:bg-transparent md:text-white md:p-0 dark:text-white md:dark:text-white px-4 hover:bg-red-700 hover:rounded-xl"
-                            >
-                                {{ tra("Users") }}
-                            </a>
-                        </li>
-                        <li>
-                            <a
-                                href="{{ controller_path() }}{{ controller_sep() }}md=product&action=index&api_token={{ $api_token }}"
-                                type="button"
-                                class="block py-2 px-3 text-white bg-red-ovlac rounded-xl md:bg-transparent md:text-white md:p-0 dark:text-white md:dark:text-white px-4 hover:bg-red-700 hover:rounded-xl"
-                            >
 
-                                {{ tra("Products") }}
-                            </a>
-                        </li>
-                    @else
-                        <li>
-                            <a
-                                href="{{ controller_path() }}{{ controller_sep() }}md=auth&action=login"
-                                type="button"
-                                class="block py-2 px-3 text-white bg-red-ovlac rounded-xl md:bg-transparent md:text-white md:p-0 dark:text-white md:dark:text-white px-4 hover:bg-red-700 hover:rounded-xl"
-                            >
-                                {{ tra("Login") }}
-                            </a>
-                        </li>
-                    @endif
-                </ul>
-            </div>
-        </div>
-    </nav>
+
+                    <a
+                        href="{{ controller_path() }}{{ controller_sep() }}md=user&action=index&api_token={{ $api_token }}"
+                        type="button"
+                        class="block py-2 px-3 text-white bg-red-ovlac rounded-xl px-4 hover:bg-red-700 hover:rounded-xl fs-5"
+                    >
+                        {{ tra("Users") }}
+                    </a>
+
+                    <a
+                        href="{{ controller_path() }}{{ controller_sep() }}md=product&action=index&api_token={{ $api_token }}"
+                        type="button"
+                        class="block py-2 px-3 text-white bg-red-ovlac rounded-xl fs-5"
+                    >
+
+                        {{ tra("Products") }}
+                    </a>
+
+            @else
+
+                    <a
+                        href="{{ controller_path() }}{{ controller_sep() }}md=auth&action=login"
+                        type="button"
+                        class="block py-2 px-3 text-white bg-red-ovlac rounded-xl fs-5"
+                    >
+                        {{ tra("Login") }}
+                    </a>
+
+            @endif
+        </nav>
+    </div>
+
 
 </header>
 
