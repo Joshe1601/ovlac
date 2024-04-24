@@ -14,7 +14,10 @@
 @endif
 
 <div class="modal fade" id="{{ $target }}" tabindex="-1" aria-labelledby="{{ $target }}" aria-hidden="true">
-    <form method="POST" class="form_part form_part_{{$product_part->id}}" action="{{ controller_path() }}{{ controller_sep() }}md=product_part&product_id={{$product->id}}&action={{ $action }}@if ($product_part->id)&id={{$product_part->id}}@endif&api_token={{ $api_token }}" enctype="multipart/form-data">
+    <form method="POST"
+          class="form_part form_part_{{$product_part->id}}"
+          action="{{ controller_path() }}{{ controller_sep() }}md=product_part&product_id={{$product->id}}&action={{ $action }}@if ($product_part->id)&id={{$product_part->id}}@endif&api_token={{ $api_token }}"
+          enctype="multipart/form-data">
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
@@ -23,8 +26,8 @@
                     @else
                         <h1 class="modal-title fs-5" id="{{ $target }}">{{ tra("Create new part") }}:</h1>
                     @endif
-
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+<!-- BUTTON CLOSE FORM - THE X to close the popup -->
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
                 </div>
                 <div class="modal-body">
                         <input id="product_id" name="product_id" type="hidden" value="{{ $product->id }}">
@@ -34,6 +37,7 @@
                         @else
                             <input id="fixed" name="fixed" type="hidden" value="1">
                         @endif
+<!-- form create/edit part fixed and variable parts -->
                         <div class="pb-4">
                             <div class="row">
                                 <div class="col-sm-6">
@@ -76,34 +80,86 @@
                                 </div>
                             </div>
                         </div>
-
+<!-- END OF FORM -->
+<!-- IF WE HAVE A VARIATION PART ALREADY WE SHOW ADD VARIATIONPART -->
                         @if($variable == 1 && $product_part->id)
                         <div class="vars_form">
                             <h1 class="text-start modal-title fs-5 pb-2 pt-8" style="float: left">{{ tra("Part Variations") }}:</h1>
                             <div class="text-end mb-4">
-                                <button type="button" class="btn btn-success btn-add-part" id_part="{{ $product_part->id }}" {{-- aria-current="true" data-bs-toggle="modal" data-bs-target="#variable_add" --}}>{{ tra("Add Variation Part") }}</button>
+                                <button type="button" class="bg-red-ovlac px-6 py-3 rounded-xl text-white hover:bg-red-800" id_part="{{ $product_part->id }}">
+                                    {{ tra("Add Variation Part") }}
+                                </button>
                             </div>
-                            <div class="accordion" id="accordionParts">
+
+{{--                            <div class="accordion" id="accordionParts">--}}
+{{--                                @foreach ($product_part->subparts as $subpart)--}}
+{{--                                    <div class="accordion-item">--}}
+{{--                                        <h2 class="accordion-header">--}}
+{{--                                            <button class="accordion-button" type="button" data-bs-toggle="collapse"--}}
+{{--                                                    data-bs-target="#collapse{{ $subpart->id }}"--}}
+{{--                                                    aria-expanded="false"--}}
+{{--                                                    aria-controls="collapse{{ $subpart->id }}">--}}
+{{--                                                {{ $subpart->title }}--}}
+{{--                                            </button>--}}
+{{--                                        </h2>--}}
+{{--                                        <div id="collapse{{ $subpart->id }}" class="accordion-collapse collapse" data-bs-parent="#accordionParts">--}}
+{{--                                            <div class="accordion-body collapsed">--}}
+{{--                                                @include('components.backend.product_part_variation.model_edit', ['action' => "update", 'product' => $product, 'product_part' => $subpart, 'parent_part' => $product_part, 'variable' => 1, 'level' => 1])--}}
+{{--                                            </div>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+{{--                                @endforeach--}}
+{{--                            </div>--}}
+
+                            <div class="accordion accordion2" >
                                 @foreach ($product_part->subparts as $subpart)
-                                    <div class="accordion-item">
-                                        <h2 class="accordion-header">
-                                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ $subpart->id }}" aria-expanded="false" aria-controls="collapse{{ $subpart->id }}">
-                                                {{ $subpart->title }}
-                                            </button>
-                                        </h2>
-                                        <div id="collapse{{ $subpart->id }}" class="accordion-collapse collapse" data-bs-parent="#accordionParts">
-                                            <div class="accordion-body collapsed">
-                                                @include('components.backend.product_part_variation.model_edit', ['action' => "update", 'product' => $product, 'product_part' => $subpart, 'parent_part' => $product_part, 'variable' => 1, 'level' => 1])
-                                            </div>
+                                    <div>
+                                        <input type="radio" name="accordion" id="accordion-{{ $subpart->id }}" class="accordion-radio hidden" >
+                                        <label for="accordion-{{ $subpart->id }}" class="accordion-label block p-4 bg-white text-gray-600 cursor-pointer rounded-xl">
+                                            {{ $subpart->title }}
+                                        </label>
+                                        <div class="accordion-content px-4 py-2">
+                                            <p class="text-gray-700">
+                                                @include('components.backend.product_part_variation.model_edit',
+                                                            ['action' => "update",
+                                                            'product' => $product,
+                                                            'product_part' => $subpart,
+                                                            'parent_part' => $product_part,
+                                                            'variable' => 1,
+                                                            'level' => 1])
+                                            </p>
                                         </div>
                                     </div>
-                                @endforeach
 
+{{--                                    <div class="accordion-item">--}}
+{{--                                        <h2 class="accordion-header">--}}
+{{--                                            <button class="accordion-button" type="button" data-bs-toggle="collapse"--}}
+{{--                                                    data-bs-target="#collapse{{ $subpart->id }}"--}}
+{{--                                                    aria-expanded="false"--}}
+{{--                                                    aria-controls="collapse{{ $subpart->id }}">--}}
+{{--                                                {{ $subpart->title }}--}}
+{{--                                            </button>--}}
+{{--                                        </h2>--}}
+{{--                                        <div id="collapse{{ $subpart->id }}" class="accordion-collapse collapse" data-bs-parent="#accordionParts">--}}
+{{--                                            <div class="accordion-body collapsed">--}}
+{{--                                                @include('components.backend.product_part_variation.model_edit', --}}
+{{--                                                        ['action' => "update", --}}
+{{--                                                        'product' => $product, --}}
+{{--                                                        'product_part' => $subpart, --}}
+{{--                                                        'parent_part' => $product_part, --}}
+{{--                                                        'variable' => 1, --}}
+{{--                                                        'level' => 1])--}}
+{{--                                            </div>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+                                @endforeach
                             </div>
+
                         </div>
                         @endif
 
                 </div>
+<!-- END OF FORMS -->
                 <div class="modal-footer mt-4">
                 @if($product_part->id) <button type="submit" name="submit" value="remove_{{$product_part->id}}"  class="btn btn-danger" data-bs-dismiss="modal">Remove part</button>@endif
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ tra("Close") }}</button>
@@ -113,6 +169,7 @@
             </div>
         </div>
     </form>
+<!-- EL TERCER ACCORDION , NECESITA JAVASCRIPT Y LEVANTAR UN EVENT LISTENER -->
     <div class="accordion-item new-element" style="display: none;">
         <h2 class="accordion-header">
             <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse_new" aria-expanded="false" aria-controls="collapse_new">
@@ -121,7 +178,13 @@
         </h2>
         <div id="collapse_new" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
             <div class="accordion-body collapsed">
-                @include('components.backend.product_part_variation.model_edit', ['action' => "update", 'product' => $product, 'product_part' => $empty_part, 'parent_part' => $product_part, 'variable' => 1, 'level' => 2])
+                @include('components.backend.product_part_variation.model_edit',
+                    ['action' => "update",
+                    'product' => $product,
+                    'product_part' => $empty_part,
+                    'parent_part' => $product_part,
+                    'variable' => 1,
+                    'level' => 2])
             </div>
         </div>
     </div>

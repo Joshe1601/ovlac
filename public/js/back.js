@@ -1,10 +1,10 @@
-$(document).ready(function() {    
+$(document).ready(function() {
     //$('.color-picker').colorpicker();
     //$('.color-picker').ColorPicker([]);
 
 
     $('.color-picker').each(function() {
-        
+
         var el = $(this);
         $(this).ColorPicker({
             color: '#0000ff',
@@ -22,19 +22,18 @@ $(document).ready(function() {
         var generateRandomString = (length=6)=>Math.random().toString(10).substr(2, length);
         var form = $(this).parents(".form_part");
         var id_part = $(this).attr('id_part');
-        
+
         var new_el = form.parent().find(".accordion-item.new-element");
-        //console.log(new_el);
 
         //new_el.html(new_el.html().replaceAll('[0]', '[new'+generateRandomString()+']'));
 
-        
+
 
         $(this).parents(".vars_form").first().children('.accordion').append(new_el[0].outerHTML.replaceAll('[0]', '[new'+generateRandomString()+']'));
         $(this).parents(".vars_form").first().children('.accordion').children('.accordion-item.new-element').find('.form_product_part_id').first().val(id_part);
-        
+
         var el = $(this).parents(".vars_form").first().children('.accordion').children('.accordion-item.new-element').find('.color-picker');
-        console.log(el);
+
         el.ColorPicker({
             color: '#0000ff',
             onChange: function (hsb, hex, rgb) {
@@ -49,8 +48,6 @@ $(document).ready(function() {
         //new_el.show().click();
     });
 
-
-    
 
     console.log('UI loaded');
 });

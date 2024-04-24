@@ -1,3 +1,29 @@
 .bg-red-ovlac {
     background-color: #e52b38;
 }
+
+/* Hide radio buttons */
+.accordion-radio {
+    display: none;
+}
+
+/* Style for labels */
+.accordion-label {
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* Style for checked labels */
+.accordion-radio:checked + .accordion-label {
+    background-color: #f9fafb; /* Darker blue */
+}
+
+/* Style for content */
+.accordion-content {
+    display: none;
+    background-color: #f9fafb; /* Light gray */
+}
+
+/* Show content when radio button is checked */
+.accordion-radio:checked + .accordion-label + .accordion-content {
+    display: block;
+}

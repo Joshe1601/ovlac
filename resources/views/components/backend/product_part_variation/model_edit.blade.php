@@ -55,10 +55,14 @@
     <div class="vars_form mt-4">
         <h1 class="modal-title fs-5 pb-2 pt-8" style="float: left">Part Variations:</h1>
         <div class="text-end mb-4">
-            @if($product_part->id) <button type="submit" name="submit" value="remove_{{$product_part->id}}" class="btn btn-danger btn-remove-part" data-bs-dismiss="modal">{{ tra("Remove part") }}</button>@endif
-            <button type="button" class="btn btn-success btn-add-part" id_part="{{ $product_part->id }}" {{-- aria-current="true" data-bs-toggle="modal" data-bs-target="#variable_add" --}}>{{ tra("Add Variation") }}</button>
+            @if($product_part->id)
+                <button type="submit" name="submit" value="remove_{{$product_part->id}}" class="btn btn-danger btn-remove-part" data-bs-dismiss="modal">
+                    {{ tra("Remove part") }}
+                </button>
+            @endif
+            <button type="button" class="btn btn-success btn-add-part btn-add-part-fix" id_part="{{ $product_part->id }}" >{{ tra("Add Variation") }}</button>
         </div>
-        <div class="accordion" id="accordionSubParts{{$level}}">
+        <div class="accordion  accordion2" id="accordionSubParts{{$level}}">
             @foreach ($product_part->subparts as $subpart)
                 <div class="accordion-item">
                     <h2 class="accordion-header">
@@ -68,7 +72,13 @@
                     </h2>
                     <div id="collapse{{ $subpart->id }}" class="accordion-collapse collapse" data-bs-parent="#accordionSubParts{{$level}}">
                         <div class="accordion-body collapsed">
-                            @include('components.backend.product_part_variation.model_edit', ['action' => "update", 'product' => $product, 'product_part' => $subpart, 'parent_part' => $product_part, 'variable' => 1, 'level' => $level+1])
+                            @include('components.backend.product_part_variation.model_edit',
+                                ['action' => "update",
+                                'product' => $product,
+                                'product_part' => $subpart,
+                                'parent_part' => $product_part,
+                                'variable' => 1,
+                                'level' => $level+1])
                         </div>
                     </div>
                 </div>

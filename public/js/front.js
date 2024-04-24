@@ -313,7 +313,6 @@ function add_model(model_file, model_group, model_color, model_id = null) {
             cloneGLTF.name = model_id;
             scene.add(cloneGLTF);
 
-
             if (model_group !== 'base') {
                 remove_model_group(model_group);
                 if (!modelsrn[model_group]) modelsrn[model_group] = [];

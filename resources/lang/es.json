@@ -7,7 +7,7 @@
     "Create new part": "Crear parte nueva",
     "Part Name": "Nombre de la parte",
     "Base Price": "Precio Base",
-    "Part Base Price": "Preco Base de la Parte",
+    "Part Base Price": "Precio Base de la Parte",
     "Upload Part Model (.zip)": "Subir fichero de Modelo (.zip)",
     "Colorize part": "Colorear modelo",
     "Part Description": "Descripción de la parte",
@@ -33,11 +33,11 @@
     "Vertical Rotiation Max Angle": "Max Rotación Vertical",
     "Cancel": "Cancelar",
     "Fixed Product Parts": "Partes Fijas",
-    "Variable Product Parts": "Partes variables",
+    "Variable Product Parts": "Partes Variables",
     "Product": "Producto",
     "Status": "Estado",
     "Shortcode": "Shortcode",
     "Actions": "Acciones"
-    
+
 
 }
