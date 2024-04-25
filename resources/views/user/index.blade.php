@@ -6,22 +6,20 @@
 @section('content')
     <div class="container mx-auto px-4 py-2">
         <div>
-            <h2 class="flex text-center mx-auto text-6xl px-8 py-4">Users</h2>
+            <h1 class="h-2 mx-auto py-4">Userskkk</h1>
         </div>
 
 
         <div class="px-3 py-2 mb-3">
-            <div class="container d-flex flex-wrap justify-content-center">
-                <form class="col-12 col-lg-auto mb-2 mb-lg-0 me-lg-auto" role="search">
-                    {{-- <input type="search" class="form-control" placeholder="Search..." aria-label="Search"> --}}
-                </form>
+            <div class="d-flex flex-wrap justify-content-center">
+
 
                 @if(isset($api_token))
-                    <div class="text-end">
+                    <div class="row">
                         <a
                             href="{{ controller_path() }}{{ controller_sep() }}md=user&action=create&api_token={{$api_token}}"
                             type="button"
-                            class="bg-red-ovlac px-6 py-3 m-4 rounded-xl text-white hover:bg-red-700">
+                            class="ovlac-button col align-self-end">
                             {{ tra("New User") }}
                         </a>
                     </div>
@@ -32,8 +30,8 @@
 
 
         <div class="relative">
-            <table class="w-full text-md text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                <thead class="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
+            <table class="table">
+                <thead class="thead-light">
                 <tr>
                     <th scope="col" class="px-6 py-3">
                         {{ tra("Email") }}
@@ -82,7 +80,6 @@
         </div>
 
 
-        </table>
     </div>
 
 
