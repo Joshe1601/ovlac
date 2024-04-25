@@ -9,19 +9,19 @@
 <div class="container mx-auto px-4 py-2">
 
     <div>
-        <h2 class="flex text-center mx-auto text-6xl px-8 py-4">{{ tra('Products') }}</h2>
+        <h1 class="h-2 mx-auto py-4">{{ tra('Products') }}</h1>
     </div>
 
 
     <div class="px-3 py-2 mb-3">
-        <div class="container flex flex-col justify-end">
+        <div class="d-flex flex-wrap justify-content-center">
 
             @if(isset($is_admin) && $is_admin == 1)
-                <div class="text-end">
+                <div class="row">
                     <a
                         href="{{ controller_path() }}{{ controller_sep() }}module=product&action=create&api_token={{ $api_token }}"
                         type="button"
-                        class="bg-red-ovlac px-6 py-3 m-4 rounded-xl text-white hover:bg-red-700">
+                        class="ovlac-button col align-self-end">
                         {{ tra("New Product") }}
                     </a>
                 </div>
@@ -32,7 +32,9 @@
                     <a target="_blank"
                        href="{{ controller_path() }}{{ controller_sep() }}module=product&action=show&id={{ $product->id }}"
                        type="button"
-                       class="rounded-xl bg-gray-300 px-6 py-3">{{ tra("View Product") }}</a>
+                       class="ovlac-button col align-self-end">
+                        {{ tra("View Product") }}lll
+                    </a>
                 </div>
             @endif
 
@@ -41,8 +43,8 @@
 
 
     <div class="relative">
-        <table class="w-full text-md text-left rtl:text-right text-gray-500 dark:text-gray-400">
-            <thead class="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
+        <table class="table">
+            <thead class="thead-light">
             <tr>
                 <th scope="col" class="px-6 py-3">
                     {{ tra("Product") }}

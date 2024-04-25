@@ -1,14 +1,14 @@
 <tr class="border-b py-6">
     <td>
-        <div class="flex  flex-row justify-items-center ">
+        <div class="d-flex justify-items-center ">
             <img
                 src="{{ $product->product_image() }}"
                 alt=""
                 style="width: 48px; height: 48px; margin: 4px"
-                class="rounded-3xl"
+                class="rounded-circle"
             />
             <div class="ms-3">
-                <p class="font-bold">{{ $product->title }}</p>
+                <p class="fw-bolder fs-5">{{ $product->title }}</p>
                 <p class="text-sm mb-0">{{ $product->short_description() }}</p>
             </div>
         </div>
