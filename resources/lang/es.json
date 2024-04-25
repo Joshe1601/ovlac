@@ -14,7 +14,7 @@
     "Part Variations": "Variaciones de parte",
     "Add Product Part": "Añadir Parte",
     "Close": "Cerrar",
-    "Save Changes": "Gurdar Cambios",
+    "Save Changes": "Guardar Cambios",
     "Remove part": "Eliminar Parte",
     "Add Variation": "Añadir Variación",
     "New Product": "Nuevo Producto",
@@ -37,7 +37,10 @@
     "Product": "Producto",
     "Status": "Estado",
     "Shortcode": "Shortcode",
-    "Actions": "Acciones"
+    "Actions": "Acciones",
+    "Login your account": "Entra en tu cuenta",
+    "Delete": "Eliminar",
+    "View": "Visualizar"
 
 
 }

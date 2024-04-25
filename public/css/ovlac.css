@@ -27,3 +27,39 @@
 .accordion-radio:checked + .accordion-label + .accordion-content {
     display: block;
 }
+
+.login-logo {
+    padding: 10px 30px;
+    margin: 0 auto;
+}
+
+.login-logo-img {
+    max-width: 40%;
+}
+
+.ovlac-button {
+    background-color: #e52b38;
+    color: #fff;
+    margin: 2px auto;
+    padding: 8px 4px;
+    border: none;
+    border-radius: 0.75rem;
+    width: 100%;
+}
+
+.ovlac-button:hover {
+    background-color: rgb(153 27 27);
+}
+
+.rounded-xl {
+    border-radius: 0.75rem;
+}
+
+.login-input {
+    border-radius:  0.75rem;
+
+}
+
+.form-control:hover {
+    border-color: #e52b38;
+}
