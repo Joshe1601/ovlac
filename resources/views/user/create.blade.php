@@ -5,7 +5,7 @@
 @section('content')
     <div class="container mx-auto px-4 py-2">
         <div>
-            <h2 class="flex text-center mx-auto text-6xl px-8 py-4">{{ __('Create User') }}</h2>
+            <h2 class="flex text-center mx-auto text-6xl px-8 py-4">{{ tra('Create User') }}</h2>
         </div>
 
         <div class="row">
@@ -17,7 +17,7 @@
         </div>
 
         <div class="px-3 py-2 mb-3 ">
-            <div class="mx-auto md:w-3/5">
+            <div class="mx-auto col-md-8 col-sm-12">
 
                 <form
                     method="POST"
@@ -62,7 +62,7 @@
                         {{ tra('Save User') }}
                     </button>
                 </form>
-                
+
             </div>
         </div>
 

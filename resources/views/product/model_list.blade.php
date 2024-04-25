@@ -9,7 +9,7 @@
 <div class="container mx-auto px-4 py-2">
 
     <div>
-        <h2 class="flex text-center mx-auto text-6xl px-8 py-4">Products</h2>
+        <h2 class="flex text-center mx-auto text-6xl px-8 py-4">{{ tra('Products') }}</h2>
     </div>
 
 
