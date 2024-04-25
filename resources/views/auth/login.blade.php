@@ -51,14 +51,11 @@
                                 class="form-control m-1"
                                 required>
                         </div>
-
                         <button
                             type="submit"
-                            class="ovlac-button my-4"
-                        >
-                            Login
+                            class="ovlac-button my-4">
+                            {{ tra('Login') }}
                         </button>
-
                     </form>
                 </div>
             </div>

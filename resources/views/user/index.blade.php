@@ -6,7 +6,7 @@
 @section('content')
     <div class="container mx-auto px-4 py-2">
         <div>
-            <h1 class="h-2 mx-auto py-4">Userskkk</h1>
+            <h1 class="h-2 mx-auto py-4">Users</h1>
         </div>
 
 

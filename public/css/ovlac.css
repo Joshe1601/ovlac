@@ -49,6 +49,7 @@
 
 .ovlac-button:hover {
     background-color: rgb(153 27 27);
+    color: #fff;
 }
 
 .rounded-xl {
