@@ -72,7 +72,7 @@
     color: #fff;
 }
 
-.ovlac-button:hover {
+.ovlac-button:hover, .part-button:hover {
     background-color: rgb(153 27 27);
     color: #fff;
 }
@@ -102,4 +102,46 @@
 
 .delete-image:hover {
     background-color: #6B7280;
+}
+
+
+hr {
+    margin-top: 1rem;
+    margin-bottom: 1.5rem;
+    border: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.part-button {
+    background-color: #e52b38;
+    color: #fff;
+    margin: 2px auto;
+    padding: 8px 20px;
+    border: none;
+    border-radius: 0.75rem;
+    max-width: 20%;
+}
+
+.footer {
+    min-height: 60px;
+}
+
+.part-icon {
+    display: inline;
+    max-width: 60px;
+}
+
+.part-list-item {
+    background-color: white;
+    border-bottom: 1px solid #F3F4F6;
+}
+
+.part-list-item:hover {
+    background-color: #F3F4F6;
+    border-radius: 2rem;
+    color: #fff;
+}
+
+.text-gear {
+    color: #808080;
 }

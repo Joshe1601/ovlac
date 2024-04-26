@@ -49,7 +49,9 @@
     "Role": "Permisos",
     "Update User": "Editar Usuario",
     "Create User": "Nuevo Usuario",
-    "Save User": "Guardar Usuario"
+    "Save User": "Guardar Usuario",
+    "Add Fixed Part": "Nueva Parte Fija",
+    "Add Variable Part": "Nueva Parte Variable"
 
 
 }
