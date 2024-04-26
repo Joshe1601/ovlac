@@ -41,10 +41,35 @@
     background-color: #e52b38;
     color: #fff;
     margin: 2px auto;
-    padding: 8px 4px;
+    padding: 8px 20px;
     border: none;
     border-radius: 0.75rem;
     width: 100%;
+}
+
+.delete-button {
+    background-color: #f9fafb;
+    color: #1f2937;
+    margin: 2px auto;
+    padding: 8px 20px;
+    border: none;
+    border-radius: 0.75rem;
+    width: 100%;
+}
+
+.cancel-button {
+    background-color: #E5E7EB;
+    color: #000;
+    margin: 2px auto;
+    padding: 8px 20px;
+    border: none;
+    border-radius: 0.75rem;
+    width: 100%;
+}
+
+.cancel-button:hover {
+    background-color: #6B7280;
+    color: #fff;
 }
 
 .ovlac-button:hover {
@@ -63,4 +88,18 @@
 
 .form-control:hover {
     border-color: #e52b38;
+}
+
+.delete-image {
+    background-color: #f9fafb;
+    color: #1f2937;
+    margin: 6px auto;
+    padding: 8px 10px;
+    border: none;
+    border-radius: 0.75rem;
+    width: 12%;
+}
+
+.delete-image:hover {
+    background-color: #6B7280;
 }
