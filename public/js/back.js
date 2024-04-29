@@ -24,6 +24,7 @@ $(document).ready(function() {
         var id_part = $(this).attr('id_part');
 
         var new_el = form.parent().find(".accordion-item.new-element");
+        //console.log(new_el);
 
         //new_el.html(new_el.html().replaceAll('[0]', '[new'+generateRandomString()+']'));
 
@@ -33,7 +34,7 @@ $(document).ready(function() {
         $(this).parents(".vars_form").first().children('.accordion').children('.accordion-item.new-element').find('.form_product_part_id').first().val(id_part);
 
         var el = $(this).parents(".vars_form").first().children('.accordion').children('.accordion-item.new-element').find('.color-picker');
-
+        console.log(el);
         el.ColorPicker({
             color: '#0000ff',
             onChange: function (hsb, hex, rgb) {
