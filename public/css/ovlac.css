@@ -145,3 +145,28 @@ hr {
 .text-gear {
     color: #808080;
 }
+
+.public_main {
+    background-image: url("public/images/ovlac/background_ovlac.jpg");
+    background-size: cover;
+    background-position: top center;
+    background-repeat: no-repeat;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+
+}
+
+.public-list-button {
+}
+
+.public-list-button img {
+    width: 100%;
+    height: 100%;
+    border-radius: 1rem;
+}
+
+.public-list-button img:hover {
+    opacity: 70%;
+    border: 3px solid red;
+}

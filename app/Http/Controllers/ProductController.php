@@ -48,6 +48,34 @@ class ProductController extends Controller
         return $html;
     }
 
+
+    /**
+     * Display a listing of the resource just for the user
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function public_list(Request $request)
+    {
+        // Auth block
+        $api_token = $request->api_token;
+        $is_logged = AuthenticationHelper::isLogged($api_token);
+        $is_admin = AuthenticationHelper::isAdmin($api_token);
+        if ($is_logged == null) {
+            $redirect = "<script>window.location.href = window.location.href.replace('action=public_list', 'action=login').replace('md=product', 'md=auth').concat('&error=You need admin permission.');</script>";
+            return $redirect;
+        }
+
+        $products = Product::all();
+        $html = View::make(self::$model_tag . '.public_list', [
+            'products' => $products,
+            'api_token' => $api_token,
+            'is_admin' => $is_admin,
+            'is_logged' => $is_logged
+//            'user' => $user
+        ])->render();
+        return $html;
+    }
+
     /**
      * Show the form for creating a new resource.
      *

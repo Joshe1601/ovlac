@@ -47,6 +47,7 @@ class FlightController extends Controller
             'index', 'create', 'store', 'edit', 'update', 'destroy', 'show',
             'install_db', 'submit_form', 'activate',
             'login', 'verify_user', 'logout',
+            'public_list'
 //            'save_image'
         ];
         if (!in_array($action, $actions)) dd("INVALID ACTION", $action);

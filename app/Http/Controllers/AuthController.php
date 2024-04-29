@@ -74,7 +74,7 @@ class AuthController extends Controller
                 if(AuthenticationHelper::isAdmin($user->api_token)) {
                     $redirect = "<script>window.location.href = window.location.href.replace('action=verify_user', 'action=index').replace('md=auth', 'md=user').concat('&api_token=$user->api_token');</script>";
                 } else {
-                    $redirect = "<script>window.location.href = window.location.href.replace('action=verify_user', 'action=index').replace('md=auth', 'md=product').concat('&api_token=$user->api_token');</script>";
+                    $redirect = "<script>window.location.href = window.location.href.replace('action=verify_user', 'action=public_list').replace('md=auth', 'md=product').concat('&api_token=$user->api_token');</script>";
                 }
 
 
