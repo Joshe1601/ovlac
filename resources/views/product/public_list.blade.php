@@ -50,7 +50,7 @@
     <a
         href="{{ controller_path() }}{{ controller_sep() }}md=auth&action=logout"
         type="button"
-        class="py-2 px-3 text-white bg-red-ovlac px-4 hover:bg-red-700 hover:rounded-xl fs-4"
+        class="py-2 px-3 text-white bg-red-ovlac px-4 hover:bg-red-700 hover:rounded-xl fs-4 logout-button"
 
     >
         {{ tra("Logout") }}

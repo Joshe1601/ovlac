@@ -72,7 +72,7 @@
     color: #fff;
 }
 
-.ovlac-button:hover, .part-button:hover {
+.ovlac-button:hover, .part-button:hover, .logout-button:hover {
     background-color: rgb(153 27 27);
     color: #fff;
 }
