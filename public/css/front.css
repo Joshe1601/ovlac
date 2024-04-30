@@ -1,6 +1,6 @@
 
 
-body, #main { 
+body, #main {
     margin: 0;
     height: 100vh;
 }
@@ -46,7 +46,7 @@ html.wp-toolbar, #wpbody-content {
     flex: 0 0 30%;
     display: flex;
     flex-direction: column;
-    
+
 }
 
 #wizard_title_dsk {
@@ -66,7 +66,7 @@ html.wp-toolbar, #wpbody-content {
     #wizard_title_dsk {
         display: none;
     }
-    
+
     #wizard_title_mbl {
         display: block;
     }
@@ -76,7 +76,7 @@ html.wp-toolbar, #wpbody-content {
     #canvas_3d {
         flex: 0 0 20%;
         position: sticky;
-        top: 0;
+        /*top: 0;*/
         z-index: 99999999;
         background-color: white;
         box-shadow: 0px 10px 10px lightgrey;
@@ -97,22 +97,22 @@ html.wp-toolbar, #wpbody-content {
     justify-content: space-between;
     place-items: center;
     padding: 2px 16px;
-    
+
 }
 
 /* .wizard_title {
     background-color: rgb(0, 30, 80);
     width: 100%;
-    padding: 8px 16px;	
+    padding: 8px 16px;
     color: white;
     font-size: 150%;
 } */
 
 .wizard_title {
     width: 100%;
-    padding: 32px 16px 0px 16px;	
+    /*padding: 32px 16px 0px 16px;*/
     color: black;
-    font-size: 180%;
+    /*font-size: 100%;*/
 }
 
 #accordion {
@@ -215,7 +215,7 @@ html.wp-toolbar, #wpbody-content {
 .variation_list>li label i {
     background: #f0f0f0;
     border:2px solid rgba(0,0,0,0.2);
-    position: absolute; 
+    position: absolute;
     left: 0;
     top: 50%;
     transform: translateY(-50%);
@@ -402,7 +402,7 @@ html.wp-toolbar, #wpbody-content {
     border-bottom: 1px solid rgb(0,0,0,.125);
     border-radius: 0;
     margin-top: 0;
-    padding: 16px 16px;	
+    padding: 16px 16px;
 }
 
 #main .card:first-child {

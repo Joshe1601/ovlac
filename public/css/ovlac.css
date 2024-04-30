@@ -147,7 +147,7 @@ hr {
 }
 
 .public_main {
-    background-image: url("public/images/ovlac/background_ovlac.jpg");
+    background-image: url("public/images/ovlac/ovlac_truck_optimized.png");
     background-size: cover;
     background-position: top center;
     background-repeat: no-repeat;
@@ -169,4 +169,20 @@ hr {
 .public-list-button img:hover {
     opacity: 70%;
     border: 3px solid red;
+}
+
+/* Wizard Menu - Menu Visor 3D */
+.wizard-menu {
+    max-width: 20%;
+}
+
+
+img.banner-logo-visor {
+    max-width: 100px;
+    height: auto;
+}
+
+.collapse {
+    padding: 0px;
+    border: none;
 }

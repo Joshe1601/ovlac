@@ -8,8 +8,8 @@
 
         <div class="row mx-auto text-center m-5">
             <div>
-                <h1 class="h-2 mx-auto py-4">
-                    <img src="{{ relative_path() }}/public/images/ovlac/logo_ovlac_fondo_blanco.jpg" alt="Ovlac Logo" class="h-10"/>
+                <h1 class="col-md-12 mx-auto">
+                    <img src="{{ relative_path() }}/public/images/ovlac/logo.png" alt="Ovlac Logo" class="" style="max-width: 400px"/>
                 </h1>
             </div>
         </div>
