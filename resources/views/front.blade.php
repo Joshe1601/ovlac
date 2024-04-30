@@ -35,8 +35,6 @@
             src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 
 
-
-
     <form style="display: none;">
 			<input type="hidden" id="input_product_id" name="input_product_id" value="{{ $product->id }}">
 			<input type="hidden" id="input_product_title" name="input_product_title" value="{{ $product->title }}">
@@ -45,30 +43,117 @@
 			<input type="hidden" id="input_submit_url_default" name="input_submit_url_default" value="{{ controller_path() }}{{ controller_sep() }}md=product&product_id={{$product->id}}&action=submit_form"">
 		</form>
 
-		<div id="main">
-			<div id="wizard_title_mbl" class="wizard_title">
-				{{ tra("Customize your") }} {{ $product->title }}
+
+
+		<div id="main" class="visor3d d-flex flex-row">
+
+
+            <div class="wizard-menu">
+
+                <div style="width:100px: height: auto;">
+                    <img src="{{ relative_path() }}/public/images/ovlac/logo_banner.png"
+                         alt="logo banner ovlac"
+                        style="max-width:200px; height: auto;"
+                    />
+                </div>
+
+                <div id="wizard_title_mbl" class="wizard_title">
+                     {{ $product->title }}
+                </div>
+
+                <div id="wizard">
+                    @if ($cam_debug)
+                        <div id="camera-vectors">
+                            <span>{{ tra("Free Camera Vectors:") }}</span><br>
+                            <span id="position"></span><br>
+                            <span id="lookingAt"></span>
+                        </div>
+                    @endif
+
+                    <div id="wizard_title_dsk" class="ml-5">
+                        <h4 class="ml-3 my-0">{{ $product->title }}</h4>
+                        <h5 class="ml-3 font-weight-normal">{{ $product->description }}</h5>
+                    </div>
+
+                    <div id="accordion">
+                        <x-frontend.categories :categories="$variable_parts" />
+                    </div>
+
+
+{{--                        <div id="accordion">--}}
+
+{{--                            <div class="card">--}}
+{{--                                <div class="card-header">--}}
+{{--                                    <a class="card-link"--}}
+{{--                                       data-toggle="collapse"--}}
+{{--                                       href="#description1">--}}
+{{--                                        GeeksforGeeks--}}
+{{--                                    </a>--}}
+{{--                                </div>--}}
+
+{{--                                <div id="description1"--}}
+{{--                                     class="collapse show"--}}
+{{--                                     data-parent="#accordion">--}}
+{{--                                    <div class="card-body">--}}
+{{--                                        GeeksforGeeks is a computer--}}
+{{--                                        science portal. It is the best--}}
+{{--                                        platform to lean programming.--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+
+{{--                            </div> <!-- end card -->--}}
+
+{{--                        </div>--}}
+
+
+
+
+
+
+
+
+
+
+                    <div >
+                        <h2 id="message-selection"></h2>
+                    </div>
+
+
+					<div id="wizard_footer">
+                        <div id="steps">
+                            Price: <span id="price_total"></span> €
+                        </div>
+                        <button id="cta_button" class="next_button"
+                                @if (config('app.custom_submit', false)) onclick="submit_form(true)"
+                                @else onclick="submit_form(false)"
+                            @endif>
+                            <div class="next_button_inner">
+                                <div id="finish_button">{{ tra("Finish") }}</div>
+                                <span class="">
+                                    <svg role="img" width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+                                         fill="currentColor">
+                                        <path d="m15.99 5.377-.887.99a80.64 80.64 0 0 1 4.782 4.635H1.991v1.33h17.877a88.117 88.117 0 0 1-4.764 4.583l.886.99c.06-.054 6-5.386 6-6.239 0-.876-5.94-6.235-6-6.289z"></path>
+                                    </svg>
+                                </span>
+                            </div>
+                        </button>
+                        <form method="POST" enctype="multipart/form-data" action="save.php" id="myForm">
+                            <input type="hidden" name="img_val" id="img_val" value="" />
+                        </form>
+				    </div>
+                </div>
 			</div>
-			<div id="canvas_3d">
 
-			</div>
-			<div id="wizard">
+            <div id="canvas_3d"></div>
 
-				@if ($cam_debug)
-					<div id="camera-vectors">
-						<span>{{ tra("Free Camera Vectors:") }}</span><br>
-						<span id="position"></span><br>
-						<span id="lookingAt"></span>
-					</div>
-				@endif
+        </div>
 
-				<div id="wizard_title_dsk" class="wizard_title">
-					{{ tra("Customize your") }} {{ $product->title }}
-				</div>
+
+
 {{--				<div id="accordion">--}}
 {{--					@foreach ($product->variable_parts as $index => $part)--}}
 {{--						<div class="card">--}}
-{{--							<div class="part-header --}}{{-- card-header --}}{{--" id="heading{{ $index }}">--}}
+{{--							<div class="part-header  card-header " id="heading{{ $index }}">--}}
 {{--								<h5 class="mb-0">--}}
 {{--								<button class="btn btn-link" data-toggle="collapse" data-target="#collapse{{ $index }}" aria-expanded="true" aria-controls="collapse{{ $index }}">--}}
 {{--									{{ tra("Choose a") }} {{ $part->title }}--}}
@@ -80,7 +165,7 @@
 {{--									<fieldset>--}}
 {{--										<ul class="variation_list">--}}
 {{--											@foreach ($part->subparts as $kpart => $subpart)--}}
-{{--												--}}{{-- <x-frontend.product_part :part="$subpart" :kpart="$kpart" :first="$loop->first"/> --}}
+{{--												 <x-frontend.product_part :part="$subpart" :kpart="$kpart" :first="$loop->first"/>--}}
 {{--													@include('components.frontend.product_part', ['product' => $product, 'product_part' => $subpart, 'group' => $part->id])--}}
 {{--											@endforeach--}}
 {{--										</ul>--}}
@@ -91,40 +176,6 @@
 {{--					@endforeach--}}
 
 {{--				</div>--}}
-
-                    <div>
-                        <x-frontend.categories :categories="$variable_parts" />
-                    </div>
-
-
-                    <div >
-                        <h2 id="message-selection"></h2>
-                    </div>
-
-				<div id="wizard_footer">
-					<div id="steps">
-						Price: <span id="price_total"></span> €
-					</div>
-					<button id="cta_button" class="next_button"
-                            @if (config('app.custom_submit', false)) onclick="submit_form(true)"
-                            @else onclick="submit_form(false)"
-                        @endif>
-						<div class="next_button_inner">
-							<div id="finish_button">{{ tra("Finish") }}</div>
-							<span class="">
-								<svg role="img" width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
-                                     fill="currentColor">
-                                    <path d="m15.99 5.377-.887.99a80.64 80.64 0 0 1 4.782 4.635H1.991v1.33h17.877a88.117 88.117 0 0 1-4.764 4.583l.886.99c.06-.054 6-5.386 6-6.239 0-.876-5.94-6.235-6-6.289z"></path>
-                                </svg>
-							</span>
-						</div>
-					</button>
-                    <form method="POST" enctype="multipart/form-data" action="save.php" id="myForm">
-                        <input type="hidden" name="img_val" id="img_val" value="" />
-                    </form>
-				</div>
-			</div>
-		</div>
 
 		<script>
             window.onload = function () {
