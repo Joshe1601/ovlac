@@ -112,7 +112,7 @@
                 border-width: 1px;
                 display: block;
                 font-size: .8rem;
-                padding: 0.25em 0.5em;	
+                padding: 0.25em 0.5em;
                 float: left;
                 text-align: center;
                 width: 0.6em;
@@ -158,13 +158,13 @@
 		</header>
 		<article>
 			<address contenteditable>
-				<h2>{{ tra("Items") }}</h2>
+				<h2>{{ tra("Products") }}</h2>
 			</address>
-			
+
 			<table class="inventory">
 				<thead>
 					<tr>
-						<th><span contenteditable>{{ tra("Item") }}</span></th>
+						<th><span contenteditable>{{ tra("Product") }}</span></th>
 						<th><span contenteditable>{{ tra("Price") }}</span></th>
 					</tr>
 				</thead>
