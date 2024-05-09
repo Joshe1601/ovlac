@@ -21,6 +21,7 @@
 		<link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap" rel="stylesheet">
 {{-- 	</head>
 	<body> --}}
+        <style>{!! include (base_path() . '/public/css/ovlac.css') !!}</style>
 		<script src="{{ relative_path() }}/public/js/threejs/build/three.js"></script>
 		<script src="{{ relative_path() }}/public/js/threejs/examples/js/controls/OrbitControls.js"></script>
 		<script src="{{ relative_path() }}/public/js/threejs/examples/js/loaders/OBJLoader.js"></script>
@@ -45,7 +46,7 @@
 
 
 
-		<div id="main" class="visor3d d-flex flex-row">
+		<div id="main" class="visor3d d-flex flex-row background-gray">
 
 
             <div class="wizard-menu">
@@ -58,7 +59,7 @@
                 </div>
 
                 <div id="wizard_title_mbl" class="wizard_title">
-                     {{ $product->title }}
+                    {!! $product->get_red_title() !!}
                 </div>
 
                 <div id="wizard">
@@ -71,12 +72,20 @@
                     @endif
 
                     <div id="wizard_title_dsk" class="ml-5">
-                        <h4 class="ml-3 my-0">{{ $product->title }}</h4>
-                        <h5 class="ml-3 font-weight-normal">{{ $product->description }}</h5>
+                        <h4 class="ml-3 my-0 visor-title">{!! $product->get_red_title() !!}</h4>
+                        <h5 class="ml-3 font-weight-normal visor-description">{{ $product->description }}</h5>
+                        <span id="boton_option_menu">
+                            <img src="{{ relative_path() }}/public/images/ovlac/opciones.png"
+                                 class="boton_opciones"
+                                 id="menu_options_toggle"
+                                 alt="Menu Opciones">
+                        </span>
                     </div>
 
-                    <div id="accordion">
-                        <x-frontend.categories :categories="$variable_parts" />
+
+
+                    <div id="accordion" class="menu-visor">
+                        <x-frontend.categories :categories="$variable_parts" :collapsed="true" />
                     </div>
 
 
@@ -107,13 +116,6 @@
 
 
 
-
-
-
-
-
-
-
                     <div >
                         <h2 id="message-selection"></h2>
                     </div>
@@ -121,7 +123,7 @@
 
 					<div id="wizard_footer">
                         <div id="steps">
-                            Price: <span id="price_total"></span> €
+                            {{ tra("Price") }}: <span id="price_total"></span> €
                         </div>
                         <button id="cta_button" class="next_button"
                                 @if (config('app.custom_submit', false)) onclick="submit_form(true)"
@@ -144,38 +146,11 @@
                 </div>
 			</div>
 
-            <div id="canvas_3d"></div>
+            <div id="canvas_3d" class="background-gray"></div>
 
         </div>
 
 
-
-{{--				<div id="accordion">--}}
-{{--					@foreach ($product->variable_parts as $index => $part)--}}
-{{--						<div class="card">--}}
-{{--							<div class="part-header  card-header " id="heading{{ $index }}">--}}
-{{--								<h5 class="mb-0">--}}
-{{--								<button class="btn btn-link" data-toggle="collapse" data-target="#collapse{{ $index }}" aria-expanded="true" aria-controls="collapse{{ $index }}">--}}
-{{--									{{ tra("Choose a") }} {{ $part->title }}--}}
-{{--								</button>--}}
-{{--								</h5>--}}
-{{--							</div>--}}
-{{--							<div id="collapse{{ $index }}" class="collapse show" aria-labelledby="heading{{ $index }}" >--}}
-{{--								<div class="card-body">--}}
-{{--									<fieldset>--}}
-{{--										<ul class="variation_list">--}}
-{{--											@foreach ($part->subparts as $kpart => $subpart)--}}
-{{--												 <x-frontend.product_part :part="$subpart" :kpart="$kpart" :first="$loop->first"/>--}}
-{{--													@include('components.frontend.product_part', ['product' => $product, 'product_part' => $subpart, 'group' => $part->id])--}}
-{{--											@endforeach--}}
-{{--										</ul>--}}
-{{--									</fieldset>--}}
-{{--								</div>--}}
-{{--							</div>--}}
-{{--						</div>--}}
-{{--					@endforeach--}}
-
-{{--				</div>--}}
 
 		<script>
             window.onload = function () {

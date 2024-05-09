@@ -173,7 +173,14 @@ hr {
 
 /* Wizard Menu - Menu Visor 3D */
 .wizard-menu {
-    max-width: 20%;
+    min-width: 200px;
+    width: 20%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.wizard {
+    min-height: 100%;
 }
 
 
@@ -186,3 +193,171 @@ img.banner-logo-visor {
     padding: 0px;
     border: none;
 }
+
+
+/* Card 3D menu */
+
+.card-menu:last-child {
+    border-bottom: 0px;
+    box-shadow: none;
+}
+
+
+
+.card-menu:first-child {
+    margin-top: 0 !important;
+}
+
+#main .card-menu {
+    border-bottom: none;
+    padding: 0px;
+}
+
+
+/* Handling selected 3d model on menu in viewer */
+
+.hidden-radio {
+    display: none;
+}
+
+.radio-image {
+    cursor: pointer;
+    margin: 2px;
+    padding: 2px;
+    font-style: italic;
+    font-size: 1.3rem;
+}
+
+.lastNode:hover {
+    background-color: white;
+}
+
+img.selected {
+    border: 2px solid red;
+
+}
+
+.display_none {
+    display: none;
+}
+
+.item-selected {
+    /*border: 2px solid red;*/
+    max-width: 120px;
+    display: grid;
+}
+
+/*.card-body img {*/
+/*    display: flex;*/
+/*    flex-direction: row;*/
+/*    max-width: 150px;*/
+/*}*/
+
+.card-body .lastNode {
+    max-width: 40%;
+    display: grid;
+    grid-template-columns: auto auto auto;
+}
+
+/* Gray for background */
+.background-gray {
+    background-color: #E6E6E6;
+}
+
+/* Menu visor 3D */
+
+
+.menu-visor {
+    margin: 20px;
+    margin-left: 50px;
+    height: 80px;
+    display: inline-block;
+    color: white;
+    width: 400px;
+    border: 1px solid white;
+    padding: 10px;
+    border-radius: 5px;
+    position: relative;
+    background-color: #fff;
+    /*border:1px solid #000;*/
+}
+
+.menu-visor::before{
+    content:"";
+    position: absolute;
+    top:-8px;
+    left:20px;
+    margin:auto;
+    height: 20px;
+    width: 20px;
+    border:1px solid #fff;
+    transform:rotate(130deg);
+    background-color: #fff;
+}
+
+
+
+.red-first-letter {
+    color: red;
+}
+
+.boton_opciones {
+    max-width: 70px;
+    margin: 8px auto;
+
+}
+
+.boton_opciones:hover {
+    border-radius: 50%;
+    padding: 2px;
+    background-color: #B8B8B8;
+}
+
+#accordion {
+    display: none;
+    overflow: visible;
+    padding: 10px 8px;
+    border-radius: 0.4rem;
+}
+
+
+
+.visor-header {
+    opacity: 1;
+    padding: 6px;
+    border-bottom: 1px #111111 dotted;
+    font-size: 1.5rem;
+    font-weight: bolder;
+}
+
+.visor-link {
+    color: red;
+    opacity: 1;
+}
+
+.visor-link:hover {
+    color: black;
+    text-decoration-line: none;
+}
+
+.visor-menu {
+    padding:0 8px;
+    /*background-color: blue;*/
+}
+
+.visor-body {
+    /*background-color: red;*/
+}
+
+.visor-title {
+    font-size: 2rem;
+    font-style: italic;
+    font-weight: bold;
+}
+
+.visor-description {
+    font-size: 1.7rem;
+    font-style: italic;
+}
+
+

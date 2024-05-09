@@ -4,21 +4,24 @@
 
 @foreach($categories as $category)
 
-    <div class="card">
+    <div class="visor-menu">
         @if($category->is_last_node != 1)
-        <div class="card-header">
-            <a class="card-link"
+        <div class="visor-header">
+            <a class="visor-link"
                data-toggle="collapse"
+{{--               aria-expanded="{{ $collapsed ? 'false' : 'true' }}"--}}
                href="#description{{ $category->id }}">
                 {{ $category->title }}
             </a>
         </div>
-
-    @endif
-
-
-
-            <x-frontend.category :category="$category" :models="$models"/>
+       @endif
     </div>
+
+
+    <div class="visor-body">
+        <x-frontend.category :category="$category" :models="$models" :collapsed="false" />
+    </div>
+
+
 @endforeach
 
