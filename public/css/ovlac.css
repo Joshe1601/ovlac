@@ -14,13 +14,15 @@
 
 /* Style for checked labels */
 .accordion-radio:checked + .accordion-label {
-    background-color: #f9fafb; /* Darker blue */
+    /*background-color: #f9fafb; */
+    background-color: black;
 }
 
 /* Style for content */
 .accordion-content {
     display: none;
-    background-color: #f9fafb; /* Light gray */
+    /*background-color: #f9fafb; !* Light gray *!*/
+    background-color: black;
 }
 
 /* Show content when radio button is checked */
@@ -270,16 +272,15 @@ img.selected {
 .menu-visor {
     margin: 20px;
     margin-left: 50px;
-    height: 80px;
+    /*height: 80px;*/
     display: inline-block;
-    color: white;
+    color: black;
     width: 400px;
     border: 1px solid white;
     padding: 10px;
     border-radius: 5px;
     position: relative;
     background-color: #fff;
-    /*border:1px solid #000;*/
 }
 
 .menu-visor::before{
@@ -313,14 +314,16 @@ img.selected {
     background-color: #B8B8B8;
 }
 
-#accordion {
+#accordion, #new_accordion {
     display: none;
     overflow: visible;
     padding: 10px 8px;
     border-radius: 0.4rem;
 }
 
-
+#new_accordion.active {
+    background-color: red;
+}
 
 .visor-header {
     opacity: 1;
@@ -358,6 +361,64 @@ img.selected {
 .visor-description {
     font-size: 1.7rem;
     font-style: italic;
+}
+
+/* toggle image from visor head menu */
+label.toggle-header > input {
+    display: none; /* Hide the checkbox */
+}
+
+label.toggle-header > input + span {
+    text-indent: -9000px; /* Make text Accessible but not visible */
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    background: center / contain no-repeat url("public/images/ovlac/toggle_on.png");
+}
+
+label.toggle-header > input:checked + span {
+    background-image: url("public/images/ovlac/toggle_off.png");
+}
+
+.toggle-on {
+    position: absolute;
+    margin-top: 5px;
+    right: 10px;
+    margin-right: 5px;
+    /*background: center / contain no-repeat url("public/images/ovlac/toggle_on.png");*/
+    max-width: 40px;
+    margin-left: 40%;
+}
+
+.toggle-off {
+    position: absolute;
+    margin-top: 5px;
+    right: 10px;
+    margin-right: 5px;
+    /*background-image: url("public/images/ovlac/toggle_off.png");*/
+    max-width: 40px;
+    margin-left: 40%;
+}
+
+#new_accordion {
+    margin-top: 20px;
+}
+
+[data-accordion-button] {
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+[data-accordion-content] {
+    padding: 10px;
+    display: none;
+}
+
+/* Style for accordion button images */
+.accordion-button img {
+    max-width: 20px; /* Adjust as needed */
+    height: 20px; /* Adjust as needed */
 }
 
 

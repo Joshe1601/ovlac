@@ -65,7 +65,7 @@ html.wp-toolbar, #wpbody-content {
     border-radius: 64px;
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 500px) {
     #wizard_title_dsk {
         display: none;
     }
@@ -81,7 +81,6 @@ html.wp-toolbar, #wpbody-content {
         position: sticky;
         /*top: 0;*/
         z-index: 99999999;
-        background-color: white;
         box-shadow: 0px 10px 10px lightgrey;
     }
 

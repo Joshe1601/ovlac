@@ -1,5 +1,57 @@
 var goblal_models_selected = []
+var id_selected = 0
+
+const Accordion = function(selector) {
+    const obj = {
+
+        openPanel: function(panel) {
+            panel.slideDown()
+            panel.prev().find('[data-accordion-icon]').text("-")
+            panel.prev().find('[data-closed-image]').attr('src', './images/toggle-on.png');
+
+        },
+        closePanel: function(panel) {
+            panel.slideUp()
+            panel.prev().find('[data-accordion-icon]').text("+")
+            panel.prev().find('[data-closed-image]').attr('src', './images/toggle-off.png');
+
+        },
+        togglePanel: function(id) {
+            const panel = $(`[data-accordion-content="${id}"]`)
+            if( panel.is(":hidden") ) {
+                this.closeOtherPanels(id)
+                this.openPanel(panel)
+            } else {
+                this.closePanel(panel)
+            }
+        },
+        closeOtherPanels: function(openedPanel) {
+            const _t = this
+            $('[data-accordion-content]').each(function() {
+                const panelId = $(this).data('accordion-content')
+                if(panelId !== openedPanel) {
+                    _t.closePanel($(this))
+                }
+            })
+        },
+        setEvents: function() {
+            const _t = this
+            $(".visor-link").click(function() {
+                const id = $(this).attr("id")
+                _t.togglePanel(id)
+            })
+        },
+        init: function() {
+            // this.el = $(selector)
+            this.setEvents()
+        }
+    }
+
+    obj.init()
+    return obj
+}
 $(document).ready(function() {
+    const accordion1 = Accordion(".new_accordion")
     // $(".subvar_radio").on('change', function(e) {
     //     $(this).parents('.variation_list').find("li").removeClass('active');
     //     $(this).parents(".variation_list > li").addClass('active');
@@ -54,9 +106,42 @@ $(document).ready(function() {
     })
 
     $('#menu_options_toggle').click(function() {
-        console.log('aqui estamos')
-        $('#accordion').toggle()
+        $('#new_accordion').toggle()
     })
+
+
+    // $('.visor-menu').click(function() {
+    //     console.log('visor menu -> ', this.id)
+    //
+    // })
+
+    $('.visor-header').click(function() {
+
+        // let id = this.id
+        // console.log('id selected', this)
+        // // if(id !== id_selected) {
+        // //     console.log('hemos llegado', id_selected)
+        // //     $(`#toggle_on_${id_selected}`).addClass("display_none");
+        // //     $(`#toggle_off_${id_selected}`).removeClass("display_none");
+        // //     id_selected = id
+        // // }
+        // $('#new_accordion').on('show.bs.collapse', function(event) {
+        //     //let id = $(this).find('div:first').attr('id')
+        //     console.log('show', id)
+        //     $(`#toggle_on_${id}`).removeClass("display_none");
+        //     $(`#toggle_off_${id}`).addClass("display_none");
+        // })
+        //
+        // $('#new_accordion').on('hide.bs.collapse', function(event) {
+        //     //let id = $(this).find('div:first').attr('id')
+        //     console.log('hide', id)
+        //     $(`#toggle_on_${id}`).addClass("display_none");
+        //     $(`#toggle_off_${id}`).removeClass("display_none");
+        // })
+
+    })
+
+
 
     // $(".selectedModels").click(function(){
     //
@@ -146,7 +231,6 @@ function loadSelectedModels(selectedModels) {
     }
     // update the price for totals
     selected_models_collection = models_collection
-    console.log('los modelos que se han seleccted', selected_models_collection)
     let total_price = get_total_price_selected_models(selected_models_collection)
     update_totals(total_price)
 }
@@ -278,7 +362,6 @@ function get_total_price() {
     let price = parseFloat($("#input_product_price").val());
     $(".subvar_radio:checked").each(function() {
         let part_price = parseFloat($(this).attr("part_base_price"));
-        console.log('part price', part_price);
         if (part_price) price += part_price;
     });
     return price;

@@ -1,5 +1,9 @@
 @php
     if(!isset($models)) $models = '';
+    if(!isset($categoryId)) {
+        dd('algo');
+    }
+
 @endphp
 
 <div
@@ -18,14 +22,18 @@
                  class="collapse mx-3"
                  aria-expanded="{{ $collapsed ? 'false' : 'true' }}"
                  data-parent="#accordion"
+                 data-accordion-content="panel-{{ $category->product_part_id }}"
             >
-                <div class="">
+                <div
+
+                >
 {{--                    <label for="">{{ $category->title }} - {{ $category->id }}</label>--}}
                     <input
                         type="radio"
                         class="display_none"
                         name="is_last_node" id="#{{ $category->id }}"
                         value="{{ $models }}"
+
                         model-group="{{ $category->id }}">
 
 {{--                    <img--}}
@@ -35,6 +43,7 @@
 {{--                        class="radio-image item-selected selectedModels"/>--}}
                     <span
                         id="selected#{{ $category->id }}"
+
                         class="radio-image item-selected selectedModels"
                     >
                         {{ $category->title }}
