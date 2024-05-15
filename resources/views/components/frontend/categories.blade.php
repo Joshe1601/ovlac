@@ -8,10 +8,9 @@
 
     <div class="visor-menu" >
         @if($category->is_last_node != 1)
-            @php
-
-                $categoryId = $category->id;
-            @endphp
+@php
+    $categoryId = $category->id;
+@endphp
 
         <div class="visor-header"
              id="{{ $category->id }}"
@@ -23,19 +22,14 @@
                id="panel-{{ $category->id }}"
                href="#description{{ $category->id }}">
                 {{ $category->title }}
+
             </a>
             <img
-                src="{{ relative_path() }}/public/images/ovlac/toggle_on.png"
-                alt=""
-                class="toggle-on display_none"
-                id="toggle_on_{{ $category->id }}"
-            >
-            <img
-                src="{{ relative_path() }}/public/images/ovlac/toggle_off.png"
-                alt=""
-                class="toggle-off"
-                id="toggle_off_{{ $category->id }}"
-            >
+                src="/Configurador3D/public/images/ovlac/toggle_off.png"
+                alt="toggle Image"
+                data-closed-image="panel-{{ $category->id }}"
+                class="toggle"
+                width="40px">
         </div>
 
 

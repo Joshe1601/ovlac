@@ -18,16 +18,13 @@
 
     @if ( $category->is_last_node == 1 )
         @if($category->product_part_id != null)
-            <div id="description{{ $category->product_part_id }}"
+            <div id="{{ $category->product_part_id }}"
                  class="collapse mx-3"
                  aria-expanded="{{ $collapsed ? 'false' : 'true' }}"
                  data-parent="#accordion"
                  data-accordion-content="panel-{{ $category->product_part_id }}"
             >
-                <div
-
-                >
-{{--                    <label for="">{{ $category->title }} - {{ $category->id }}</label>--}}
+                <div class="radio-image-container radio-image">
                     <input
                         type="radio"
                         class="display_none"
@@ -36,19 +33,36 @@
 
                         model-group="{{ $category->id }}">
 
-{{--                    <img--}}
-{{--                        src="{{ relative_path() }}{{ $category->image }}"--}}
-{{--                        alt="Selected"--}}
-{{--                        id="selected#{{ $category->id }}"--}}
-{{--                        class="radio-image item-selected selectedModels"/>--}}
-                    <span
+                    <div
                         id="selected#{{ $category->id }}"
-
-                        class="radio-image item-selected selectedModels"
-                    >
-                        {{ $category->title }}
-                    </span>
+                        class="item-selected selectedModels">
+                        <img
+                            src="{{ relative_path() }}{{ $category->image }}"
+                            alt=""
+                            class=""
+                            style="width:100%"
+                        >
+                        <div class="overlay">{{ $category->title }}</div>
+                        <div
+                            class="info-icon"
+                            data-icon-detail="{{ $category->id }}"
+                        ></div>
+                    </div>
                 </div>
+            </div>
+            <div class="detail-panel" data-detail-panel="{{ $category->id }}">
+
+                    <div class="detail-panel-title text-center">
+                        {{ $category->title }}
+                        <span class="detail-panel-close">x</span>
+                    </div>
+                    <div class="detail-panel-image">
+                        <img src="{{ relative_path() }}{{ $category->image }}" alt="" style="width:245px;">
+                    </div>
+                    <div class="detail-panel-description text-center" >
+                        {{ $category->description }}
+                    </div>
+
             </div>
         @endif
     @endif

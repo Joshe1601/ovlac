@@ -1,19 +1,27 @@
 var goblal_models_selected = []
 var id_selected = 0
 
+function closeAllDetailPanel() {
+    $('.detail-panel').each(function() {
+        $(this).hide()
+    })
+}
+
 const Accordion = function(selector) {
     const obj = {
 
         openPanel: function(panel) {
             panel.slideDown()
-            panel.prev().find('[data-accordion-icon]').text("-")
-            panel.prev().find('[data-closed-image]').attr('src', './images/toggle-on.png');
-
+            const id = panel[0].id
+            $(`[data-closed-image="panel-${id}"]`).attr('src', relative_path + '/public/images/ovlac/toggle_on.png');
         },
         closePanel: function(panel) {
+            closeAllDetailPanel()
             panel.slideUp()
+            const id = panel[0].id
+            $(`[data-closed-image="panel-${id}"]`).attr('src', relative_path + '/public/images/ovlac/toggle_off.png');
             panel.prev().find('[data-accordion-icon]').text("+")
-            panel.prev().find('[data-closed-image]').attr('src', './images/toggle-off.png');
+            panel.prev().find('[data-closed-image]').attr('src', relative_path + '/public/images/ovlac/toggle_off.png');
 
         },
         togglePanel: function(id) {
@@ -52,57 +60,59 @@ const Accordion = function(selector) {
 }
 $(document).ready(function() {
     const accordion1 = Accordion(".new_accordion")
-    // $(".subvar_radio").on('change', function(e) {
-    //     $(this).parents('.variation_list').find("li").removeClass('active');
-    //     $(this).parents(".variation_list > li").addClass('active');
-    //
-    //
-    //     var model_file = $(this).val();
-    //     var model_group = $(this).attr('model-group');
-    //     var model_color = "";
-    //     if ($(this).attr('colorize')) {
-    //         model_color = $(this).attr('colorize');
-    //     }
-    //     //remove_model_group(model_group);
-    //     if (!model_file) {
-    //         remove_model_group(model_group);
-    //     } else {
-    //         //add_model(relative_path + '/public/models/test/IndividualElements/'+model_file+'/'+model_file+'.gltf', model_group);
-    //         add_model(relative_path + model_file, model_group, model_color);
-    //     }
-    //
-    //     //update price label
-    //     var model_price = $(this).attr('part_base_price');
-    //     console.log("price " + model_price);
-    //     $(this).parents(".variation_vars").first().find(".variation_price .price_value").first().text(parseFloat(model_price).toFixed(2));
-    //     update_totals();
-    // });
+
 
     // try to toggle selected and unseletect images
-    $('.radio-image').click(function() {
-        $('.radio-image').removeClass('selected');
+    $('.radio-image-container').click(function() {
+
+        $('.radio-image-container').removeClass('selected');
         $(this).toggleClass('selected')
+
+        $('.radio-image-container').not(this).each(function() {
+            $(this).find('.overlay').css('background-color', '#B8B8B8');
+            $(this).find('info-icon').attr('src', relative_path + '/public/images/ovlac/info.png');
+        });
+
+        $(this).find('.overlay').css('background-color', '#e52b38');
+        $(this).find('info-icon').attr('src', relative_path + '/public/images/ovlac/info_selected.png');
 
         var radio = $(this).prev('.hidden-radio')
         radio.prop('checked', true)
 
     })
 
+    $('.info-icon').click(function() {
+        const categoryId = $(this).attr('data-icon-detail')
+
+        $('.detail-panel').each(function() {
+            if($(this).attr('data-detail-panel') === categoryId) {
+                $(this).show()
+            } else {
+                $(this).hide()
+            }
+        })
+    })
+
+    $('.detail-panel-close').click(function() {
+        closeAllDetailPanel()
+    })
+
     $('.item-selected').click(function() {
-        console.log('selected item', this.id)
-        const id = $(this).attr('model-group');
+
+        //const id = $(this).attr('model-group');
         const id_number = this.id.split('#')
 
-        const input_radio = document.getElementById('#' + id_number[1])
-        console.log('the input radio', input_radio.value)
-        const selected_models = input_radio.value
-        //$(this).toggleClass('selected')
-       // global_models_selected = selected_models
-        loadSelectedModels(selected_models)
+        $('.detail-panel').each(function() {
+            if($(this).attr('data-detail-panel') != id_number[1]) {
+                $(this).hide()
+            }
+        })
 
+        const input_radio = document.getElementById('#' + id_number[1])
+        const selected_models = input_radio.value
+        loadSelectedModels(selected_models)
         var radio = $(this).prev('.hidden-radio')
         radio.prop('checked', true)
-
     })
 
     $('#menu_options_toggle').click(function() {
@@ -110,85 +120,8 @@ $(document).ready(function() {
     })
 
 
-    // $('.visor-menu').click(function() {
-    //     console.log('visor menu -> ', this.id)
-    //
-    // })
-
-    $('.visor-header').click(function() {
-
-        // let id = this.id
-        // console.log('id selected', this)
-        // // if(id !== id_selected) {
-        // //     console.log('hemos llegado', id_selected)
-        // //     $(`#toggle_on_${id_selected}`).addClass("display_none");
-        // //     $(`#toggle_off_${id_selected}`).removeClass("display_none");
-        // //     id_selected = id
-        // // }
-        // $('#new_accordion').on('show.bs.collapse', function(event) {
-        //     //let id = $(this).find('div:first').attr('id')
-        //     console.log('show', id)
-        //     $(`#toggle_on_${id}`).removeClass("display_none");
-        //     $(`#toggle_off_${id}`).addClass("display_none");
-        // })
-        //
-        // $('#new_accordion').on('hide.bs.collapse', function(event) {
-        //     //let id = $(this).find('div:first').attr('id')
-        //     console.log('hide', id)
-        //     $(`#toggle_on_${id}`).addClass("display_none");
-        //     $(`#toggle_off_${id}`).removeClass("display_none");
-        // })
-
-    })
-
-
-
-    // $(".selectedModels").click(function(){
-    //
-    //     console.log('we are here selected Models')
-    //     // get data for selected models
-    //     const model_group = $(this).attr('model-group');
-    //     const selectedModels = $( this ).val();
-    //
-    //
-    //
-    //     // Remove previous selectedModels, those which do not match with selected one
-    //     clean_scene_from_old_models()
-    //
-    //     let items = selectedModels.split(':')
-    //     let clean_items = items.map( str => str.replaceAll( "\\", '').replaceAll('"', ''))
-    //     var models_collection = []
-    //
-    //     for(let i = 0; i < clean_items.length; i++) {
-    //         if(clean_items[i] !== '') {
-    //             let data = clean_items[i].substring(1, clean_items[i].length - 1)
-    //             let model_array = data.split(',')
-    //             if(model_array[0] !== '') {
-    //                 let model = {
-    //                     model_id: model_array[3],
-    //                     id: (Math.random() + 1).toString(36).substring(2),
-    //                     url: model_array[0],
-    //                     price: model_array[1],
-    //                     color: model_array[2],
-    //                     group: 'model-group'
-    //                 }
-    //                 models_collection.push(model)
-    //             }
-    //         }
-    //     }
-    //
-    //     for(const model of models_collection) {
-    //         add_model(relative_path + model.url, model.group, model.color, model.id)
-    //     }
-    //     // update the price for totals
-    //     selected_models_collection = models_collection
-    //
-    //     let total_price = get_total_price_selected_models(selected_models_collection)
-    //     update_totals(total_price)
-    // });
 
     $("#finish_button").click(function(){
-
         //takeshot_selected_models();
     });
 

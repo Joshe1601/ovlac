@@ -109,7 +109,7 @@
                 >
                     <h2 class="accordion-header">
                         <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ $subpart->id }}" aria-expanded="false" aria-controls="collapse{{ $subpart->id }}">
-                            {{ $subpart->title }} -  [Nivel {{ $level }}]
+                            {{ $subpart->title }}
                         </button>
                     </h2>
                     <div id="collapse{{ $subpart->id }}" class="accordion-collapse collapse" data-bs-parent="#accordionSubParts{{$level}}">

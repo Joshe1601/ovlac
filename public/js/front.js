@@ -396,7 +396,7 @@ function remove_model_group(model_group) {
             let models = modelsrn[group];
             for (var key in models) {
                 let model = models[key];
-                console.log("delete: " + model.name + " from group: " + model_group);
+               // console.log("delete: " + model.name + " from group: " + model_group);
                 //scene.remove(scene.getObjectByName(model.name));
                 scene.remove(model);
                 delete modelsrn[group][key];

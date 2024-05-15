@@ -170,7 +170,7 @@ hr {
 
 .public-list-button img:hover {
     opacity: 70%;
-    border: 3px solid red;
+    border: 3px solid #e52b38;
 }
 
 /* Wizard Menu - Menu Visor 3D */
@@ -235,8 +235,7 @@ img.banner-logo-visor {
 }
 
 img.selected {
-    border: 2px solid red;
-
+    border: 2px solid #e52b38;
 }
 
 .display_none {
@@ -244,9 +243,8 @@ img.selected {
 }
 
 .item-selected {
-    /*border: 2px solid red;*/
     max-width: 120px;
-    display: grid;
+    /*display: grid;*/
 }
 
 /*.card-body img {*/
@@ -256,9 +254,10 @@ img.selected {
 /*}*/
 
 .card-body .lastNode {
-    max-width: 40%;
+    max-width: 35%;
     display: grid;
     grid-template-columns: auto auto auto;
+    position: relative;
 }
 
 /* Gray for background */
@@ -266,8 +265,8 @@ img.selected {
     background-color: #E6E6E6;
 }
 
-/* Menu visor 3D */
 
+/* Menu visor 3D */
 
 .menu-visor {
     margin: 20px;
@@ -299,7 +298,7 @@ img.selected {
 
 
 .red-first-letter {
-    color: red;
+    color: #e52b38;
 }
 
 .boton_opciones {
@@ -322,7 +321,7 @@ img.selected {
 }
 
 #new_accordion.active {
-    background-color: red;
+    background-color: #e52b38;
 }
 
 .visor-header {
@@ -334,7 +333,7 @@ img.selected {
 }
 
 .visor-link {
-    color: red;
+    color: #e52b38;
     opacity: 1;
 }
 
@@ -363,26 +362,10 @@ img.selected {
     font-style: italic;
 }
 
-/* toggle image from visor head menu */
-label.toggle-header > input {
-    display: none; /* Hide the checkbox */
-}
 
-label.toggle-header > input + span {
-    text-indent: -9000px; /* Make text Accessible but not visible */
-    display: inline-block;
-    width: 30px;
-    height: 30px;
-    background: center / contain no-repeat url("public/images/ovlac/toggle_on.png");
-}
-
-label.toggle-header > input:checked + span {
-    background-image: url("public/images/ovlac/toggle_off.png");
-}
-
-.toggle-on {
+.toggle {
     position: absolute;
-    margin-top: 5px;
+    margin-top: 10px;
     right: 10px;
     margin-right: 5px;
     /*background: center / contain no-repeat url("public/images/ovlac/toggle_on.png");*/
@@ -390,15 +373,7 @@ label.toggle-header > input:checked + span {
     margin-left: 40%;
 }
 
-.toggle-off {
-    position: absolute;
-    margin-top: 5px;
-    right: 10px;
-    margin-right: 5px;
-    /*background-image: url("public/images/ovlac/toggle_off.png");*/
-    max-width: 40px;
-    margin-left: 40%;
-}
+
 
 #new_accordion {
     margin-top: 20px;
@@ -407,11 +382,10 @@ label.toggle-header > input:checked + span {
 [data-accordion-button] {
     padding: 5px 10px;
     cursor: pointer;
-    font-size: 13px;
+    font-size: 24px;
 }
 
 [data-accordion-content] {
-    padding: 10px;
     display: none;
 }
 
@@ -420,5 +394,104 @@ label.toggle-header > input:checked + span {
     max-width: 20px; /* Adjust as needed */
     height: 20px; /* Adjust as needed */
 }
+
+
+/* image container on 3d viewer */
+.radio-image-container {
+    position: relative;
+    width: 200px;
+    border-radius: 30%;
+    margin: 3px auto;
+
+}
+
+.selected {
+    /*border: solid 2px red;*/
+}
+
+.radio-image-container:hover {
+
+
+}
+
+.overlay {
+    position: absolute;
+    bottom:0px;
+    left:0px;
+    width:100%;
+    background-color: #B8B8B8;
+    color: white;
+    text-align: center;
+    padding: 1px 5px;
+    font-size: 12px;
+    border-radius: 0 0 8px 8px ;
+}
+
+.overlay:hover {
+    background-color: #e52b38;
+}
+
+.info-icon {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 20px;
+    height: 20px;
+    background-image: url("public/images/ovlac/info.png");
+    background-size: cover;
+}
+
+.info-icon:hover {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 20px;
+    height: 20px;
+    background-image: url("public/images/ovlac/info_selected.png");
+    background-size: cover;
+}
+
+/* Part detail panel info */
+.detail-panel {
+    font-family: Corbel;
+    position: fixed;
+    top: 283px;
+    left: 453px;
+    width: 260px;
+    background: white;
+    margin: 4px;
+    z-index: 9999999;
+    border-radius: 0.4rem;
+    display: none;
+}
+
+.detail-panel-title {
+    background-color: #e52b38;
+    font-size: 22px;
+    color: white;
+    margin: 0 auto;
+    border-radius: 0.4rem 0.4rem 0 0;
+}
+
+.detail-panel-close {
+    position:absolute;
+    right: 7px;
+    top: 0px;
+    cursor: pointer;
+}
+
+.detail-panel-image {
+    width:240px;
+}
+
+.detail-panel-description {
+    color: grey;
+    font-size: 18px;
+    padding: 14px 20px;
+    padding-bottom: 22px;
+
+}
+
+
 
 
