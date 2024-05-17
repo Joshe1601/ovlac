@@ -1,8 +1,8 @@
-
+{{--{{ dd('lo que llega al pdf sobre el logo path', $logo_path) }}--}}
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>Invoice</title>
+		<title>{{ tra('Invoice') }}</title>
         <style>
             * {
                 border: 0;
@@ -26,7 +26,11 @@
 
             *[contenteditable] { cursor: pointer; }
 
-            *[contenteditable]:hover, *[contenteditable]:focus, td:hover *[contenteditable], td:focus *[contenteditable], img.hover { background: #DEF; box-shadow: 0 0 1em 0.5em #DEF; }
+            *[contenteditable]:hover, *[contenteditable]:focus, td:hover *[contenteditable],
+            td:focus *[contenteditable], img.hover {
+                background: #DEF;
+                box-shadow: 0 0 1em 0.5em #DEF;
+            }
 
             span[contenteditable] { display: inline-block; }
 
@@ -38,17 +42,20 @@
 
             table { font-size: 75%; table-layout: fixed; width: 100%; }
             table { border-collapse: separate; border-spacing: 2px; }
-            th, td { border-width: 1px; padding: 0.5em; position: relative; text-align: left; }
+            th, td { border-width: 0px; padding: 0.5em; position: relative; text-align: left; }
             th, td { border-radius: 0.25em; border-style: solid; }
-            th { background: #EEE; border-color: #BBB; }
+            th { background: #d9d8d8; border-color: #DDD; }
             td { border-color: #DDD; }
+            .price {
+                text-align: right;
+            }
 
             td > span {display: inline;}
 
             /* page */
 
-            html { font: 16px/1 'Open Sans', sans-serif; overflow: auto; padding: 0.5in; }
-            html { background: #999; cursor: default; }
+            html { font: 18px/1 'Open Sans', sans-serif; overflow: auto; padding: 0.5in; }
+            html { background: #d8d7d7; cursor: default; }
 
             body { box-sizing: border-box; height: 11in; margin: 0 auto; overflow: hidden; padding: 0.5in; /* width: 8.5in; */ }
             body { background: #FFF; border-radius: 1px; box-shadow: 0 0 1in -0.25in rgba(0, 0, 0, 0.5); }
@@ -58,12 +65,17 @@
             header { margin: 0 0 3em; }
             header:after { clear: both; content: ""; display: table; }
 
-            header h1 { background: #000; border-radius: 0.25em; color: #FFF; margin: 0 0 1em; padding: 0.5em 0; }
+            header h1 { background: #e52b38; border-radius: 0.25em; color: #FFF; margin: 0 0 1em; padding: 0.5em 0; }
             header address { float: left; font-size: 75%; font-style: normal; line-height: 1.25; margin: 0 1em 1em 0; }
             header address p { margin: 0 0 0.25em; }
             header span, header img { display: block; float: right; }
             header span { margin: 0 0 1em 1em; max-height: 25%; max-width: 60%; position: relative; }
-            header img { max-height: 100%; max-width: 100%; }
+            header img {
+                max-height: 100%;
+                max-width: 100%;
+                text-align: left;
+            }
+
             header input { cursor: pointer; -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)"; height: 100%; left: 0; opacity: 0; position: absolute; top: 0; width: 100%; }
 
             /* article */
@@ -89,8 +101,8 @@
             table.inventory { clear: both; width: 100%; }
             table.inventory th { font-weight: bold; text-align: center; }
 
-            table.inventory td:nth-child(1) { width: 26%; }
-            table.inventory td:nth-child(2) { width: 38%; }
+            table.inventory td:nth-child(1) { width: 40%; }
+            table.inventory td:nth-child(2) { width: 20%; }
             table.inventory td:nth-child(3) { text-align: right; width: 12%; }
             table.inventory td:nth-child(4) { text-align: right; width: 12%; }
             table.inventory td:nth-child(5) { text-align: right; width: 12%; }
@@ -150,11 +162,34 @@
             }
 
             @page { margin: 0; }
+
+            .footer {
+                position: absolute;
+                background-color: #e52b38;
+                bottom:0;
+                width: 87%;
+                text-align: center;
+                padding: 20px 10px;
+                color: white;
+                font-size: 14px;
+                margin: 0 auto;
+                margin-right: 40px;
+                border-top-left-radius: 0.25em;
+                border-top-right-radius: 0.25em;
+
+            }
+            .footer p {
+                margin: 4px auto;
+            }
         </style>
 	</head>
 	<body>
+
 		<header>
-			<h1>{{ $product->title }}</h1>
+{{--            <img--}}
+{{--                src="data:image/png;base64, {{ $logo_path }}"--}}
+{{--                alt="">--}}
+            <h1>{{ $product->title }}</h1>
 		</header>
 		<article>
 			<address contenteditable>
@@ -171,12 +206,12 @@
 				<tbody>
                     <tr>
                         <td><span>{{ tra("Base Price") }}</span></td>
-                        <td><span>{{ number_format($product->price, 2) }} €</span></td>
+                        <td class="price"><span>{{ number_format($product->price, 2) }} €</span></td>
                     </tr>
                     @foreach ($product_parts as $part)
                         <tr>
                             <td><span>{{ $part->title_full() }}</span></td>
-                            <td><span>{{ number_format($part->price_full(), 2) }} €</span></td>
+                            <td class="price"><span>{{ number_format($part->price_full(), 2) }} €</span></td>
                         </tr>
                     @endforeach
 				</tbody>
@@ -194,5 +229,13 @@
 				<p>A finance charge of 1.5% will be made on unpaid balances after 30 days.</p>
 			</div>
 		</aside> --}}
+        <footer class="footer">
+            <p>Email: ovlac@ovlac.com</p>
+            <p>Phone: +34 979 761 011</p>
+            <p>
+                Address: Pol. Ind. Venta de Baños Parcela 163 / 165
+                34200 Venta de Baños (Palencia) España
+            </p>
+        </footer>
 	</body>
 </html>

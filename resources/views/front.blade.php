@@ -37,120 +37,158 @@
 
 
     <form style="display: none;">
-			<input type="hidden" id="input_product_id" name="input_product_id" value="{{ $product->id }}">
-			<input type="hidden" id="input_product_title" name="input_product_title" value="{{ $product->title }}">
-			<input type="hidden" id="input_product_price" name="input_product_price" value="{{ $product->price }}">
-			<input type="hidden" id="input_submit_url" name="input_submit_url" value="{{ config('app.submit_url') }}">
-			<input type="hidden" id="input_submit_url_default" name="input_submit_url_default" value="{{ controller_path() }}{{ controller_sep() }}md=product&product_id={{$product->id}}&action=submit_form"">
-		</form>
+        <input type="hidden" id="input_product_id" name="input_product_id" value="{{ $product->id }}">
+        <input type="hidden" id="input_product_title" name="input_product_title" value="{{ $product->title }}">
+        <input type="hidden" id="input_product_price" name="input_product_price" value="{{ $product->price }}">
+        <input type="hidden" id="input_submit_url" name="input_submit_url" value="{{ config('app.submit_url') }}">
+        <input type="hidden" id="input_submit_url_default" name="input_submit_url_default" value="{{ controller_path() }}{{ controller_sep() }}md=product&product_id={{$product->id}}&action=submit_form"">
+    </form>
 
 
 
-		<div id="main" class="visor3d d-flex flex-row background-gray">
+    <div id="main" class="visor3d d-flex flex-row background-gray">
 
 
-            <div class="wizard-menu">
+        <div class="wizard-menu">
 
-                <div style="width:100px: height: auto;">
-                    <img src="{{ relative_path() }}/public/images/ovlac/logo_banner.png"
-                         alt="logo banner ovlac"
-                        style="max-width:200px; height: auto;"
-                    />
+            <div style="width:100px: height: auto;">
+                <img src="{{ relative_path() }}/public/images/ovlac/logo_banner.png"
+                     alt="logo banner ovlac"
+                    style="max-width:200px; height: auto;"
+                />
+            </div>
+
+            <div id="wizard_title_mbl" class="wizard_title">
+                {!! $product->get_red_title() !!}
+            </div>
+
+            <div id="wizard">
+                @if ($cam_debug)
+                    <div id="camera-vectors">
+                        <span>{{ tra("Free Camera Vectors:") }}</span><br>
+                        <span id="position"></span><br>
+                        <span id="lookingAt"></span>
+                    </div>
+                @endif
+
+                <div id="wizard_title_dsk" class="ml-5">
+                    <h4 class="ml-3 my-0 visor-title">{!! $product->get_red_title() !!}</h4>
+                    <h5 class="ml-3 font-weight-normal visor-description">{{ $product->description }}</h5>
+                    <span id="boton_option_menu">
+                        <img src="{{ relative_path() }}/public/images/ovlac/opciones.png"
+                             class="boton_opciones"
+                             id="menu_options_toggle"
+                             alt="Menu Opciones">
+                    </span>
                 </div>
 
-                <div id="wizard_title_mbl" class="wizard_title">
-                    {!! $product->get_red_title() !!}
+
+                <div id="new_accordion" class="menu-visor">
+                    <x-frontend.categories :categories="$variable_parts" :collapsed="false" />
                 </div>
 
-                <div id="wizard">
-                    @if ($cam_debug)
-                        <div id="camera-vectors">
-                            <span>{{ tra("Free Camera Vectors:") }}</span><br>
-                            <span id="position"></span><br>
-                            <span id="lookingAt"></span>
+                <div >
+                    <h2 id="message-selection"></h2>
+                </div>
+
+                <div id="wizard_footer">
+                    <div id="steps">
+                        {{ tra("Price") }}: <span id="price_total"></span> €
+                    </div>
+                    <button id="cta_button" class="next_button"
+                            @if (config('app.custom_submit', false)) onclick="submit_form(true)"
+                            @else onclick="submit_form(false)"
+                        @endif>
+                        <div class="next_button_inner">
+                            <div id="finish_button">{{ tra("Finish") }}</div>
+                            <span class="">
+                                <svg role="img" width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+                                     fill="currentColor">
+                                    <path d="m15.99 5.377-.887.99a80.64 80.64 0 0 1 4.782 4.635H1.991v1.33h17.877a88.117 88.117 0 0 1-4.764 4.583l.886.99c.06-.054 6-5.386 6-6.239 0-.876-5.94-6.235-6-6.289z"></path>
+                                </svg>
+                            </span>
                         </div>
-                    @endif
-
-                    <div id="wizard_title_dsk" class="ml-5">
-                        <h4 class="ml-3 my-0 visor-title">{!! $product->get_red_title() !!}</h4>
-                        <h5 class="ml-3 font-weight-normal visor-description">{{ $product->description }}</h5>
-                        <span id="boton_option_menu">
-                            <img src="{{ relative_path() }}/public/images/ovlac/opciones.png"
-                                 class="boton_opciones"
-                                 id="menu_options_toggle"
-                                 alt="Menu Opciones">
-                        </span>
-                    </div>
-
-
-
-                    <div id="new_accordion" class="menu-visor">
-                        <x-frontend.categories :categories="$variable_parts" :collapsed="false" />
-                    </div>
-
-
-{{--                        <div id="accordion">--}}
-
-{{--                            <div class="card">--}}
-{{--                                <div class="card-header">--}}
-{{--                                    <a class="card-link"--}}
-{{--                                       data-toggle="collapse"--}}
-{{--                                       href="#description1">--}}
-{{--                                        GeeksforGeeks--}}
-{{--                                    </a>--}}
-{{--                                </div>--}}
-
-{{--                                <div id="description1"--}}
-{{--                                     class="collapse show"--}}
-{{--                                     data-parent="#accordion">--}}
-{{--                                    <div class="card-body">--}}
-{{--                                        GeeksforGeeks is a computer--}}
-{{--                                        science portal. It is the best--}}
-{{--                                        platform to lean programming.--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
-
-{{--                            </div> <!-- end card -->--}}
-
-{{--                        </div>--}}
-
-
-
-                    <div >
-                        <h2 id="message-selection"></h2>
-                    </div>
-
-
-					<div id="wizard_footer">
-                        <div id="steps">
-                            {{ tra("Price") }}: <span id="price_total"></span> €
-                        </div>
-                        <button id="cta_button" class="next_button"
-                                @if (config('app.custom_submit', false)) onclick="submit_form(true)"
-                                @else onclick="submit_form(false)"
-                            @endif>
-                            <div class="next_button_inner">
-                                <div id="finish_button">{{ tra("Finish") }}</div>
-                                <span class="">
-                                    <svg role="img" width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
-                                         fill="currentColor">
-                                        <path d="m15.99 5.377-.887.99a80.64 80.64 0 0 1 4.782 4.635H1.991v1.33h17.877a88.117 88.117 0 0 1-4.764 4.583l.886.99c.06-.054 6-5.386 6-6.239 0-.876-5.94-6.235-6-6.289z"></path>
-                                    </svg>
-                                </span>
-                            </div>
-                        </button>
-                        <form method="POST" enctype="multipart/form-data" action="save.php" id="myForm">
-                            <input type="hidden" name="img_val" id="img_val" value="" />
-                        </form>
-				    </div>
+                    </button>
+                    <form method="POST" enctype="multipart/form-data" action="save.php" id="myForm">
+                        <input type="hidden" name="img_val" id="img_val" value="" />
+                    </form>
                 </div>
-			</div>
+            </div>
+        </div>
 
-            <div id="canvas_3d" class="background-gray"></div>
+        <div id="canvas_3d" class="background-gray"></div>
+
+        <div class="extra-icons">
+            <div class="icon-vista">
+                <img
+                    src="{{ relative_path() }}/public/images/ovlac/vista.png"
+                    style="width:64px"
+                    alt="">
+            </div>
+            <div class="icon-vista">
+                <img
+                    src="{{ relative_path() }}/public/images/ovlac/infomenu.png"
+                    style="width:64px"
+                    alt="">
+            </div>
+            <div class="icon-vista">
+                <img
+                    src="{{ relative_path() }}/public/images/ovlac/descarga.png"
+                    style="width:64px"
+                    alt="">
+            </div>
+            <div class="icon-vista" id="openPopup">
+                <img
+                    src="{{ relative_path() }}/public/images/ovlac/mail.png"
+                    style="width:64px"
+                    alt="">
+            </div>
+            <div class="icon-vista">
+                <img
+                    src="{{ relative_path() }}/public/images/ovlac/maximizar.png"
+                    style="width:64px"
+                    alt="">
+            </div>
 
         </div>
 
+    </div>
 
+
+<!-- Popup div -->
+<div id="popup" class="popup">
+    <div class="popup-header">
+        <span id="closePopup" class="close-btn">&times;</span>
+        <h4 class="popup-title">{{ tra('Receive a quote by Email') }}</h4>
+    </div>
+    <form action="" id="emailForm" class="popup-form">
+        <div class="form-group">
+            <label for="inputFullName">{{ tra('Full Name') }}</label>
+            <input type="text" class="form-control bg-gray-input" id="fullName" name="fullName" required>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-6">
+                <label for="inputProvince">{{ tra('Province') }}</label>
+                <input type="text" class="form-control bg-gray-input" id="inputProvince">
+            </div>
+            <div class="col-sm-6">
+                <label for="inputEmail">{{ tra('Email') }}</label>
+                <input type="text" class="form-control bg-gray-input" id="inputEmail">
+            </div>
+        </div>
+
+        <button type="submit" class="popup-send-button">{{ tra('Send') }}</button>
+        <div class="form-group policy-note">
+            <input type="checkbox" class="form-check-input popup-checkbox" id="privacyPolicy" name="privatePolicy">
+            <label for="privacyPolicy">
+                {{ tra('I have read and accept the privacy policy.') }}
+            </label>
+        </div>
+    </form>
+</div>
+
+<!-- Overlay for the popup -->
+<div id="layer" class="layer"></div>
 
 		<script>
             window.onload = function () {

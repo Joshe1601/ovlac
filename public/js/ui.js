@@ -125,6 +125,17 @@ $(document).ready(function() {
         //takeshot_selected_models();
     });
 
+    // Send quote pdf by email
+    $('#openPopup').click(function () {
+        $('#popup').show();
+        $('#layer').show();
+    })
+
+    $('#closePopup, #layer').click(function() {
+        $('#popup').hide();
+        $('#layer').hide();
+    })
+
     // Update price label when we selected a collection of models
 
     let total_price = get_total_price_selected_models(selected_models_collection)
@@ -276,7 +287,7 @@ function submit_form(custom) {
         window.open(submit_url, "_blank");
     } else {
         const h2MessageElement = document.getElementById('message-selection')
-        h2MessageElement.textContent = "Por favor, seleccione una opcion."
+        h2MessageElement.textContent = "Por favor, seleccione una opción."
     }
 }
 

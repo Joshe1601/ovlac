@@ -52,6 +52,11 @@
     "Save User": "Guardar Usuario",
     "Add Fixed Part": "Nueva Parte Fija",
     "Add Variable Part": "Nueva Parte Variable",
-    "Price": "Precio"
+    "Price": "Precio",
+    "Receive a quote by Email": "Recibir presupuesto por email",
+    "I have read and accept the privacy policy.": "He leido y acepto expresamente el Aviso Legal y Politica de privacidad.",
+    "Send": "Enviar",
+    "Full Name": "Nombre y Apellidos",
+    "Province": "Provincia"
 
 }

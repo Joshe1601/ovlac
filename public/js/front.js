@@ -46,7 +46,7 @@ camera.position.x = camera_x;
 camera.position.y = camera_y;
 camera.position.z = camera_z;
 
-camera.position.setLength(10);
+camera.position.setLength(7);
 //camera.scale.x = camera.scale.y = camera.scale.z = 0.1;
 
 const renderer = new THREE.WebGLRenderer({

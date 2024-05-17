@@ -60,7 +60,7 @@ class ProductController extends Controller
         $api_token = $request->api_token;
         $is_logged = AuthenticationHelper::isLogged($api_token);
         $is_admin = AuthenticationHelper::isAdmin($api_token);
-        if ($is_logged == null) {
+         if ($is_logged == null) {
             $redirect = "<script>window.location.href = window.location.href.replace('action=public_list', 'action=login').replace('md=product', 'md=auth').concat('&error=You need admin permission.');</script>";
             return $redirect;
         }
@@ -319,10 +319,19 @@ class ProductController extends Controller
         $product = Product::find($prod_data['product_id']);
         $prod_data["product"] = $product;
 
+        $logo_path = 'http://127.0.0.1' . relative_path() . '/public/images/ovlac/logo_banner.png';
+        $logo_path_encoded = base64_encode(file_get_contents($logo_path));
+        $prod_data["logo_path"] = $logo_path_encoded;
+
         $pdf = Pdf::loadView('pdf', $prod_data);
         $pdf_data = $pdf->output();
 
         $view_data['pdf_data'] = $pdf_data;
+
+
+        //dd('the file of the logo', $logo_path);
+        //$view_data['logo_image'] =
+
         $html = View::make('file_download', $view_data)->render();
         return $html;
     }

@@ -175,13 +175,14 @@ hr {
 
 /* Wizard Menu - Menu Visor 3D */
 .wizard-menu {
-    min-width: 200px;
-    width: 20%;
+    min-width: 500px;
+    display: inline-block;
     height: 100vh;
-    overflow: hidden;
+    /*overflow: hidden;*/
 }
 
 .wizard {
+    max-width: 500px;
     min-height: 100%;
 }
 
@@ -460,7 +461,7 @@ img.selected {
     width: 260px;
     background: white;
     margin: 4px;
-    z-index: 9999999;
+    z-index: 9999;
     border-radius: 0.4rem;
     display: none;
 }
@@ -492,6 +493,114 @@ img.selected {
 
 }
 
+/* Extra icons */
+.extra-icons {
+    position: fixed;
+    top: 40px;
+    right: 100px;
+}
+
+.icon-vista {
+    background-image: url("public/images/ovlac/vista.png");
+   // width: 32px;
+    z-index: 99999;
+    margin-top:4px;
+}
+
+.icon-vista:hover {
+    background-color: #c7c7c7;
+    border-radius: 50%;
+    min-width: 32px;
+}
+
+/* Popup for email the report */
+.popup {
+    display: none;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 0.8em;
+    z-index: 999999;
+    background-color: white;
+    padding: 30px 50px;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+    width: 600px;
+}
+
+.popup-header {
+    /*display: flex;*/
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 auto;
+    color: #666565;
+    font-weight: normal;
+}
+
+.popup-title {
+    font-family: Corbel;
+    padding-top: 10px;
+    text-align: center;
+    font-size: 26px;
+}
+
+.popup-form {
+    margin-top: 30px;
+    color: grey;
+    font-size: 14px;
+    margin-bottom: 0;
+}
+
+.bg-gray-input {
+    background-color: #e5e5e5;
+}
+
+.close-btn {
+    cursor: pointer;
+    position: fixed;
+    top: 20px;
+    right: 30px;
+    font-size: 20px;
+}
+
+.popup-send-button {
+    display: flex;
+    justify-content: center;
+    width: 30%;
+    background-color: #e52b38;
+    color: #fff;
+    margin: 10px auto;
+    margin-top: 40px;
+    border: none;
+    border-radius: 0.4em;
+    padding: 8px 30px;
+    font-size: 20px;
+}
+
+.policy-note {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px auto;
+    margin-top: 30px;
+    padding-left: 20px;
+}
 
 
+.layer {
+    display: none;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999998;
+}
+
+#message-selection {
+    margin: 3px;
+    margin-left: 10px;
+}
 
