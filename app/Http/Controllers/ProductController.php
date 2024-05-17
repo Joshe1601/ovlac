@@ -7,6 +7,7 @@ use App\Models\ProductPart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\URL;
@@ -319,6 +320,7 @@ class ProductController extends Controller
         $product = Product::find($prod_data['product_id']);
         $prod_data["product"] = $product;
 
+        // Logo file
         $logo_path = 'http://127.0.0.1' . relative_path() . '/public/images/ovlac/logo_banner.png';
         $logo_path_encoded = base64_encode(file_get_contents($logo_path));
         $prod_data["logo_path"] = $logo_path_encoded;
@@ -328,12 +330,34 @@ class ProductController extends Controller
 
         $view_data['pdf_data'] = $pdf_data;
 
-
-        //dd('the file of the logo', $logo_path);
-        //$view_data['logo_image'] =
-
         $html = View::make('file_download', $view_data)->render();
         return $html;
+    }
+
+    public function send_email(Request $request) {
+        //dd('el request de send email', $request);
+
+        $this->validate(
+            $request, [
+                'inputFullname' => 'required|string',
+                'inputProvince' => 'required|string',
+                'inputEmail' => 'required|email'
+            ]
+        );
+
+        $data = $request->only('inputFullname', 'inputProvince', 'inputEmail');
+
+//        Mail::send([], [], function($message) use ($data) {
+//            $message->to($data['inputEmail'])
+//                    ->subject('Test Email')
+//                    ->setBody('Hi, this is a email from config 3d');
+//        });
+
+        $to = $data['inputEmail'];
+        $subject = 'This is subject';
+        $message = 'This is body of email';
+        $from = "From: FirstName LastName <SomeEmailAddress@Domain.com>";
+        mail($to,$subject,$message,$from);
     }
 
 

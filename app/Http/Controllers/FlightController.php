@@ -23,31 +23,22 @@ class FlightController extends Controller
      */
     public function index(Request $request)
     {
-        //dd($request);
 
         $module = $request->get('md') ?: $request->get('module');
         $action = $request->get('action');
         $id = $request->get('id');
-        //dd($module, $action, $id, $request->all())
 
-        //if (!$module) $module = 'product'; // default module product as index
         if (!$action) $action = 'login';
         if (!$module) $module = 'auth'; // default module product as index
-        // if (!$action) $action = 'index';
 
-//        if( !isset($request->api_token)
-//            && ($module == 'product' || $module == 'product_part' || $module == 'product_part_variation' || $module == 'user') )
-//        {
-//            $module = 'auth';
-//            $action = 'login';
-//        }
 
         // add actions: login, register
         $actions = [
             'index', 'create', 'store', 'edit', 'update', 'destroy', 'show',
             'install_db', 'submit_form', 'activate',
             'login', 'verify_user', 'logout',
-            'public_list'
+            'public_list',
+            'send_email'
 //            'save_image'
         ];
         if (!in_array($action, $actions)) dd("INVALID ACTION", $action);
@@ -58,7 +49,6 @@ class FlightController extends Controller
         switch ($module) {
             case 'product':
                 $controller = new ProductController();
-                //if ($id) $object = Product::findOrFail($id);
                 if ($id) $object = Product::find($id);
                 break;
 
@@ -86,8 +76,6 @@ class FlightController extends Controller
                 dd($request->all());
                 break;
         }
-
-
 
 
         switch ($action) {
@@ -126,7 +114,6 @@ class FlightController extends Controller
                 return $controller->$action($request);
                 break;
         }
-        //dd('ahi vamos', $controller, $action, $object, $request);
         //$controller->$action($request);
         return;
 
@@ -138,7 +125,7 @@ class FlightController extends Controller
 
         $posts = DB::table('posts')->get();
         //dd($posts);
-        dd(config('database'));
+        //dd(config('database'));
         //dd($request->all());
 
 

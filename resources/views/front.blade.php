@@ -161,19 +161,23 @@
         <span id="closePopup" class="close-btn">&times;</span>
         <h4 class="popup-title">{{ tra('Receive a quote by Email') }}</h4>
     </div>
-    <form action="" id="emailForm" class="popup-form">
+    <form
+        action="{{ controller_path() }}{{ controller_sep() }}md=product&action=send_email"
+        method="POST"
+        id="emailForm"
+        class="popup-form">
         <div class="form-group">
-            <label for="inputFullName">{{ tra('Full Name') }}</label>
-            <input type="text" class="form-control bg-gray-input" id="fullName" name="fullName" required>
+            <label for="inputFullname">{{ tra('Full Name') }}</label>
+            <input type="text" class="form-control bg-gray-input" id="inputFullname" name="inputFullname" required>
         </div>
         <div class="form-group row">
             <div class="col-sm-6">
                 <label for="inputProvince">{{ tra('Province') }}</label>
-                <input type="text" class="form-control bg-gray-input" id="inputProvince">
+                <input type="text" class="form-control bg-gray-input" id="inputProvince" name="inputProvince" required>
             </div>
             <div class="col-sm-6">
                 <label for="inputEmail">{{ tra('Email') }}</label>
-                <input type="text" class="form-control bg-gray-input" id="inputEmail">
+                <input type="text" class="form-control bg-gray-input" id="inputEmail" name="inputEmail" required>
             </div>
         </div>
 

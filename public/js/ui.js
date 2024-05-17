@@ -136,6 +136,7 @@ $(document).ready(function() {
         $('#layer').hide();
     })
 
+
     // Update price label when we selected a collection of models
 
     let total_price = get_total_price_selected_models(selected_models_collection)
@@ -251,17 +252,13 @@ function submit_form(custom) {
 
     //captureScreenshot(); // take a screenshot of the scene for adding it to the pdf report
     update_totals();
-
     let data_prod = {};
     data_prod['product_id'] = $("#input_product_id").val();
     data_prod['product_title'] = $("#input_product_title").val();
     if (custom) data_prod['product_selected_parts'] = [];
     data_prod['product_selected_ids'] = [];
-
     // new code v2
     data_prod['selected_models'] = selected_models_collection
-
-
     $(".subvar_radio:checked").each(function() {
         let label = $("label[for='" + $(this).attr('id') + "']");
         let part_title = label.attr('title');
@@ -269,9 +266,7 @@ function submit_form(custom) {
         if (custom) data_prod['product_selected_parts'].push(part_title);
         data_prod['product_selected_ids'].push(part_id);
     });
-
     data_prod['total_price'] = get_total_price_selected_models(selected_models_collection)
-
     let submit_url = "";
     if (custom) {
         submit_url = $("#input_submit_url").val();
@@ -279,10 +274,10 @@ function submit_form(custom) {
         submit_url = $("#input_submit_url_default").val();
     }
     if (!submit_url) return;
-
     let pd = btoa(JSON.stringify(data_prod));
     submit_url = submit_url + "&prod_data=" + pd;
-    console.log('la length de la collection of models', selected_models_collection)
+    console.log('cuando hacemos click finish', submit_url)
+    alert();
     if(selected_models_collection.length > 0) {
         window.open(submit_url, "_blank");
     } else {
