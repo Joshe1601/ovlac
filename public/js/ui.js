@@ -276,8 +276,7 @@ function submit_form(custom) {
     if (!submit_url) return;
     let pd = btoa(JSON.stringify(data_prod));
     submit_url = submit_url + "&prod_data=" + pd;
-    console.log('cuando hacemos click finish', submit_url)
-    alert();
+    // console.log('cuando hacemos click finish', submit_url)
     if(selected_models_collection.length > 0) {
         window.open(submit_url, "_blank");
     } else {

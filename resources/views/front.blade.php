@@ -135,6 +135,7 @@
                 <img
                     src="{{ relative_path() }}/public/images/ovlac/descarga.png"
                     style="width:64px"
+                    onclick="submit_form(false)"
                     alt="">
             </div>
             <div class="icon-vista" id="openPopup">
