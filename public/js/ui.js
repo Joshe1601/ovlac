@@ -117,6 +117,7 @@ $(document).ready(function() {
 
     $('#menu_options_toggle').click(function() {
         $('#new_accordion').toggle()
+        // $('#message-selection').hide();
     })
 
 

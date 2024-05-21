@@ -91,28 +91,29 @@
                     <h2 id="message-selection"></h2>
                 </div>
 
-                <div id="wizard_footer">
-                    <div id="steps">
-                        {{ tra("Price") }}: <span id="price_total"></span> €
-                    </div>
-                    <button id="cta_button" class="next_button"
-                            @if (config('app.custom_submit', false)) onclick="submit_form(true)"
-                            @else onclick="submit_form(false)"
-                        @endif>
-                        <div class="next_button_inner">
-                            <div id="finish_button">{{ tra("Finish") }}</div>
-                            <span class="">
-                                <svg role="img" width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
-                                     fill="currentColor">
-                                    <path d="m15.99 5.377-.887.99a80.64 80.64 0 0 1 4.782 4.635H1.991v1.33h17.877a88.117 88.117 0 0 1-4.764 4.583l.886.99c.06-.054 6-5.386 6-6.239 0-.876-5.94-6.235-6-6.289z"></path>
-                                </svg>
-                            </span>
-                        </div>
-                    </button>
-                    <form method="POST" enctype="multipart/form-data" action="save.php" id="myForm">
-                        <input type="hidden" name="img_val" id="img_val" value="" />
-                    </form>
-                </div>
+{{--                <div id="wizard_footer">--}}
+{{--                    <div id="steps">--}}
+{{--                        {{ tra("Price") }}: <span id="price_total"></span> €--}}
+{{--                    </div>--}}
+{{--                    <button id="cta_button" class="next_button"--}}
+{{--                            @if (config('app.custom_submit', false)) onclick="submit_form(true)"--}}
+{{--                            @else onclick="submit_form(false)"--}}
+{{--                        @endif>--}}
+{{--                        <div class="next_button_inner">--}}
+{{--                            <div id="finish_button">{{ tra("Finish") }}</div>--}}
+{{--                            <span class="">--}}
+{{--                                <svg role="img" width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"--}}
+{{--                                     fill="currentColor">--}}
+{{--                                    <path d="m15.99 5.377-.887.99a80.64 80.64 0 0 1 4.782 4.635H1.991v1.33h17.877a88.117 88.117 0 0 1-4.764 4.583l.886.99c.06-.054 6-5.386 6-6.239 0-.876-5.94-6.235-6-6.289z"></path>--}}
+{{--                                </svg>--}}
+{{--                            </span>--}}
+{{--                        </div>--}}
+{{--                    </button>--}}
+{{--                    <form method="POST" enctype="multipart/form-data" action="save.php" id="myForm">--}}
+{{--                        <input type="hidden" name="img_val" id="img_val" value="" />--}}
+{{--                    </form>--}}
+{{--                </div>--}}
+
             </div>
         </div>
 
