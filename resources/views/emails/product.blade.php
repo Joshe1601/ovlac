@@ -171,7 +171,7 @@
     <tbody>
     <tr>
         <td>{{ $product->title }}</td>
-        <td>${{ $product->price }}</td>
+        <td>{{ $product->price }} €</td>
     </tr>
     @foreach ($models_array as $modelId)
         @php
@@ -180,7 +180,7 @@
         @if ($productPart)
             <tr>
                 <td>{{ $productPart->title }}</td>
-                <td>${{ $productPart->price }}</td>
+                <td>{{ $productPart->price }} €</td>
             </tr>
         @else
             <tr>

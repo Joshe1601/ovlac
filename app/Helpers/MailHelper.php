@@ -41,10 +41,11 @@ class MailHelper
             //$mail->addAttachment('images/' .$imgName. '.' .$fileType);        //Add attachments
 
             //Content
-            $mail->isHTML(true);                                        //Set email format to HTML
-            $mail->Subject = $mailSubject;  //. $imgName;
+            $mail->isHTML(true);//Set email format to HTML
+            $mail->CharSet = 'UTF-8';
+            $mail->Subject = htmlspecialchars($mailSubject);  //. $imgName;
             $mail->Body    = $mailBody;
-            $mail->AltBody = 'Muchas gracias por confiar en nosotros';
+            $mail->AltBody = htmlspecialchars('Muchas gracias por confiar en nosotros');
 
             $mail->send();
            // echo 'Message has been sent<br>';
@@ -55,9 +56,7 @@ class MailHelper
 
     }
     public static function sendTextMail($mailTo, $mailName, $mailSubject, $mailBody) {
-        //dd('Llegamos al helper ahora');
        MailHelper::sendMailSMTP($mailTo, $mailName, $mailSubject, $mailBody);
-        //MailHelper::sendFileMail($mailTo, $mailName, $mailSubject, $mailBody, $fileName);
     }
 
 

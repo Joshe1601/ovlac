@@ -71,7 +71,9 @@ function sendMailSMTP($mailTo, $mailName, $mailSubject, $body) {
         //$mail->addAttachment('images/' .$imgName. '.' .$fileType);        //Add attachments
 
         //Content
-        $mail->isHTML(true);                                        //Set email format to HTML
+        $mail->isHTML(true);//Set email format to HTML
+        $mail->CharSet = 'UTF-8';
+
         $mail->Subject = $mailSubject;  //. $imgName;
         $mail->Body    = $body;
         $mail->AltBody = 'Muchas gracias por confiar en nosotros';
