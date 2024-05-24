@@ -143,6 +143,8 @@
                 <img
                     src="{{ relative_path() }}/public/images/ovlac/mail.png"
                     style="width:64px"
+                    onclick="send_email(false)"
+
                     alt="">
             </div>
             <div class="icon-vista">
@@ -182,8 +184,11 @@
                 <input type="text" class="form-control bg-gray-input" id="inputEmail" name="inputEmail" required>
             </div>
         </div>
-
-        <button type="submit" class="popup-send-button">{{ tra('Send') }}</button>
+        <!-- HIDDEN ATTRIBUTRES -->
+        <input type="hidden" id="input_product_id" name="input_product_id" value="{{ $product->id }}">
+        <input type="hidden" id="input_selected_models_id" name="input_selected_models_id" value="">
+        <input type="hidden" id="input_total_price" name="input_total_price" value="">
+        <button type="submit" class="popup-send-button" id="send_email_quote">{{ tra('Send') }}</button>
         <div class="form-group policy-note">
             <input type="checkbox" class="form-check-input popup-checkbox" id="privacyPolicy" name="privatePolicy">
             <label for="privacyPolicy">

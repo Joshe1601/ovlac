@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\MailHelper;
 use App\Models\Product;
 use App\Models\ProductPart;
 use Illuminate\Http\Request;
@@ -334,9 +335,8 @@ class ProductController extends Controller
         return $html;
     }
 
-    public function send_email(Request $request) {
-        //dd('el request de send email', $request);
-
+    public function send_email(Request $request)
+    {
         $this->validate(
             $request, [
                 'inputFullname' => 'required|string',
@@ -345,20 +345,59 @@ class ProductController extends Controller
             ]
         );
 
-        $data = $request->only('inputFullname', 'inputProvince', 'inputEmail');
+        // put the selected models id on an array for get their data later
+        $selected_models_ids = $request->input('input_selected_models_id');
+        $models_array = explode(',', $selected_models_ids);
+        $models_array = array_filter($models_array, function($value){
+            return $value !== '';
+        });
+        $models_array = array_map('intval', $models_array); // models selected ids [title, price]
+        // get the product id
+        $hidden_product_id = $request->input('input_product_id'); // product [title, price]
+        $product_id = intval($hidden_product_id);
+        // get the total price amount
+        $total_price = $request->input('input_total_price');
 
-//        Mail::send([], [], function($message) use ($data) {
-//            $message->to($data['inputEmail'])
-//                    ->subject('Test Email')
-//                    ->setBody('Hi, this is a email from config 3d');
-//        });
 
-        $to = $data['inputEmail'];
-        $subject = 'This is subject';
-        $message = 'This is body of email';
-        $from = "From: FirstName LastName <SomeEmailAddress@Domain.com>";
-        mail($to,$subject,$message,$from);
+        $fullName = $request->input('inputFullname');
+        $province = $request->input('inputProvince');
+        $email = $request->input('inputEmail');
+
+
+        // Data for sending on the email
+        $product = Product::findOrFail($product_id);
+
+        // Body - Presupuesto
+        $mail_body = view('emails.product', compact('product', 'models_array', 'total_price'))->render();
+
+        // Titulo email
+        $mail_subject = "Presupuesto: " . $product->title;
+        try {
+            MailHelper::sendTextMail($email, $fullName,
+                $mail_subject, $mail_body);
+        } catch (\Exception $e) {
+            dd('Mail Error', $e);
+            echo 'Excepción capturada: ', $e->getMessage(), "\n";
+        }
+
+
+        // REDIRECCION TO SHOW PRODUCT - is loading again the product-show -> front.blade.php
+        $data = [];
+        $data['magnify'] = 1;
+        $data['empty_part'] = new ProductPart();
+        $product = Product::findOrFail($product_id);
+        $data['product'] = $product;
+        $data['cam_debug'] = false;
+        $data['variable_parts'] = ProductPart::tree()
+            ->where('product_id', $product_id)
+            ->where('fixed', 0);
+
+        $html = View::make('front', $data)->render();
+        return $html;
     }
+
+
+
 
 
 //    public function save_image(Request $request) {

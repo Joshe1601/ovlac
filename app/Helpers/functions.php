@@ -48,7 +48,7 @@ function base64_to_jpeg($base64_string, $output_file, $fileType)
 
 }
 
-function sendMailSMTP($mailTo, $mailName, $mailSubject) {
+function sendMailSMTP($mailTo, $mailName, $mailSubject, $body) {
     $mail = new PHPMailer(true);
 
     try {
@@ -64,7 +64,7 @@ function sendMailSMTP($mailTo, $mailName, $mailSubject) {
         $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
         //Recipients
-        $mail->setFrom('no-reply@remexperience.com', $mailSubject);
+        $mail->setFrom('no-reply@remexperience.com', 'Presupuesto');
         $mail->addAddress($mailTo, $mailName);                      //Add a recipient
 
         //Attachment
@@ -73,7 +73,7 @@ function sendMailSMTP($mailTo, $mailName, $mailSubject) {
         //Content
         $mail->isHTML(true);                                        //Set email format to HTML
         $mail->Subject = $mailSubject;  //. $imgName;
-        $mail->Body    = 'Hola esto es una prueba de presupuesto por mail';
+        $mail->Body    = $body;
         $mail->AltBody = 'Muchas gracias por confiar en nosotros';
 
         $mail->send();

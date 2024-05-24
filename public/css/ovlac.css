@@ -1,5 +1,10 @@
+/*Red -> #D04240*/
+/*Black -> #000000*/
+/*Dark Gray -> #5A5A5A*/
+/*Light Gray -> #999998*/
+
 .bg-red-ovlac {
-    background-color: #e52b38;
+    background-color: #D04240;
 }
 
 /* Hide radio buttons */
@@ -40,7 +45,7 @@
 }
 
 .ovlac-button {
-    background-color: #e52b38;
+    background-color: #D04240;
     color: #fff;
     margin: 2px auto;
     padding: 8px 20px;
@@ -89,7 +94,7 @@
 }
 
 .form-control:hover {
-    border-color: #e52b38;
+    border-color: #D04240;
 }
 
 .delete-image {
@@ -115,7 +120,7 @@ hr {
 }
 
 .part-button {
-    background-color: #e52b38;
+    background-color: #D04240;
     color: #fff;
     margin: 2px auto;
     padding: 8px 20px;
@@ -170,7 +175,7 @@ hr {
 
 .public-list-button img:hover {
     opacity: 70%;
-    border: 3px solid #e52b38;
+    border: 3px solid #D04240;
 }
 
 /* Wizard Menu - Menu Visor 3D */
@@ -236,7 +241,7 @@ img.banner-logo-visor {
 }
 
 img.selected {
-    border: 2px solid #e52b38;
+    border: 2px solid #D04240;
 }
 
 .display_none {
@@ -299,7 +304,7 @@ img.selected {
 
 
 .red-first-letter {
-    color: #e52b38;
+    color: #D04240;
 }
 
 .boton_opciones {
@@ -322,7 +327,7 @@ img.selected {
 }
 
 #new_accordion.active {
-    background-color: #e52b38;
+    background-color: #D04240;
 }
 
 .visor-header {
@@ -334,7 +339,7 @@ img.selected {
 }
 
 .visor-link {
-    color: #e52b38;
+    color: #D04240;
     opacity: 1;
 }
 
@@ -429,7 +434,7 @@ img.selected {
 }
 
 .overlay:hover {
-    background-color: #e52b38;
+    background-color: #D04240;
 }
 
 .info-icon {
@@ -467,7 +472,7 @@ img.selected {
 }
 
 .detail-panel-title {
-    background-color: #e52b38;
+    background-color: #D04240;
     font-size: 22px;
     color: white;
     margin: 0 auto;
@@ -567,7 +572,7 @@ img.selected {
     display: flex;
     justify-content: center;
     width: 30%;
-    background-color: #e52b38;
+    background-color: #D04240;
     color: #fff;
     margin: 10px auto;
     margin-top: 40px;

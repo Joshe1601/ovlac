@@ -44,7 +44,7 @@
     <div class="d-flex flex-column flex-md-row align-items-center p-2 px-md-4 mb-2 bg-red-ovlac">
         <h5 class="my-0 mr-md-auto font-weight-small">
             <a href="#" class="flex items-center space-x-3 rtl:space-x-reverse">
-                <img src="{{ relative_path() }}/public/images/ovlac/logo_ovlac_fondo_rojo.jpg" alt="Ovlac Logo" class="h-10"/>
+                <img src="{{ relative_path() }}/public/images/ovlac/Logo.png" alt="Ovlac Logo" class="h-10" style="width: 200px"/>
             </a>
         </h5>
         <nav class="my-2 my-md-0 mr-md-3">

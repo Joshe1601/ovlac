@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>{{ tra('Invoice') }}</title>
+		<title>{{ tra('Budget') }}</title>
         <style>
             * {
                 border: 0;

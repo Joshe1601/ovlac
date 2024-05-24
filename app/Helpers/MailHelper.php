@@ -15,13 +15,10 @@ require_once base_path('app/Helpers/lib/mail/PHPMailer.php');
 require_once base_path('app/Helpers/lib/mail/SMTP.php');
 
 
-
-
-
 class MailHelper
 {
 
-    public static function sendMailSMTP($mailTo, $mailName, $mailSubject) {
+    public static function sendMailSMTP($mailTo, $mailName, $mailSubject, $mailBody) {
         $mail = new PHPMailer(true);
 
         try {
@@ -46,7 +43,7 @@ class MailHelper
             //Content
             $mail->isHTML(true);                                        //Set email format to HTML
             $mail->Subject = $mailSubject;  //. $imgName;
-            $mail->Body    = 'Hola esto es una prueba de presupuesto por mail';
+            $mail->Body    = $mailBody;
             $mail->AltBody = 'Muchas gracias por confiar en nosotros';
 
             $mail->send();
@@ -57,10 +54,10 @@ class MailHelper
         }
 
     }
-    public static function sendTextMail($mailTo, $mailName, $mailSubject, $mailBody = null, $fileName = null) {
+    public static function sendTextMail($mailTo, $mailName, $mailSubject, $mailBody) {
         //dd('Llegamos al helper ahora');
-      // MailHelper::sendMailSMTP($mailTo, $mailName, $mailSubject);
-        MailHelper::sendFileMail($mailTo, $mailName, $mailSubject, $mailBody, $fileName);
+       MailHelper::sendMailSMTP($mailTo, $mailName, $mailSubject, $mailBody);
+        //MailHelper::sendFileMail($mailTo, $mailName, $mailSubject, $mailBody, $fileName);
     }
 
 
