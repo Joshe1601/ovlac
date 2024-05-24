@@ -134,16 +134,19 @@
         @page { margin: 0; }
 
         .footer {
-            position: absolute;
+            position: relative;
+            overflow: auto;
             background-color: #D04240;
             bottom:0;
-            width: 87%;
+            left:0;
+            width: 100%;
+            max-width:800px;
             text-align: center;
             padding: 20px 10px;
             color: white;
             font-size: 14px;
-            margin: 0 auto;
-            margin-right: 40px;
+            margin: 600px auto;
+
             border-top-left-radius: 0.25em;
             border-top-right-radius: 0.25em;
 
