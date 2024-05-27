@@ -98,7 +98,7 @@
 }
 
 .delete-image {
-    background-color: #999998;
+    background-color: #FFFFFF;
     color: #000;
     margin: 6px auto;
     padding: 8px 10px;
@@ -108,7 +108,7 @@
 }
 
 .delete-image:hover {
-    background-color: #5A5A5A;
+    background-color: #999998;
 }
 
 
