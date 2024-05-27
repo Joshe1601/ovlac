@@ -513,7 +513,7 @@ img.selected {
 }
 
 .icon-vista:hover {
-    background-color: #c7c7c7;
+    background-color: #999998;
     border-radius: 50%;
     min-width: 32px;
 }
