@@ -10,7 +10,7 @@
         <div class="row mx-auto text-center m-5">
             <div>
                 <h1 class="col-md-12 mx-auto">
-                    <img src="{{ relative_path() }}/public/images/ovlac/logo.png" alt="Ovlac Logo" class="" style="max-width: 400px"/>
+                    <img src="{{ relative_path() }}/public/images/ovlac/Logo.png" alt="Ovlac Logo" class="" style="max-width: 400px"/>
                 </h1>
             </div>
         </div>
