@@ -1,6 +1,7 @@
-@if(isset($api_token))
-    @extends('layouts.public_main', ['api_token' => $api_token, 'is_admin' => $is_admin])
-@endif
+{{--@if(isset($api_token))--}}
+{{--@extends('layouts.public_main', ['api_token' => $api_token, 'is_admin' => $is_admin])--}}
+@extends('layouts.public_main')
+{{--@endif--}}
 
 @section('content')
 <div class="container">
@@ -46,14 +47,14 @@
 </div>
 
 
-<div class="absolute fixed-bottom">
-    <a
-        href="{{ controller_path() }}{{ controller_sep() }}md=auth&action=logout"
-        type="button"
-        class="py-2 px-3 text-white bg-red-ovlac px-4 hover:bg-red-700 hover:rounded-xl fs-4 logout-button"
+{{--<div class="absolute fixed-bottom">--}}
+{{--    <a--}}
+{{--        href="{{ controller_path() }}{{ controller_sep() }}md=auth&action=logout"--}}
+{{--        type="button"--}}
+{{--        class="py-2 px-3 text-white bg-red-ovlac px-4 hover:bg-red-700 hover:rounded-xl fs-4 logout-button"--}}
 
-    >
-        {{ tra("Logout") }}
-    </a>
-</div>
+{{--    >--}}
+{{--        {{ tra("Logout") }}--}}
+{{--    </a>--}}
+{{--</div>--}}
 @endsection

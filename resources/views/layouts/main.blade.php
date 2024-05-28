@@ -80,12 +80,23 @@
             @else
 
                     <a
+                        href="{{ controller_path() }}{{ controller_sep() }}md=product&action=public_list"
+                        type="button"
+                        target="_blank"
+                        class="block py-2 px-3 text-white bg-red-ovlac rounded-xl fs-5"
+                    >
+                        {{ tra("Viewer") }}
+                    </a>
+
+                    <a
                         href="{{ controller_path() }}{{ controller_sep() }}md=auth&action=login"
                         type="button"
                         class="block py-2 px-3 text-white bg-red-ovlac rounded-xl fs-5"
                     >
                         {{ tra("Login") }}
                     </a>
+
+
 
             @endif
         </nav>

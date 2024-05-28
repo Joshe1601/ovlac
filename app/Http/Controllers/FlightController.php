@@ -28,8 +28,8 @@ class FlightController extends Controller
         $action = $request->get('action');
         $id = $request->get('id');
 
-        if (!$action) $action = 'login';
-        if (!$module) $module = 'auth'; // default module product as index
+        if (!$action) $action = 'public_list';
+        if (!$module) $module = 'product'; // default module product as index
 
 
         // add actions: login, register
