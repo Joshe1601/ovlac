@@ -322,9 +322,9 @@ class ProductController extends Controller
         $prod_data["product"] = $product;
 
         // Logo file
-        $logo_path = 'http://127.0.0.1' . relative_path() . '/public/images/ovlac/logo_banner.png';
-        $logo_path_encoded = base64_encode(file_get_contents($logo_path));
-        $prod_data["logo_path"] = $logo_path_encoded;
+//        $logo_path = 'http://127.0.0.1' . relative_path() . '/public/images/ovlac/logo_banner.png';
+//        $logo_path_encoded = base64_encode(file_get_contents($logo_path));
+//        $prod_data["logo_path"] = $logo_path_encoded;
 
         $pdf = Pdf::loadView('pdf', $prod_data);
         $pdf_data = $pdf->output();

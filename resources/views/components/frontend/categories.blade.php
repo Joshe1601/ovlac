@@ -25,7 +25,7 @@
 
             </a>
             <img
-                src="/Configurador3D/public/images/ovlac/toggle_off.png"
+                src="{{ relative_path() }}/public/images/ovlac/toggle_off.png"
                 alt="toggle Image"
                 data-closed-image="panel-{{ $category->id }}"
                 class="toggle"
