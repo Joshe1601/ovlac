@@ -24,12 +24,15 @@
                 {{ $category->title }}
 
             </a>
-            <img
-                src="{{ relative_path() }}/public/images/ovlac/toggle_off.png"
-                alt="toggle Image"
-                data-closed-image="panel-{{ $category->id }}"
-                class="toggle"
-                width="40px">
+            @if($category->product_part_id != null)
+                <img
+                    src="{{ relative_path() }}/public/images/ovlac/toggle_off.png"
+                    alt="toggle Image"
+                    data-closed-image="panel-{{ $category->id }}"
+                    class="toggle"
+                    width="40px">
+            @endif
+
         </div>
 
 
