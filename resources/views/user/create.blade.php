@@ -3,79 +3,70 @@
 @endif
 
 @section('content')
-
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="row">
-                <h1 class="text-center p-4">Create User</h1>
-
-
-                <div class="row">
-                    @if (!empty($_GET['error']))
-                        <div class="col-md-12 alert alert-danger">
-                            {{ $_GET['error'] }}
-                        </div>
-                    @endif
-                </div>
-            </div>
-
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">{{ __('Create User') }}</div>
-
-                    <div class="card-body">
-                        <form method="POST" action="{{ controller_path() }}{{ controller_sep() }}md=user&action={{ $form_action }}&api_token={{ $api_token }}"
-                              aria-label="{{ __('Register') }}">
-
-
-                            <div class="form-group row">
-                                <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('Email') }}</label>
-
-                                <div class="col-md-6">
-                                    <input id="email" type="email" class="form-control' }}"
-                                           name="email" value="" required>
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                                <div class="col-md-6">
-                                    <input id="password" type="password" class="form-control' }}"
-                                           name="password" required>
-                                </div>
-                            </div>
-
-                            <div class="form-check col-md-6 offset-md-4">
-
-                                <input class="form-check-input"
-                                       type="checkbox" value="1"
-                                       id="is_admin" name="is_admin"
-                                />
-                                <label class="form-check-label" for="is_admin">
-                                    Admin
-                                </label>
-                                <br />
-                            </div>
-
-
-
-
-                            <div class="form-group row mb-0">
-                                <div class="col-md-6 offset-md-4">
-                                    <button type="submit" class="btn btn-primary">
-                                        {{ __('Save User') }}
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-
+    <div class="container mx-auto px-4 py-2">
+        <div>
+            <h2 class="flex text-center mx-auto text-6xl px-8 py-4">{{ tra('Create User') }}</h2>
         </div>
-    </div>
 
+        <div class="row">
+            @if (!empty($_GET['error']))
+                <div class="col-md-12 alert alert-danger">
+                    {{ $_GET['error'] }}
+                </div>
+            @endif
+        </div>
+
+        <div class="px-3 py-2 mb-3 ">
+            <div class="mx-auto col-md-8 col-sm-12">
+
+                <form
+                    method="POST"
+                    action="{{ controller_path() }}{{ controller_sep() }}md=user&action={{ $form_action }}&api_token={{ $api_token }}"
+                    aria-label="{{ __('Register') }}"
+                    class="p-3"
+                >
+                    <div class="m-2">
+                        <label for="email"
+                               class="form-label">Email</label>
+                        <input
+                            type="email"
+                            name="email"
+                            id="email"
+                            class="form-control"
+                            placeholder="name@company.com" required>
+                    </div>
+                    <div class="m-2">
+                        <label for="password"
+                               class="form-label"
+                        >Password</label>
+                        <input
+                            type="password"
+                            name="password"
+                            id="password"
+                            placeholder="••••••••"
+                            class="form-control m-1"
+                            required>
+                    </div>
+                    <div class="form-check my-4">
+                        <input class="form-check-input"
+                               type="checkbox" value="1"
+                               id="is_admin" name="is_admin"
+                        />
+                        <label class="form-check-label " for="is_admin">
+                            Admin
+                        </label>
+                    </div>
+                    <button
+                        type="submit"
+                        class="ovlac-button my-4">
+                        {{ tra('Save User') }}
+                    </button>
+                </form>
+
+            </div>
+        </div>
+
+    </div>
 
 @endsection
 

@@ -24,29 +24,29 @@
                         <h1 class="modal-title fs-5" id="{{ $target }}">{{ tra("Create new part") }}:</h1>
                     @endif
 
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                        <input id="product_id" name="product_id" type="hidden" value="{{ $product->id }}">
-                        <input id="variable" name="variable" type="hidden" value="{{ $variable }}">
-                        @if($variable == 1)
-                            <input id="fixed" name="fixed" type="hidden" value="0">
-                        @else
-                            <input id="fixed" name="fixed" type="hidden" value="1">
-                        @endif
-                        <div class="pb-4">
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label for="productname">{{ tra("Part Name") }}</label>
-                                        <input id="title" name="title" type="text" class="form-control" value="{{ $product_part->title }}">
-                                    </div>
-                                    @if($variable == 1)
+                    <input id="product_id" name="product_id" type="hidden" value="{{ $product->id }}">
+                    <input id="variable" name="variable" type="hidden" value="{{ $variable }}">
+                    @if($variable == 1)
+                        <input id="fixed" name="fixed" type="hidden" value="0">
+                    @else
+                        <input id="fixed" name="fixed" type="hidden" value="1">
+                    @endif
+                    <div class="pb-4">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="productname">{{ tra("Part Name") }}</label>
+                                    <input id="title" name="title" type="text" class="form-control" value="{{ $product_part->title }}">
+                                </div>
+                                @if($variable == 1)
                                     <div class="form-group">
                                         <label for="price">{{ tra("Part Base Price") }}</label>
                                         <input id="price" name="price" type="text" class="form-control" value="{{ $product_part->price }}">
                                     </div>
-                                    @else
+                                @else
                                     <div class="form-group">
                                         <label>{{ tra("Upload Part Model (.zip)") }}</label> <br>
                                         <div>{{ $product_part->model }}</div> <br>
@@ -65,19 +65,19 @@
                                             </div>
                                         </div>
                                     </div>
-                                    @endif
-                                </div>
+                                @endif
+                            </div>
 
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label for="productdesc">{{ tra("Part Description") }}</label>
-                                        <textarea name="description" class="form-control" id="productdesc" rows="5">{{ $product_part->description }}</textarea>
-                                    </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="productdesc">{{ tra("Part Description") }}</label>
+                                    <textarea name="description" class="form-control" id="productdesc" rows="5">{{ $product_part->description }}</textarea>
                                 </div>
                             </div>
                         </div>
+                    </div>
 
-                        @if($variable == 1 && $product_part->id)
+                    @if($variable == 1 && $product_part->id)
                         <div class="vars_form">
                             <h1 class="text-start modal-title fs-5 pb-2 pt-8" style="float: left">{{ tra("Part Variations") }}:</h1>
                             <div class="text-end mb-4">
@@ -101,18 +101,20 @@
 
                             </div>
                         </div>
-                        @endif
+                    @endif
 
                 </div>
                 <div class="modal-footer mt-4">
-                @if($product_part->id) <button type="submit" name="submit" value="remove_{{$product_part->id}}"  class="btn btn-danger" data-bs-dismiss="modal">Remove part</button>@endif
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ tra("Close") }}</button>
-                <button type="submit" name="submit" value="save" class="btn btn-primary waves-effect waves-light">{{ tra("Save Changes") }}</button>
-                {{-- <input type="submit" class="btn btn-primary" value="Save changes"></input> --}}
+                    @if($product_part->id) <button type="submit" name="submit" value="remove_{{$product_part->id}}"  class="btn btn-danger" data-bs-dismiss="modal">Remove part</button>@endif
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ tra("Close") }}</button>
+                    <button type="submit" name="submit" value="save" class="btn btn-primary waves-effect waves-light">{{ tra("Save Changes") }}</button>
+                    {{-- <input type="submit" class="btn btn-primary" value="Save changes"></input> --}}
                 </div>
             </div>
         </div>
     </form>
+
+
     <div class="accordion-item new-element" style="display: none;">
         <h2 class="accordion-header">
             <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse_new" aria-expanded="false" aria-controls="collapse_new">

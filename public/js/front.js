@@ -46,7 +46,7 @@ camera.position.x = camera_x;
 camera.position.y = camera_y;
 camera.position.z = camera_z;
 
-camera.position.setLength(10);
+camera.position.setLength(7);
 //camera.scale.x = camera.scale.y = camera.scale.z = 0.1;
 
 const renderer = new THREE.WebGLRenderer({
@@ -313,7 +313,6 @@ function add_model(model_file, model_group, model_color, model_id = null) {
             cloneGLTF.name = model_id;
             scene.add(cloneGLTF);
 
-
             if (model_group !== 'base') {
                 remove_model_group(model_group);
                 if (!modelsrn[model_group]) modelsrn[model_group] = [];
@@ -397,7 +396,7 @@ function remove_model_group(model_group) {
             let models = modelsrn[group];
             for (var key in models) {
                 let model = models[key];
-                console.log("delete: " + model.name + " from group: " + model_group);
+               // console.log("delete: " + model.name + " from group: " + model_group);
                 //scene.remove(scene.getObjectByName(model.name));
                 scene.remove(model);
                 delete modelsrn[group][key];

@@ -88,4 +88,13 @@ class Product extends Model
             //$obj->parts()->delete();
         });
     }
+
+    public function get_red_title() {
+        $title = $this->title;
+        $firstLetter = substr($title, 0, 1);
+        $restOfString = substr($title, 1);
+        return "<span class='red-first-letter'>$firstLetter</span>$restOfString";
+
+    }
+
 }

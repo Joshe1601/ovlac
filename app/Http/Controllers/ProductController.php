@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\MailHelper;
 use App\Models\Product;
 use App\Models\ProductPart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\URL;
@@ -43,6 +45,34 @@ class ProductController extends Controller
             'api_token' => $api_token,
             'is_admin' => $is_admin,
             'is_logged' => $is_logged
+//            'user' => $user
+        ])->render();
+        return $html;
+    }
+
+
+    /**
+     * Display a listing of the resource just for the user
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function public_list(Request $request)
+    {
+        // Auth block
+//        $api_token = $request->api_token;
+//        $is_logged = AuthenticationHelper::isLogged($api_token);
+//        $is_admin = AuthenticationHelper::isAdmin($api_token);
+//         if ($is_logged == null) {
+//            $redirect = "<script>window.location.href = window.location.href.replace('action=public_list', 'action=login').replace('md=product', 'md=auth').concat('&error=You need admin permission.');</script>";
+//            return $redirect;
+//        }
+
+        $products = Product::all();
+        $html = View::make(self::$model_tag . '.public_list', [
+            'products' => $products,
+//            'api_token' => $api_token,
+//            'is_admin' => $is_admin,
+//            'is_logged' => $is_logged
 //            'user' => $user
         ])->render();
         return $html;
@@ -291,13 +321,83 @@ class ProductController extends Controller
         $product = Product::find($prod_data['product_id']);
         $prod_data["product"] = $product;
 
+        // Logo file
+//        $logo_path = 'http://127.0.0.1' . relative_path() . '/public/images/ovlac/logo_banner.png';
+//        $logo_path_encoded = base64_encode(file_get_contents($logo_path));
+//        $prod_data["logo_path"] = $logo_path_encoded;
+
         $pdf = Pdf::loadView('pdf', $prod_data);
         $pdf_data = $pdf->output();
 
         $view_data['pdf_data'] = $pdf_data;
+
         $html = View::make('file_download', $view_data)->render();
         return $html;
     }
+
+    public function send_email(Request $request)
+    {
+        $this->validate(
+            $request, [
+                'inputFullname' => 'required|string',
+                'inputProvince' => 'required|string',
+                'inputEmail' => 'required|email'
+            ]
+        );
+
+        // put the selected models id on an array for get their data later
+        $selected_models_ids = $request->input('input_selected_models_id');
+        $models_array = explode(',', $selected_models_ids);
+        $models_array = array_filter($models_array, function($value){
+            return $value !== '';
+        });
+        $models_array = array_map('intval', $models_array); // models selected ids [title, price]
+        // get the product id
+        $hidden_product_id = $request->input('input_product_id'); // product [title, price]
+        $product_id = intval($hidden_product_id);
+        // get the total price amount
+        $total_price = $request->input('input_total_price');
+
+
+        $fullName = $request->input('inputFullname');
+        $province = $request->input('inputProvince');
+        $email = $request->input('inputEmail');
+
+
+        // Data for sending on the email
+        $product = Product::findOrFail($product_id);
+
+        // Body - Presupuesto
+        $mail_body = view('emails.product', compact('product', 'models_array', 'total_price'))->render();
+
+        // Titulo email
+        $mail_subject = "Presupuesto: " . $product->title;
+        try {
+            MailHelper::sendTextMail($email, $fullName,
+                $mail_subject, $mail_body);
+        } catch (\Exception $e) {
+            dd('Mail Error', $e);
+            echo 'Excepción capturada: ', $e->getMessage(), "\n";
+        }
+
+
+        // REDIRECCION TO SHOW PRODUCT - is loading again the product-show -> front.blade.php
+        $data = [];
+        $data['magnify'] = 1;
+        $data['empty_part'] = new ProductPart();
+        $product = Product::findOrFail($product_id);
+        $data['product'] = $product;
+        $data['cam_debug'] = false;
+        $data['variable_parts'] = ProductPart::tree()
+            ->where('product_id', $product_id)
+            ->where('fixed', 0);
+
+        $html = View::make('front', $data)->render();
+        return $html;
+    }
+
+
+
 
 
 //    public function save_image(Request $request) {

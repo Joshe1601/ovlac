@@ -1,0 +1,611 @@
+/*Red -> #D04240*/
+/*Black -> #000000*/
+/*Dark Gray -> #5A5A5A*/
+/*Light Gray -> #999998*/
+
+.bg-red-ovlac {
+    background-color: #D04240;
+}
+
+/* Hide radio buttons */
+.accordion-radio {
+    display: none;
+}
+
+/* Style for labels */
+.accordion-label {
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* Style for checked labels */
+.accordion-radio:checked + .accordion-label {
+    /*background-color: #f9fafb; */
+    background-color: black;
+}
+
+/* Style for content */
+.accordion-content {
+    display: none;
+    /*background-color: #f9fafb; !* Light gray *!*/
+    background-color: black;
+}
+
+/* Show content when radio button is checked */
+.accordion-radio:checked + .accordion-label + .accordion-content {
+    display: block;
+}
+
+.login-logo {
+    padding: 10px 30px;
+    margin: 0 auto;
+}
+
+.login-logo-img {
+    max-width: 40%;
+}
+
+.ovlac-button {
+    background-color: #D04240;
+    color: #fff;
+    margin: 2px auto;
+    padding: 8px 20px;
+    border: none;
+    border-radius: 0.75rem;
+    width: 100%;
+}
+
+.delete-button {
+    background-color: #999998;
+    color: #000;
+    margin: 2px auto;
+    padding: 8px 20px;
+    border: none;
+    border-radius: 0.75rem;
+    width: 100%;
+}
+
+.cancel-button {
+    background-color: #999998;
+    color: #000;
+    margin: 2px auto;
+    padding: 8px 20px;
+    border: none;
+    border-radius: 0.75rem;
+    width: 100%;
+}
+
+.cancel-button:hover {
+    background-color: #5A5A5A;
+    color: #fff;
+}
+
+.ovlac-button:hover, .part-button:hover, .logout-button:hover {
+    background-color: rgb(153 27 27);
+    color: #fff;
+}
+
+.rounded-xl {
+    border-radius: 0.75rem;
+}
+
+.login-input {
+    border-radius:  0.75rem;
+
+}
+
+.form-control:hover {
+    border-color: #D04240;
+}
+
+.delete-image {
+    background-color: #FFFFFF;
+    color: #000;
+    margin: 6px auto;
+    padding: 8px 10px;
+    border: none;
+    border-radius: 0.75rem;
+    width: 12%;
+}
+
+.delete-image:hover {
+    background-color: #999998;
+}
+
+
+hr {
+    margin-top: 1rem;
+    margin-bottom: 1.5rem;
+    border: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.part-button {
+    background-color: #D04240;
+    color: #fff;
+    margin: 2px auto;
+    padding: 8px 20px;
+    border: none;
+    border-radius: 0.75rem;
+    max-width: 20%;
+}
+
+.footer {
+    min-height: 60px;
+}
+
+.part-icon {
+    display: inline;
+    max-width: 60px;
+}
+
+.part-list-item {
+    background-color: white;
+    border-bottom: 1px solid #F3F4F6;
+}
+
+.part-list-item:hover {
+    background-color: #F3F4F6;
+    border-radius: 2rem;
+    color: #fff;
+}
+
+.text-gear {
+    color: #808080;
+}
+
+.public_main {
+    background-image: url("public/images/ovlac/ovlac_truck_optimized.png");
+    background-size: cover;
+    background-position: top center;
+    background-repeat: no-repeat;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+
+}
+
+.public-list-button {
+}
+
+.public-list-button img {
+    width: 100%;
+    height: 100%;
+    border-radius: 1rem;
+}
+
+.public-list-button img:hover {
+    opacity: 70%;
+    border: 3px solid #D04240;
+}
+
+/* Wizard Menu - Menu Visor 3D */
+.wizard-menu {
+    min-width: 500px;
+    display: inline-block;
+    height: 100vh;
+    /*overflow: hidden;*/
+}
+
+.wizard {
+    max-width: 500px;
+    min-height: 100%;
+}
+
+
+img.banner-logo-visor {
+    max-width: 100px;
+    height: auto;
+}
+
+.collapse {
+    padding: 0px;
+    border: none;
+}
+
+
+/* Card 3D menu */
+
+.card-menu:last-child {
+    border-bottom: 0px;
+    box-shadow: none;
+}
+
+
+
+.card-menu:first-child {
+    margin-top: 0 !important;
+}
+
+#main .card-menu {
+    border-bottom: none;
+    padding: 0px;
+}
+
+
+/* Handling selected 3d model on menu in viewer */
+
+.hidden-radio {
+    display: none;
+}
+
+.radio-image {
+    cursor: pointer;
+    margin: 2px;
+    padding: 2px;
+    font-style: italic;
+    font-size: 1.3rem;
+}
+
+.lastNode:hover {
+    background-color: white;
+}
+
+img.selected {
+    border: 2px solid #D04240;
+}
+
+.display_none {
+    display: none;
+}
+
+.item-selected {
+    max-width: 120px;
+    /*display: grid;*/
+}
+
+/*.card-body img {*/
+/*    display: flex;*/
+/*    flex-direction: row;*/
+/*    max-width: 150px;*/
+/*}*/
+
+.card-body .lastNode {
+    max-width: 35%;
+    display: grid;
+    grid-template-columns: auto auto auto;
+    position: relative;
+}
+
+/* Gray for background */
+.background-gray {
+    background-color: #d2d2d2;
+}
+
+
+/* Menu visor 3D */
+
+.menu-visor {
+    margin: 20px;
+    margin-left: 50px;
+    /*height: 80px;*/
+    display: inline-block;
+    color: black;
+    width: 400px;
+    border: 1px solid white;
+    padding: 10px;
+    border-radius: 5px;
+    position: relative;
+    background-color: #fff;
+}
+
+.menu-visor::before{
+    content:"";
+    position: absolute;
+    top:-8px;
+    left:20px;
+    margin:auto;
+    height: 20px;
+    width: 20px;
+    border:1px solid #fff;
+    transform:rotate(130deg);
+    background-color: #fff;
+}
+
+
+
+.red-first-letter {
+    color: #D04240;
+}
+
+.boton_opciones {
+    max-width: 70px;
+    margin: 8px auto;
+
+}
+
+.boton_opciones:hover {
+    border-radius: 50%;
+    padding: 2px;
+    background-color: #999998;
+}
+
+#accordion, #new_accordion {
+    display: none;
+    overflow: visible;
+    padding: 10px 8px;
+    border-radius: 0.4rem;
+}
+
+#new_accordion.active {
+    background-color: #D04240;
+}
+
+.visor-header {
+    opacity: 1;
+    padding: 6px;
+    border-bottom: 1px #111111 dotted;
+    font-size: 1.5rem;
+    font-weight: bolder;
+}
+
+.visor-link {
+    color: #D04240;
+    opacity: 1;
+}
+
+.visor-link:hover {
+    color: black;
+    text-decoration-line: none;
+}
+
+.visor-menu {
+    padding:0 8px;
+    /*background-color: blue;*/
+}
+
+.visor-body {
+    /*background-color: red;*/
+}
+
+.visor-title {
+    font-size: 2rem;
+    font-style: italic;
+    font-weight: bold;
+}
+
+.visor-description {
+    font-size: 1.7rem;
+    font-style: italic;
+}
+
+
+.toggle {
+    position: absolute;
+    margin-top: 10px;
+    right: 10px;
+    margin-right: 5px;
+    /*background: center / contain no-repeat url("public/images/ovlac/toggle_on.png");*/
+    max-width: 40px;
+    margin-left: 40%;
+}
+
+
+
+#new_accordion {
+    margin-top: 20px;
+}
+
+[data-accordion-button] {
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 24px;
+}
+
+[data-accordion-content] {
+    display: none;
+}
+
+/* Style for accordion button images */
+.accordion-button img {
+    max-width: 20px; /* Adjust as needed */
+    height: 20px; /* Adjust as needed */
+}
+
+
+/* image container on 3d viewer */
+.radio-image-container {
+    position: relative;
+    width: 200px;
+    border-radius: 30%;
+    margin: 3px auto;
+
+}
+
+.selected {
+    /*border: solid 2px red;*/
+}
+
+.radio-image-container:hover {
+
+
+}
+
+.overlay {
+    position: absolute;
+    bottom:0px;
+    left:0px;
+    width:100%;
+    background-color: #B8B8B8;
+    color: white;
+    text-align: center;
+    padding: 1px 5px;
+    font-size: 12px;
+    border-radius: 0 0 8px 8px ;
+}
+
+.overlay:hover {
+    background-color: #D04240;
+}
+
+.info-icon {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 20px;
+    height: 20px;
+    background-image: url("public/images/ovlac/info.png");
+    background-size: cover;
+}
+
+.info-icon:hover {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 20px;
+    height: 20px;
+    background-image: url("public/images/ovlac/info_selected.png");
+    background-size: cover;
+}
+
+/* Part detail panel info */
+.detail-panel {
+    font-family: Corbel;
+    position: fixed;
+    top: 283px;
+    left: 453px;
+    width: 260px;
+    background: white;
+    margin: 4px;
+    z-index: 9999;
+    border-radius: 0.4rem;
+    display: none;
+}
+
+.detail-panel-title {
+    background-color: #D04240;
+    font-size: 22px;
+    color: white;
+    margin: 0 auto;
+    border-radius: 0.4rem 0.4rem 0 0;
+}
+
+.detail-panel-close {
+    position:absolute;
+    right: 7px;
+    top: 0px;
+    cursor: pointer;
+}
+
+.detail-panel-image {
+    width:240px;
+}
+
+.detail-panel-description {
+    color: #999998;
+    font-size: 18px;
+    padding: 14px 20px;
+    padding-bottom: 22px;
+
+}
+
+/* Extra icons */
+.extra-icons {
+    position: fixed;
+    top: 40px;
+    right: 100px;
+}
+
+.icon-vista {
+    background-image: url("public/images/ovlac/vista.png");
+    /*width: 32px;*/
+    z-index: 99999;
+    margin-top:4px;
+}
+
+.icon-vista:hover {
+    background-color: #999998;
+    border-radius: 50%;
+    min-width: 32px;
+}
+
+/* Popup for email the report */
+.popup {
+    display: none;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 0.8em;
+    z-index: 999999;
+    background-color: white;
+    padding: 30px 50px;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+    width: 600px;
+}
+
+.popup-header {
+    /*display: flex;*/
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 auto;
+    color: #999998;
+    font-weight: normal;
+}
+
+.popup-title {
+    font-family: Corbel;
+    padding-top: 10px;
+    text-align: center;
+    font-size: 26px;
+}
+
+.popup-form {
+    margin-top: 30px;
+    color: grey;
+    font-size: 14px;
+    margin-bottom: 0;
+}
+
+.bg-gray-input {
+    background-color: #e5e5e5;
+}
+
+.close-btn {
+    cursor: pointer;
+    position: fixed;
+    top: 20px;
+    right: 30px;
+    font-size: 20px;
+}
+
+.popup-send-button {
+    display: flex;
+    justify-content: center;
+    width: 30%;
+    background-color: #D04240;
+    color: #fff;
+    margin: 10px auto;
+    margin-top: 40px;
+    border: none;
+    border-radius: 0.4em;
+    padding: 8px 30px;
+    font-size: 20px;
+}
+
+.policy-note {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px auto;
+    margin-top: 30px;
+    padding-left: 20px;
+}
+
+
+.layer {
+    display: none;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999998;
+}
+
+#message-selection {
+    margin: 3px;
+    margin-left: 10px;
+}
+
