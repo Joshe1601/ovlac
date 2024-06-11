@@ -12,6 +12,7 @@
 
 		</style>
 		<link rel="stylesheet" href="{{ relative_path() }}/public/css/front.css" >
+		<link rel="stylesheet" href="{{ relative_path() }}/public/css/stepper.css" >
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 		<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
@@ -43,8 +44,6 @@
         <input type="hidden" id="input_submit_url" name="input_submit_url" value="{{ config('app.submit_url') }}">
         <input type="hidden" id="input_submit_url_default" name="input_submit_url_default" value="{{ controller_path() }}{{ controller_sep() }}md=product&product_id={{$product->id}}&action=submit_form"">
     </form>
-
-
 
     <div id="main" class="visor3d d-flex flex-row background-gray">
 
@@ -87,32 +86,9 @@
                     <x-frontend.categories :categories="$variable_parts" :collapsed="false" />
                 </div>
 
-                <div >
+                <div>
                     <h2 id="message-selection"></h2>
                 </div>
-
-{{--                <div id="wizard_footer">--}}
-{{--                    <div id="steps">--}}
-{{--                        {{ tra("Price") }}: <span id="price_total"></span> €--}}
-{{--                    </div>--}}
-{{--                    <button id="cta_button" class="next_button"--}}
-{{--                            @if (config('app.custom_submit', false)) onclick="submit_form(true)"--}}
-{{--                            @else onclick="submit_form(false)"--}}
-{{--                        @endif>--}}
-{{--                        <div class="next_button_inner">--}}
-{{--                            <div id="finish_button">{{ tra("Finish") }}</div>--}}
-{{--                            <span class="">--}}
-{{--                                <svg role="img" width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"--}}
-{{--                                     fill="currentColor">--}}
-{{--                                    <path d="m15.99 5.377-.887.99a80.64 80.64 0 0 1 4.782 4.635H1.991v1.33h17.877a88.117 88.117 0 0 1-4.764 4.583l.886.99c.06-.054 6-5.386 6-6.239 0-.876-5.94-6.235-6-6.289z"></path>--}}
-{{--                                </svg>--}}
-{{--                            </span>--}}
-{{--                        </div>--}}
-{{--                    </button>--}}
-{{--                    <form method="POST" enctype="multipart/form-data" action="save.php" id="myForm">--}}
-{{--                        <input type="hidden" name="img_val" id="img_val" value="" />--}}
-{{--                    </form>--}}
-{{--                </div>--}}
 
             </div>
         </div>
@@ -123,26 +99,26 @@
             <div class="icon-vista">
                 <img
                     src="{{ relative_path() }}/public/images/ovlac/vista.png"
-                    style="width:64px"
+                    style="width:32px"
                     alt="">
             </div>
             <div class="icon-vista">
                 <img
                     src="{{ relative_path() }}/public/images/ovlac/infomenu.png"
-                    style="width:64px"
+                    style="width:32px"
                     alt="">
             </div>
             <div class="icon-vista">
                 <img
                     src="{{ relative_path() }}/public/images/ovlac/descarga.png"
-                    style="width:64px"
+                    style="width:32px"
                     onclick="submit_form(false)"
                     alt="">
             </div>
             <div class="icon-vista" id="openPopup">
                 <img
                     src="{{ relative_path() }}/public/images/ovlac/mail.png"
-                    style="width:64px"
+                    style="width:32px"
                     onclick="send_email(false)"
 
                     alt="">
@@ -150,7 +126,7 @@
             <div class="icon-vista">
                 <img
                     src="{{ relative_path() }}/public/images/ovlac/maximizar.png"
-                    style="width:64px"
+                    style="width:32px"
                     alt="">
             </div>
 
@@ -197,7 +173,28 @@
         </div>
     </form>
 </div>
-
+{{--                <div id="wizard_footer">--}}
+{{--                    <div id="steps">--}}
+{{--                        {{ tra("Price") }}: <span id="price_total"></span> €--}}
+{{--                    </div>--}}
+{{--                    <button id="cta_button" class="next_button"--}}
+{{--                            @if (config('app.custom_submit', false)) onclick="submit_form(true)"--}}
+{{--                            @else onclick="submit_form(false)"--}}
+{{--                        @endif>--}}
+{{--                        <div class="next_button_inner">--}}
+{{--                            <div id="finish_button">{{ tra("Finish") }}</div>--}}
+{{--                            <span class="">--}}
+{{--                                <svg role="img" width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"--}}
+{{--                                     fill="currentColor">--}}
+{{--                                    <path d="m15.99 5.377-.887.99a80.64 80.64 0 0 1 4.782 4.635H1.991v1.33h17.877a88.117 88.117 0 0 1-4.764 4.583l.886.99c.06-.054 6-5.386 6-6.239 0-.876-5.94-6.235-6-6.289z"></path>--}}
+{{--                                </svg>--}}
+{{--                            </span>--}}
+{{--                        </div>--}}
+{{--                    </button>--}}
+{{--                    <form method="POST" enctype="multipart/form-data" action="save.php" id="myForm">--}}
+{{--                        <input type="hidden" name="img_val" id="img_val" value="" />--}}
+{{--                    </form>--}}
+{{--                </div>--}}
 <!-- Overlay for the popup -->
 <div id="layer" class="layer"></div>
 
@@ -251,5 +248,7 @@
         </script>
 		<script src="{{ relative_path() }}/public/js/front.js"></script>
 		<script defer src="{{ relative_path() }}/public/js/ui.js"></script>
+        <script src="{{ relative_path() }}/public/js/stepper.js"></script>
+
 {{-- 	</body>
 </html> --}}

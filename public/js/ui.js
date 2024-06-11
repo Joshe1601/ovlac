@@ -12,13 +12,17 @@ const Accordion = function(selector) {
 
         openPanel: function(panel) {
             panel.slideDown()
+            console.log('panel', panel)
             const id = panel[0].id
+            console.log('id', id)
             $(`[data-closed-image="panel-${id}"]`).attr('src', relative_path + '/public/images/ovlac/toggle_on.png');
         },
         closePanel: function(panel) {
             closeAllDetailPanel()
             panel.slideUp()
+            console.log('panel', panel)
             const id = panel[0].id
+            console.log('id', id)
             $(`[data-closed-image="panel-${id}"]`).attr('src', relative_path + '/public/images/ovlac/toggle_off.png');
             panel.prev().find('[data-accordion-icon]').text("+")
             panel.prev().find('[data-closed-image]').attr('src', relative_path + '/public/images/ovlac/toggle_off.png');
@@ -26,11 +30,24 @@ const Accordion = function(selector) {
         },
         togglePanel: function(id) {
             const panel = $(`[data-accordion-content="${id}"]`)
+            const panel_father = $(`[data-accordion-button="${id}"]`)
+
+
             if( panel.is(":hidden") ) {
                 this.closeOtherPanels(id)
                 this.openPanel(panel)
             } else {
+                id = id.substring(6)
+
+                if(panel_father.hasClass('active')) {
+                    $(`[data-closed-image="panel-${id}"]`).attr('src', relative_path + '/public/images/ovlac/toggle_off.png');
+                    panel_father.removeClass('active')
+                } else {
+                    $(`[data-closed-image="panel-${id}"]`).attr('src', relative_path + '/public/images/ovlac/toggle_on.png');
+                    panel_father.addClass('active')
+                }
                 this.closePanel(panel)
+
             }
         },
         closeOtherPanels: function(openedPanel) {

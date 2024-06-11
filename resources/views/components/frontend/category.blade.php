@@ -3,9 +3,13 @@
     if(!isset($categoryId)) {
         dd('algo');
     }
+    if(!isset($counter)) $counter = 0;
 
 @endphp
-
+@php
+    // Increment the counter for the next recursive level
+    $counter++;
+@endphp
 <div
     class="{{ $category->is_last_node == 1 ? 'lastNode ' : '' }}"
 >
@@ -67,9 +71,9 @@
         @endif
     @endif
 </div>
-
-<div>
-    <x-frontend.categories :categories="$category->children" :models="$models"/>
+<span>{{$counter}}</span>
+<div class="{{ $counter == 2 ? 'container container-category-parts' : '' }}">
+    <x-frontend.categories :categories="$category->children" :models="$models" :counter="$counter"/>
 </div>
 
 
