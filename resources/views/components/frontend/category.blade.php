@@ -5,6 +5,16 @@
     }
     if(!isset($counter)) $counter = 0;
 
+    $children = $category->children;
+    $lastChild = $children->last();
+    if($children->count() != 1){
+        $allExceptLast = $children->slice(0, $children->count() - 1);
+    } else {
+        $allExceptLast = $children;
+    }
+
+    $modelFatherId = $category->model_father = 0 ? null : $category->model_father;
+
 @endphp
 @php
     // Increment the counter for the next recursive level
@@ -13,6 +23,8 @@
 <div
     class="{{ $category->is_last_node == 1 ? 'lastNode ' : '' }}"
 >
+{{--    <span>{{$allExceptLast}} </span>--}}
+
     @php
         if ($category->model !== '') {
             $data_model = json_encode(array($category->model, $category->price, $category->color, $category->id));
@@ -23,12 +35,11 @@
     @if ( $category->is_last_node == 1 )
         @if($category->product_part_id != null)
             <div id="{{ $category->product_part_id }}"
-                 class="collapse mx-3"
-                 aria-expanded="{{ $collapsed ? 'false' : 'true' }}"
-                 data-parent="#accordion"
-                 data-accordion-content="panel-{{ $category->product_part_id }}"
+                 class="mx-3"
             >
-                <div class="radio-image-container radio-image">
+                <div class="radio-image-container radio-image" id="{{$category->id}}"
+                     @if($modelFatherId) radio-image-father="{{$modelFatherId }}" @endif
+                >
                     <input
                         type="radio"
                         class="display_none"
@@ -71,9 +82,37 @@
         @endif
     @endif
 </div>
-<span>{{$counter}}</span>
-<div class="{{ $counter == 2 ? 'container container-category-parts' : '' }}">
-    <x-frontend.categories :categories="$category->children" :models="$models" :counter="$counter"/>
-</div>
-
-
+{{--    <span>{{$category->children}} </span>--}}
+{{--<span>{{$counter}} </span>--}}
+@if($counter == 2 && $category->optional !=1)
+    <div class="roller-types">
+        <h5>Tipos de rodillo:</h5>
+        <div class="container container-category-parts">
+            <x-frontend.categories :categories="$allExceptLast" :models="$models" :counter="$counter"/>
+        </div>
+    </div>
+    @if($children->count() != 1)
+        <div>
+            <x-frontend.categories :categories="[$lastChild]" :models="$models" :counter="$counter" :optional="$category->optional"/>
+        </div>
+    @endif
+@elseif($counter == 3 && $optional = 1)
+    <div>
+        <x-frontend.categories :categories="$category->children" :models="$models" :counter="$counter" :optional="$optional"/>
+    </div>
+@elseif($counter == 4 && $optional = 1)
+    <div class="roller-types pb-2">
+        <x-frontend.categories :categories="$category->children" :models="$models" :counter="$counter" :optional="$optional"/>
+    </div>
+@elseif($counter == 4)
+    <div class="roller-types">
+        <h5>Tipos de rodillo:</h5>
+        <div class="container container-category-parts">
+            <x-frontend.categories :categories="$category->children" :models="$models" :counter="$counter"/>
+        </div>
+    </div>
+@else
+    <div>
+        <x-frontend.categories :categories="$category->children" :models="$models" :counter="$counter" :optional="$category->optional"/>
+    </div>
+@endif

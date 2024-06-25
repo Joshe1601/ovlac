@@ -2,8 +2,8 @@
 
 body, #main {
     margin: 0;
-    height: 100vh;
-    font-family: Corbel;
+    /*height: 100vh;*/
+    font-family: Corbel, serif;
     src: url("public/fonts/CORBELL.tff");
 }
 

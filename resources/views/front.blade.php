@@ -51,10 +51,13 @@
         <div class="wizard-menu">
 
             <div style="width:100px: height: auto;">
-                <img src="{{ relative_path() }}/public/images/ovlac/logo_banner.png"
-                     alt="logo banner ovlac"
-                    style="max-width:200px; height: auto;"
-                />
+                <a href="{{ relative_path() }}">
+                    <img src="{{ relative_path() }}/public/images/ovlac/logo_banner.png"
+                         alt="logo banner ovlac"
+                         style="max-width:200px; height: auto;"
+                    />
+                </a>
+
             </div>
 
             <div id="wizard_title_mbl" class="wizard_title">
@@ -96,13 +99,13 @@
         <div id="canvas_3d" class="background-gray"></div>
 
         <div class="extra-icons">
-            <div class="icon-vista">
+            <div class="icon-vista" id="resetAxis">
                 <img
                     src="{{ relative_path() }}/public/images/ovlac/vista.png"
                     style="width:32px"
                     alt="">
             </div>
-            <div class="icon-vista">
+            <div class="icon-vista" id="info-lateral-icon">
                 <img
                     src="{{ relative_path() }}/public/images/ovlac/infomenu.png"
                     style="width:32px"
@@ -123,7 +126,7 @@
 
                     alt="">
             </div>
-            <div class="icon-vista">
+            <div class="icon-vista" id="fullScreen">
                 <img
                     src="{{ relative_path() }}/public/images/ovlac/maximizar.png"
                     style="width:32px"
@@ -173,6 +176,22 @@
         </div>
     </form>
 </div>
+
+<div id="detail-lateral-panel">
+
+    <div class="detail-panel-title text-center">
+        Información del modelo
+        <span id="detail-lateral-panel-close">x</span>
+    </div>
+    <div class="detail-panel-image">
+        <img src="/Configurador3D/storage/app/images/phpBA3A.tmp.png" alt="" style="width:245px;">
+    </div>
+    <div class="detail-panel-description text-center">
+        Combinando las ventajas de cada una de las opciones anteriores, la preparación del suelo y el desmenuzamiento del mismo, mediante el rodillo.
+    </div>
+
+</div>
+
 {{--                <div id="wizard_footer">--}}
 {{--                    <div id="steps">--}}
 {{--                        {{ tra("Price") }}: <span id="price_total"></span> €--}}

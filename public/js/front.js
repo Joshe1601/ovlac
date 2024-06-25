@@ -48,6 +48,9 @@ camera.position.z = camera_z;
 
 camera.position.setLength(7);
 //camera.scale.x = camera.scale.y = camera.scale.z = 0.1;
+const initialCameraPosition = camera.position.clone();
+const initialCameraRotation = camera.rotation.clone();
+
 
 const renderer = new THREE.WebGLRenderer({
     antialias: true,
@@ -95,7 +98,12 @@ controls.screenSpacePanning = false;
 
 
 init();
-
+const resetButton = document.querySelector('#resetAxis');
+resetButton.addEventListener('click', () => {
+    console.log('resetting camera')
+    camera.position.copy(initialCameraPosition);
+    camera.rotation.copy(initialCameraRotation);
+});
 function animate() {}
 
 /* function render() {
