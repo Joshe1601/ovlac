@@ -128,7 +128,6 @@ $(document).ready(function() {
 
     // Send quote pdf by email
     $('#openPopup').click(function () {
-        console.log('selected models', selected_models_collection)
         if(selected_models_collection.length > 0) {
             $('#popup').show();
             $('#layer').show();
@@ -184,7 +183,8 @@ function loadSelectedModels(selectedModels) {
     }
 
     for(const model of models_collection) {
-        add_model(relative_path + model.url, model.group, model.color, model.id)
+        //add_model(relative_path + model.url, model.group, model.color, model.id)
+        add_model_gltf(relative_path + model.url, model.group, model.color, center_group, model.id)
     }
     // update the price for totals
     selected_models_collection = models_collection
