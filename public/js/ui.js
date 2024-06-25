@@ -35,7 +35,37 @@ const Accordion = function(selector) {
             const sub_accessory_father_id = $("#"+id).attr('data-accessory')
             console.log(sub_accessory_father_id)
 
-            if(sub_accessory_father_id !== undefined){
+            if(id.substring(6) === panel_father.attr('model_father')) {
+                console.log("Son iguales")
+
+                let option_selected = document.getElementsByClassName('selected')
+                console.log(option_selected)
+
+                let input_element = option_selected[0].children[0]
+                let input_value_option = input_element.value
+                let input_value_father = panel_father.children().last().attr('value')
+
+                console.log("input_value_option: "+input_value_option)
+                console.log("input_value_father: "+input_value_father)
+
+                if(panel_father.hasClass('active')) {
+                    $(`[data-closed-image="${id}"]`).attr('src', relative_path + '/public/images/ovlac/toggle_off.png');
+                    input_value_option = input_value_option.replace(input_value_father, '');
+                    console.log("input_value_option: "+input_value_option)
+                    input_element.value = input_value_option;
+                    panel_father.removeClass('active');
+                    loadSelectedModels(input_value_option)
+
+                } else {
+                    $(`[data-closed-image="${id}"]`).attr('src', relative_path + '/public/images/ovlac/toggle_on.png');
+                    input_value_option = input_value_option + input_value_father
+                    console.log("input_value_option: "+input_value_option)
+                    input_element.value = input_value_option;
+                    panel_father.addClass('active');
+                    loadSelectedModels(input_value_option)
+
+                }
+            } else if(sub_accessory_father_id !== undefined){
                 const accessory_father = $(`[data-accessory="${sub_accessory_father_id}"]`);
                 $(accessory_father).not(panel_father).each(function() {
                     const otherId = $(this).attr('data-accordion-button');
@@ -96,6 +126,7 @@ const Accordion = function(selector) {
                                 const visor_body = $(`#body-${otherContentId}`)
                                 visor_body.removeClass('show');
                                 accessory.addClass('d-none')
+                                document.getElementById('body-92').classList.remove('show')
 
                             } else{
                                 i++;

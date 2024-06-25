@@ -34,6 +34,10 @@ html.wp-toolbar, #wpbody-content {
     /*font-family: 'Ubuntu', sans-serif;*/
 }
 
+canvas{
+    position: fixed;
+}
+
 #canvas_3d {
     /* height: 100% !important; */
     flex: 1 1 auto;

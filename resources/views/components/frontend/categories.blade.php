@@ -32,7 +32,9 @@ $categoryId = ''
                data-target="#body-{{ $category->id }}"
                aria-controls="body-{{ $category->id }}"
                @if($subAccessoryId) data-accessory="{{ $subAccessoryId }}" @endif
-            >
+               @if($category->id == $category->model_father) model_father="{{$category->model_father}}" @endif
+
+                >
                 {{ $category->title }}
                 @if($category->product_part_id != null && $category->optional != 1)
                     <img
@@ -42,6 +44,19 @@ $categoryId = ''
                         class="toggle"
                         width="40px">
                 @endif
+                @if($category->id == $category->model_father)
+                    @php
+                        $data_model = json_encode(array($category->model, $category->price, $category->color, $category->id));
+                        $models = ':' . $data_model;
+                    @endphp
+                    <input
+                        type="radio"
+                        class="display_none"
+                        name="is_last_node" id="#{{ $category->id }}"
+                        value="{{$models}}"
+
+                        model-group="{{ $category->id }}">
+                @endif
             </a>
 
         </div>
@@ -49,9 +64,12 @@ $categoryId = ''
 
        @endif
     </div>
+    @if($category->id != $category->model_father)
 
     <div class="visor-body {{ $category->is_last_node == 1 ? ' ' : 'collapse' }} {{$counter == 0 ? 'show' : '' }}" id="body-{{$category->id }}" >
         <x-frontend.category :category="$category" :models="$models" :collapsed="false" :categoryId="$categoryId" :counter="$counter" :optional="$optional"/>
     </div>
+    @endif
+
 @endforeach
 

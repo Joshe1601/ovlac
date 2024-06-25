@@ -86,7 +86,7 @@
 {{--<span>{{$counter}} </span>--}}
 @if($counter == 2 && $category->optional !=1)
     <div class="roller-types">
-        <h5>Tipos de rodillo:</h5>
+        <h5>Tipos disponibles:</h5>
         <div class="container container-category-parts">
             <x-frontend.categories :categories="$allExceptLast" :models="$models" :counter="$counter"/>
         </div>
@@ -106,7 +106,7 @@
     </div>
 @elseif($counter == 4)
     <div class="roller-types">
-        <h5>Tipos de rodillo:</h5>
+        <h5>Tipos disponibles:</h5>
         <div class="container container-category-parts">
             <x-frontend.categories :categories="$category->children" :models="$models" :counter="$counter"/>
         </div>
