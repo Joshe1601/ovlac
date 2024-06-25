@@ -21,6 +21,9 @@ const camera = new THREE.PerspectiveCamera( 75, container.innerWidth() / contain
 
 let camPositionSpan, camLookAtSpan;
 
+const center_group = new THREE.Group();
+scene.add(center_group)
+
 if(has_light) {
     const light = new THREE.AmbientLight( 0x888888);
     scene.add( light );
@@ -93,18 +96,38 @@ controls.screenSpacePanning = false;
 
 //controls.enableDamping = true;
 
+function addObjectToGroup(object, group) {
+    group.add(object);
+    normalizeAndCenterGroup(group);
+}
+
+function normalizeAndCenterGroup(group) {
+
+    group.scale.set(1, 1, 1);
+    group.position.set(0, 0, 0);
+    // Calculate the bounding box of the group
+    const boundingBox = new THREE.Box3().setFromObject(group);
+    const size = new THREE.Vector3();
+    boundingBox.getSize(size);
+
+    // Determine the maximum dimension and scale factor
+    const maxDim = Math.max(size.x, size.y, size.z);
+    const referenceSize = 7; // You can adjust this reference size as needed
+    const scale = referenceSize / maxDim;
+    // Apply the scale to the group
+    group.scale.set(scale, scale, scale);
+    // Update the bounding box after scaling
+    boundingBox.setFromObject(group);
+    const center = new THREE.Vector3();
+    boundingBox.getCenter(center);
+    // Adjust the group's position based on the new center
+    group.position.set(-center.x, -center.y, -center.z);
+}
+
 
 init();
 
 function animate() {}
-
-/* function render() {
-    //requestAnimationFrame(animate);
-    if (init_controls) controls.update();
-    renderer.render( scene, camera );
-
-} */
-
 
 function init() {
 
@@ -170,18 +193,60 @@ function init() {
     //   });
     //scene.add(hdr);
 
-
     for (let i = 0; i < init_items.length; i ++) {
         let model = init_items[i][0];
         let model_color = init_items[i][1];
-        add_model(relative_path + model, 'base', model_color);
+        add_model_gltf(relative_path + model, center_group, model_color);
     }
+
+    // scene.add(new THREE.AxesHelper(5));
 
     animate();
 }
 
 
+function add_model_gltf(model_file, model_group, model_color, model_id = null) {
+    const loader = new THREE.GLTFLoader();
 
+    var dracoLoader = new THREE.DRACOLoader();
+    dracoLoader.setDecoderPath( '/js/draco/gltf/' );
+    loader.setDRACOLoader( dracoLoader );
+
+    const material = null;
+
+    loader.load( model_file, (gltf) => {
+        if (model_color !== "") { colorize_model(gltf.scene, model_color); }
+        gltf.scene.castShadow = true;
+        gltf.scene.receiveShadow = true;
+
+        if(model_id == null) {
+            // base part
+            addObjectToGroup(gltf.scene, center_group);
+        } else {
+            if (!gltf.scene.name) gltf.scene.name = model_id;
+            //console.log('el model id para la base', model_id)
+            // try clone
+            const cloneGLTF = gltf.scene.clone();
+            cloneGLTF.name = model_id;
+            addObjectToGroup(cloneGLTF, center_group);
+        }
+
+        if (model_group !== 'base') {
+            remove_model_group(model_group);
+            if (!modelsrn[model_group]) modelsrn[model_group] = [];
+            modelsrn[model_group].push(gltf.scene);
+            models_added.push(model_id); // new line to handle infinite tree models
+        }
+    });
+
+    animate = function() {
+        requestAnimationFrame( animate );
+        if (camPositionSpan) camPositionSpan.innerHTML = `Position: (${camera.position.x.toFixed(1)}, ${camera.position.y.toFixed(1)}, ${camera.position.z.toFixed(1)})`
+        renderer.render( scene, camera );
+    };
+
+
+}
 
 
 function add_model(model_file, model_group, model_color, model_id = null) {
@@ -414,6 +479,7 @@ function clean_scene_from_old_models() {
         const objectToRemove = scene.getObjectByName(element)
         if(objectToRemove !== undefined) {
             scene.remove(objectToRemove)
+            center_group.remove(objectToRemove)
         }
     }
     models_added = [] // clean old models, variable parts
