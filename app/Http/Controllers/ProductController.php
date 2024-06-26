@@ -321,10 +321,17 @@ class ProductController extends Controller
         $product = Product::find($prod_data['product_id']);
         $prod_data["product"] = $product;
 
-        // Logo file
-//        $logo_path = 'http://127.0.0.1' . relative_path() . '/public/images/ovlac/logo_banner.png';
-//        $logo_path_encoded = base64_encode(file_get_contents($logo_path));
-//        $prod_data["logo_path"] = $logo_path_encoded;
+        // Get the screenshot filename
+        $screenshot = $prod_data['screenshot'];
+
+        $currentDir = __DIR__;
+        $fixedDir = dirname(dirname(dirname($currentDir)));
+        $screenshotPath = $fixedDir . '/storage/app/captures/' . $screenshot;
+        $screenshotPath = str_replace('\\', '/', $screenshotPath);
+
+        $prod_data["relative_path"] = $fixedDir;
+        $prod_data["screenshot_path"] = $screenshotPath;
+
 
         $pdf = Pdf::loadView('pdf', $prod_data);
         $pdf_data = $pdf->output();
