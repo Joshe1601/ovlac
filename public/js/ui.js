@@ -372,114 +372,104 @@ function loadSelectedModels(selectedModels) {
     update_totals(total_price)
 }
 
+function captureScreenshot() {
+    return new Promise((resolve, reject) => {
+        console.log("Screenshot", container[0]);
+        var canvas = jQuery("#canvas_3d canvas")[0];
 
+        // Change background color to white before capture
+        renderer.setClearColor(0xffffff, 1);
 
-// function captureScreenshot() {
-//     try {
-//         var canvas = document.getElementById('visor_3d');
-//         var imageData = canvas.toDataURL('image/png'); // Get image data as Data URL
-//         console.log('imagen data => ', imageData);
-//         // Send image data to backend to save
-//         saveImageWithForm(imageData, );
-//     } catch (error) {
-//         console.error('Error capturing screenshot:', error);
-//     }
-// }
+        // Render the scene before capturing it
+        renderer.render(scene, camera);
 
-// function sameImageWithForm(imageData, saveDirectory) {
-//     // Create a form element
-//     var form = document.createElement('form');
-//     form.setAttribute('method', 'post');
-//     form.setAttribute('action', "{{ controller_path() }}{{ controller_sep() }}md=product&action=save_image");
-//     // "{{ controller_path() }}{{ controller_sep() }}md=product&action=save_image" / 'save_image'
-//     form.setAttribute('enctype', 'multipart/form-data');
-//     form.style.display = 'none'; // Hide the form
-//
-//     // Create input fields for imageData and saveDirectory
-//     var imageDataInput = document.createElement('input');
-//     imageDataInput.setAttribute('type', 'hidden');
-//     imageDataInput.setAttribute('name', 'imageData');
-//     imageDataInput.setAttribute('value', imageData);
-//
-//     var saveDirectoryInput = document.createElement('input');
-//     saveDirectoryInput.setAttribute('type', 'hidden');
-//     saveDirectoryInput.setAttribute('name', 'saveDirectory');
-//     saveDirectoryInput.setAttribute('value', saveDirectory);
-//
-//     // Append input fields to the form
-//     form.appendChild(imageDataInput);
-//     form.appendChild(saveDirectoryInput);
-//
-//     // Append the form to the document body
-//     document.body.appendChild(form);
-//
-//     // Submit the form
-//     form.submit();
-// }
+        // Revert to the original background color
+        renderer.setClearColor(0xe9e9e9, 1);
 
-// Function to send image data to backend to save
-// function saveImageToServer(imageData) {
-//     fetch('/save-file', {
-//         method: 'POST',
-//         headers: {
-//             'Content-Type': 'application/json',
-//         },
-//         body: JSON.stringify({ imageData: imageData }), // Send image data in JSON format
-//     })
-//         .then(response => response.json())
-//         .then(data => {
-//             if (data.success) {
-//                 console.log('Image saved successfully at:', data.imagePath);
-//             } else {
-//                 console.error('Error saving image:', data.error);
-//             }
-//         })
-//         .catch(error => {
-//             console.error('Error saving image to server:', error);
-//         });
-// }
+        // Convert the WebGL canvas to a blob
+        if (canvas && canvas.toBlob) {
+            canvas.toBlob(function (blob) {
+                const formData = new FormData();
+                // Get current Date() to identify file
+                const date = new Date();
+                const formattedDate = date.getFullYear() + '-' +
+                    ('0' + (date.getMonth() + 1)).slice(-2) + '-' +
+                    ('0' + date.getDate()).slice(-2) + '_' +
+                    ('0' + date.getHours()).slice(-2) + '-' +
+                    ('0' + date.getMinutes()).slice(-2) + '-' +
+                    ('0' + date.getSeconds()).slice(-2);
+                const fileName = 'screenshot-' + formattedDate + '.png';
+
+                // Add file and fileName to the formData
+                formData.append('screenshot', blob, fileName);
+                formData.append('filename', fileName);
+
+                // Send the blob and fileName to the server
+                fetch(relative_path + '/app/Helpers/saveScreenshot.php', {
+                    method: 'POST',
+                    body: formData
+                })
+                    .then(response => response.text())
+                    .then(data => {
+                        console.log('Success:', data); // Log the server response
+                        resolve(fileName); // Resolve the promise with the filename
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        reject(error); // Reject the promise if there's an error
+                    });
+            });
+        } else {
+            console.log('ERROR: no hay canvas');
+            reject(new Error('No canvas available')); // Reject the promise if there's no canvas
+        }
+    });
+}
+
 
 
 function submit_form(custom) {
-
-    //captureScreenshot(); // take a screenshot of the scene for adding it to the pdf report
-    update_totals();
-    let data_prod = {};
-    data_prod['product_id'] = $("#input_product_id").val();
-    data_prod['product_title'] = $("#input_product_title").val();
-    if (custom) data_prod['product_selected_parts'] = [];
-    data_prod['product_selected_ids'] = [];
-    // new code v2
-    data_prod['selected_models'] = selected_models_collection
-    $(".subvar_radio:checked").each(function() {
-        let label = $("label[for='" + $(this).attr('id') + "']");
-        let part_title = label.attr('title');
-        let part_id = label.attr('part_id');
-        if (custom) data_prod['product_selected_parts'].push(part_title);
-        data_prod['product_selected_ids'].push(part_id);
+    captureScreenshot().then(fileName => {
+        createPDF(fileName);
+    }).catch(error => {
+        console.error('Error capturing screenshot:', error);
     });
-    data_prod['total_price'] = get_total_price_selected_models(selected_models_collection)
-    let submit_url = "";
+}
+
+function createPDF(fileName) {
+    let custom = false;
+    update_totals();
+    let data_prod = {
+        product_id: $("#input_product_id").val(),
+        product_title: $("#input_product_title").val(),
+        selected_models: selected_models_collection,
+        product_selected_ids: [],
+        total_price: get_total_price_selected_models(selected_models_collection),
+        screenshot: fileName // Add the screenshot filename to the data
+    };
     if (custom) {
-        submit_url = $("#input_submit_url").val();
-    } else {
-        submit_url = $("#input_submit_url_default").val();
+        data_prod.product_selected_parts = [];
+        $(".subvar_radio:checked").each(function() {
+            let label = $("label[for='" + $(this).attr('id') + "']");
+            data_prod.product_selected_parts.push(label.attr('title'));
+            data_prod.product_selected_ids.push(label.attr('part_id'));
+        });
     }
-    if (!submit_url) return;
+
     let pd = btoa(JSON.stringify(data_prod));
+    let submit_url = custom ? $("#input_submit_url").val() : $("#input_submit_url_default").val();
     submit_url = submit_url + "&prod_data=" + pd;
-    // console.log('cuando hacemos click finish', submit_url)
-    if(selected_models_collection.length > 0) {
+    if (!submit_url) return;
+
+    if (selected_models_collection.length > 0) {
         window.open(submit_url, "_blank");
     } else {
-        const h2MessageElement = document.getElementById('message-selection')
-        h2MessageElement.textContent = "Por favor, seleccione una opción."
+        document.getElementById('message-selection').textContent = "Por favor, seleccione una opción.";
     }
 }
 
-function send_email(custom) {
 
-    //captureScreenshot(); // take a screenshot of the scene for adding it to the pdf report
+function send_email(custom) {
     update_totals();
     let data_prod = {};
     data_prod['product_id'] = $("#input_product_id").val();

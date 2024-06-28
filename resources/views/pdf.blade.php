@@ -163,6 +163,21 @@
 
             @page { margin: 0; }
 
+            .screenshot {
+                width: 65%;
+                margin: 0 auto;
+                max-height: 500px;
+                overflow: hidden;
+            }
+
+            .screenshot img {
+                width: 100%;
+                height: auto;
+                object-fit: cover;
+                display: block;
+                margin: 0 auto;
+            }
+
             .footer {
                 position: absolute;
                 background-color: #e52b38;
@@ -186,10 +201,11 @@
 	<body>
 
 		<header>
-{{--            <img--}}
-{{--                src="data:image/png;base64, {{ $logo_path }}"--}}
-{{--                alt="">--}}
             <h1>{{ $product->title }}</h1>
+            @if(isset($relative_path))
+                <img src="{{ $relative_path . "/public/images/ovlac/logo_ovlac_fondo_blanco.jpg" }}" alt="" width="200px">
+            @endif
+
 		</header>
 		<article>
 			<address contenteditable>
@@ -223,12 +239,14 @@
 				</tr>
 			</table>
 		</article>
-		{{-- <aside>
-			<h1><span contenteditable>Additional Notes</span></h1>
-			<div contenteditable>
-				<p>A finance charge of 1.5% will be made on unpaid balances after 30 days.</p>
-			</div>
-		</aside> --}}
+		 <aside>
+             {{-- Include the screenshot --}}
+             @if(isset($screenshot_path))
+                 <div class="screenshot">
+                     <img src="{{ $screenshot_path }}" alt="Screenshot" class="screenshot">
+                 </div>
+             @endif
+		</aside>
         <footer class="footer">
             <p>Email: ovlac@ovlac.com</p>
             <p>Phone: +34 979 761 011</p>
