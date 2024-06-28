@@ -14,7 +14,7 @@ $categoryId = ''
 
     @endphp
     <div class="visor-menu {{ $category->is_last_node != 1 ? '' : 'd-none' }}{{ $category->optional != 1 ? '' : 'd-none' }}"
-         @if($accessoryId) id="{{ $accessoryId }}" @endif
+         @if($accessoryId) accessory="{{ $accessoryId }}" @endif
     >
         @if($category->is_last_node != 1)
         @php

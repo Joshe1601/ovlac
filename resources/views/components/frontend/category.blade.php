@@ -84,35 +84,73 @@
 </div>
 {{--    <span>{{$category->children}} </span>--}}
 {{--<span>{{$counter}} </span>--}}
-@if($counter == 2 && $category->optional !=1)
-    <div class="roller-types">
-        <h5>Tipos disponibles:</h5>
-        <div class="container container-category-parts">
-            <x-frontend.categories :categories="$allExceptLast" :models="$models" :counter="$counter"/>
+{{--<span>{{$optional}} </span>--}}
+
+
+@if($category->product_id == 1)
+    @if($counter == 2 && $category->optional !=1)
+        <div class="roller-types">
+            <h5>Tipos disponibles:</h5>
+            <div class="container container-category-parts">
+                <x-frontend.categories :categories="$allExceptLast" :models="$models" :counter="$counter"/>
+            </div>
         </div>
-    </div>
-    @if($children->count() != 1)
+        @if($children->count() != 1)
+            <div>
+                <x-frontend.categories :categories="[$lastChild]" :models="$models" :counter="$counter" :optional="$category->optional"/>
+            </div>
+        @endif
+    @elseif($counter == 3 && $optional == 1)
         <div>
-            <x-frontend.categories :categories="[$lastChild]" :models="$models" :counter="$counter" :optional="$category->optional"/>
+            <x-frontend.categories :categories="$category->children" :models="$models" :counter="$counter" :optional="$optional"/>
+        </div>
+    @elseif($counter == 4 && $optional == 1)
+        <div class="roller-types pb-2">
+            <x-frontend.categories :categories="$category->children" :models="$models" :counter="$counter" :optional="$optional"/>
+        </div>
+    @elseif($counter == 4)
+        <div class="roller-types">
+            <h5>Tipos disponibles:</h5>
+            <div class="container container-category-parts">
+                <x-frontend.categories :categories="$category->children" :models="$models" :counter="$counter"/>
+            </div>
+        </div>
+    @else
+        <div>
+            <x-frontend.categories :categories="$category->children" :models="$models" :counter="$counter" :optional="$category->optional"/>
         </div>
     @endif
-@elseif($counter == 3 && $optional = 1)
-    <div>
-        <x-frontend.categories :categories="$category->children" :models="$models" :counter="$counter" :optional="$optional"/>
-    </div>
-@elseif($counter == 4 && $optional = 1)
-    <div class="roller-types pb-2">
-        <x-frontend.categories :categories="$category->children" :models="$models" :counter="$counter" :optional="$optional"/>
-    </div>
-@elseif($counter == 4)
-    <div class="roller-types">
-        <h5>Tipos disponibles:</h5>
-        <div class="container container-category-parts">
-            <x-frontend.categories :categories="$category->children" :models="$models" :counter="$counter"/>
+
+@elseif($category->product_id == 2)
+    @if($counter == 2 && $category->optional !=1)
+        <div class="roller-types">
+            <h5>Tipos disponibles:</h5>
+            <div class="container container-category-parts">
+                <x-frontend.categories :categories="$allExceptLast" :models="$models" :counter="$counter"/>
+            </div>
         </div>
-    </div>
-@else
-    <div>
-        <x-frontend.categories :categories="$category->children" :models="$models" :counter="$counter" :optional="$category->optional"/>
-    </div>
+        @if($children->count() != 1)
+            <div>
+                <x-frontend.categories :categories="[$lastChild]" :models="$models" :counter="$counter" :optional="$category->optional"/>
+            </div>
+        @endif
+    @elseif($counter == 3 && $category->optional ==1)
+        <div class="roller-types">
+            <h5>Tipos disponibles:</h5>
+            <div class="container container-category-parts">
+                <x-frontend.categories :categories="$allExceptLast" :models="$models" :counter="$counter"/>
+            </div>
+        </div>
+        @if($children->count() != 1)
+            <div>
+                <x-frontend.categories :categories="[$lastChild]" :models="$models" :counter="$counter" :optional="$category->optional"/>
+            </div>
+        @endif
+
+    @else
+        <div>
+            <x-frontend.categories :categories="$category->children" :models="$models" :counter="$counter" :optional="$category->optional"/>
+        </div>
+    @endif
 @endif
+

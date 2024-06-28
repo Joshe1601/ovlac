@@ -27,7 +27,7 @@ const Accordion = function(selector) {
         togglePanel: function(id) {
             const panel_father = $(`[data-accordion-button="${id}"]`);
             //Este accesory es el panel de "Accesorios"
-            const accessory = $("#accessory")
+            const accessory = $("[accessory]")
             //Este subaccesory son los subaccesorios de "Accesorios"
             const sub_accessory = $("[data-accessory]")
             //Este numero asegura que no se cierre el panel principal ya que si i = 0, simboliza al panel padre absoluto
@@ -47,6 +47,11 @@ const Accordion = function(selector) {
 
                 console.log("input_value_option: "+input_value_option)
                 console.log("input_value_father: "+input_value_father)
+
+                if(input_element === undefined) {
+                    const h2MessageElement = document.getElementById('message-selection')
+                    h2MessageElement.textContent = "Por favor, seleccione una opción."
+                }
 
                 if(panel_father.hasClass('active')) {
                     $(`[data-closed-image="${id}"]`).attr('src', relative_path + '/public/images/ovlac/toggle_off.png');
@@ -78,6 +83,8 @@ const Accordion = function(selector) {
                         console.log("otherContentId: "+otherContentId)
                         const visor_body = $(`#body-${otherContentId}`)
                         visor_body.removeClass('show');
+
+
 
                     }
                 });
@@ -118,7 +125,7 @@ const Accordion = function(selector) {
                         $('[data-accordion-button]').not(panel_father).each(function() {
                             const otherId = $(this).attr('data-accordion-button');
                             console.log("otherId: "+otherId)
-                            if ($(this).hasClass('active') && i !== 0) {
+                            if ($(this).hasClass('active') && i !== 0 && otherId !== "panel-57") {
                                 console.log("Llega a cerrar los demas paneles")
                                 $(`[data-closed-image="${otherId}"]`).attr('src', relative_path + '/public/images/ovlac/toggle_off.png');
                                 $(this).removeClass('active');
@@ -126,8 +133,8 @@ const Accordion = function(selector) {
                                 const visor_body = $(`#body-${otherContentId}`)
                                 visor_body.removeClass('show');
                                 accessory.addClass('d-none')
-                                document.getElementById('body-92').classList.remove('show')
-
+                                let idAccessory = $("[accessory]").children().first().attr('id')
+                                $('#body-'+idAccessory).removeClass('show')
                             } else{
                                 i++;
                             }
@@ -198,16 +205,49 @@ $(document).ready(function() {
         let radioFatherId = $(this).attr("id")
         console.log('radioChild', $(`[radio-image-father="${radioFatherId}"]`))
         let radioChildren = $(`[radio-image-father="${radioFatherId}"]`)
+
+        let model_father = $('[model_father]')
+        console.log('model_father', model_father)
+        if(model_father.hasClass('active')) {
+            $(`[data-closed-image= "${model_father.attr('id')}"]`).attr('src', relative_path + '/public/images/ovlac/toggle_off.png');
+            model_father.removeClass('active');
+
+        }
+        let input_model_father = model_father.children().last().attr('value')
+        let option = document.getElementsByClassName('selected')
+        console.log(option)
+        let input_element = option[0].children[0]
+        let input_value_option = input_element.value
+        console.log("input_model_father: "+input_model_father)
+        console.log("input_value_option: "+input_value_option)
+        input_value_option = input_value_option.replace(input_model_father, '');
+        input_element.value = input_value_option;
+        loadSelectedModels(input_value_option)
         if(radioChildren.length > 0) {
             $('[radio-image-father]').not(radioChildren).each(function() {
                 $(this).addClass('d-none')
             });
             radioChildren.removeClass('d-none')
+            console.log('inputvalue', $(this).children().first().attr('value'))
+            let input_value_father = $(this).children().first().attr('value')
+
+            if(input_value_father === ":[\"\\/storage\\/app\\/models\\/php1LuVm3\\/Bastidor normal.glb\",\"0.00\",\"\",54]"
+            || input_value_father === ":[\"\\/storage\\/app\\/models\\/phpGwIHOx\\/Bastidor laminas.glb\",\"0.00\",\"\",55]"){
+                radioChildren.each(function() {
+                    let child = $(this).children().first();
+
+                    console.log('child', child)
+                    child.attr('value', child.attr('value').replace(input_value_father, ""));
+                    child.attr('value', child.attr('value') + input_value_father);
+
+
+                }); }
+
         }
 
 
-        $('#accessory').removeClass('d-none')
-        let idAccessory = $('#accessory').children().first().attr('id')
+        $("[accessory]").removeClass('d-none')
+        let idAccessory = $("[accessory]").children().first().attr('id')
         $('#body-'+idAccessory).addClass('show')
 
     })
@@ -251,7 +291,6 @@ $(document).ready(function() {
 
         const input_radio = document.getElementById('#' + id_number[1])
         const selected_models = input_radio.value
-        loadSelectedModels(selected_models)
         var radio = $(this).prev('.hidden-radio')
         radio.prop('checked', true)
     })
