@@ -84,7 +84,7 @@
                 </div>
 
 
-                <div id="new_accordion" class="menu-visor">
+                <div id="new_accordion" class="menu-visor d-block">
                     <x-frontend.categories :categories="$variable_parts" :collapsed="false" />
                 </div>
 

@@ -84,14 +84,23 @@ const Accordion = function(selector) {
                         const visor_body = $(`#body-${otherContentId}`)
                         visor_body.removeClass('show');
 
-
-
                     }
                 });
 
                 if(panel_father.hasClass('active')) {
                     $(`[data-closed-image="${id}"]`).attr('src', relative_path + '/public/images/ovlac/toggle_off.png');
                     panel_father.removeClass('active');
+                    let option = $('.selected')
+                    console.log(option)
+                    option.find('.overlay').css('background-color', '#B8B8B8');
+
+                    let radioImageFather = option.attr('radio-image-father');
+                    console.log(radioImageFather)
+
+                    let input_value_father = $("#"+radioImageFather).children().first().attr('value')
+                    console.log("input_value_father: "+input_value_father)
+                    loadSelectedModels(input_value_father)
+
                 } else {
                     $(`[data-closed-image="${id}"]`).attr('src', relative_path + '/public/images/ovlac/toggle_on.png');
                     panel_father.addClass('active');
@@ -260,7 +269,7 @@ $(document).ready(function() {
     })
 
     $('#fullScreen').click(function() {
-        document.getElementById('main').requestFullscreen().then(r => console.log(r)).catch(e => console.log(e));
+        document.getElementById('visor_3d').requestFullscreen().then(r => console.log(r)).catch(e => console.log(e));
     })
     $('.info-icon').click(function() {
         const categoryId = $(this).attr('data-icon-detail')
@@ -377,20 +386,40 @@ function captureScreenshot() {
         console.log("Screenshot", container[0]);
         var canvas = jQuery("#canvas_3d canvas")[0];
 
-        // Change background color to white before capture
+        // Cambiar el color de fondo a blanco antes de capturar
         renderer.setClearColor(0xffffff, 1);
 
-        // Render the scene before capturing it
+        // Renderizar la escena antes de capturarla
         renderer.render(scene, camera);
 
-        // Revert to the original background color
+        // Volver al color de fondo original
         renderer.setClearColor(0xe9e9e9, 1);
 
-        // Convert the WebGL canvas to a blob
+        // Convertir el canvas WebGL a un blob con recorte
         if (canvas && canvas.toBlob) {
-            canvas.toBlob(function (blob) {
+            const originalWidth = canvas.width;
+            const originalHeight = canvas.height;
+
+            // Parámetros de recorte individual para cada lado
+            const cropMarginTop = 300;    // Recorte superior
+            const cropMarginBottom = 300; // Recorte inferior
+            const cropMarginLeft = 500;   // Recorte izquierdo
+            const cropMarginRight = 500;  // Recorte derecho
+
+            // Crear un nuevo canvas para el recorte
+            const cropCanvas = document.createElement('canvas');
+            const cropContext = cropCanvas.getContext('2d');
+
+            // Configurar las dimensiones del canvas de recorte
+            cropCanvas.width = originalWidth - cropMarginLeft - cropMarginRight;
+            cropCanvas.height = originalHeight - cropMarginTop - cropMarginBottom;
+
+            // Dibujar la imagen recortada en el nuevo canvas
+            cropContext.drawImage(canvas, cropMarginLeft, cropMarginTop, cropCanvas.width, cropCanvas.height, 0, 0, cropCanvas.width, cropCanvas.height);
+
+            // Convertir el canvas recortado a un blob
+            cropCanvas.toBlob(function (blob) {
                 const formData = new FormData();
-                // Get current Date() to identify file
                 const date = new Date();
                 const formattedDate = date.getFullYear() + '-' +
                     ('0' + (date.getMonth() + 1)).slice(-2) + '-' +
@@ -400,37 +429,51 @@ function captureScreenshot() {
                     ('0' + date.getSeconds()).slice(-2);
                 const fileName = 'screenshot-' + formattedDate + '.png';
 
-                // Add file and fileName to the formData
+                // Agregar archivo y nombre de archivo al formData
                 formData.append('screenshot', blob, fileName);
                 formData.append('filename', fileName);
 
-                // Send the blob and fileName to the server
+                // Enviar el blob y el nombre del archivo al servidor
                 fetch(relative_path + '/app/Helpers/saveScreenshot.php', {
                     method: 'POST',
                     body: formData
                 })
                     .then(response => response.text())
                     .then(data => {
-                        console.log('Success:', data); // Log the server response
-                        resolve(fileName); // Resolve the promise with the filename
+                        console.log('Success:', data); // Registrar la respuesta del servidor
+                        resolve(fileName); // Resolver la promesa con el nombre del archivo
+
+                        // Cargar la imagen recortada y agregarla al PDF
+                        const img = new Image();
+                        console.log("ACA EMPIEZA URL")
+                        console.log(URL)
+                        img.src = URL.createObjectURL(blob);
+                        console.log(img.src)
+                        img.onload = function() {
+                            // Crear el PDF
+                            const pdf = new jsPDF('landscape', 'pt', [originalWidth, originalHeight]);
+                            pdf.addImage(img, 'PNG', 0, 0, originalWidth, originalHeight);
+                            pdf.save('screenshot.pdf');
+                        };
                     })
                     .catch(error => {
                         console.error('Error:', error);
-                        reject(error); // Reject the promise if there's an error
+                        reject(error); // Rechazar la promesa si hay un error
                     });
             });
         } else {
             console.log('ERROR: no hay canvas');
-            reject(new Error('No canvas available')); // Reject the promise if there's no canvas
+            reject(new Error('No canvas available')); // Rechazar la promesa si no hay canvas
         }
     });
 }
 
-
-
 function submit_form(custom) {
     captureScreenshot().then(fileName => {
-        createPDF(fileName);
+        setTimeout(() => {
+            createPDF(fileName);
+        }, 3000);
+
     }).catch(error => {
         console.error('Error capturing screenshot:', error);
     });

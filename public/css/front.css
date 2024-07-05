@@ -36,6 +36,7 @@ html.wp-toolbar, #wpbody-content {
 
 canvas{
     position: fixed;
+    background-color: #d2d2d2;
 }
 
 #canvas_3d {

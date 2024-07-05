@@ -131,9 +131,31 @@ function normalizeAndCenterGroup(group) {
 init();
 const resetButton = document.querySelector('#resetAxis');
 resetButton.addEventListener('click', () => {
-    console.log('resetting camera')
+    console.log('resetting camera');
+
+    // Disable controls temporarily
+    controls.enabled = false;
+
+    // Reset camera position and rotation
     camera.position.copy(initialCameraPosition);
     camera.rotation.copy(initialCameraRotation);
+
+    // Reset the camera's up vector
+    camera.up.set(0, 1, 0);
+
+    // Update the camera's matrix
+    camera.updateMatrix();
+    camera.updateMatrixWorld();
+
+    // If you're using OrbitControls, reset its target
+    controls.target.set(0, 0, 0);
+    controls.update();
+
+    // Re-enable controls
+    controls.enabled = true;
+
+    // Force a re-render
+    renderer.render(scene, camera);
 });
 function animate() {}
 
