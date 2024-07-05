@@ -97,8 +97,9 @@ const Accordion = function(selector) {
                     let radioImageFather = option.attr('radio-image-father');
                     console.log(radioImageFather)
 
-                    let input_value_father = $("#"+radioImageFather).children().first().attr('value')
-                    console.log("input_value_father: "+input_value_father)
+                    let input_value_father = $("#"+radioImageFather).children().first().attr('value');
+                    console.log("input_value_father: "+input_value_father);
+                    $("#"+radioImageFather).find('.overlay').css('background-color', '#e52b38');
                     loadSelectedModels(input_value_father)
 
                 } else {
@@ -411,11 +412,10 @@ function captureScreenshot() {
             const cropContext = cropCanvas.getContext('2d');
 
             // Configurar las dimensiones del canvas de recorte
-            cropCanvas.width = originalWidth - cropMarginLeft - cropMarginRight;
-            cropCanvas.height = originalHeight - cropMarginTop - cropMarginBottom;
+            cropCanvas.width = originalWidth;
+            cropCanvas.height = originalHeight;
 
             // Dibujar la imagen recortada en el nuevo canvas
-            cropContext.drawImage(canvas, cropMarginLeft, cropMarginTop, cropCanvas.width, cropCanvas.height, 0, 0, cropCanvas.width, cropCanvas.height);
 
             // Convertir el canvas recortado a un blob
             cropCanvas.toBlob(function (blob) {
@@ -472,7 +472,7 @@ function submit_form(custom) {
     captureScreenshot().then(fileName => {
         setTimeout(() => {
             createPDF(fileName);
-        }, 3000);
+        }, 1000);
 
     }).catch(error => {
         console.error('Error capturing screenshot:', error);
