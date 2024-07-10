@@ -20,11 +20,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         // Directorio donde se guardará el archivo
         $currentDir = __DIR__;
-        $uploadFileDir = str_replace('app/Helpers', 'storage/app/captures/', $currentDir);
+        $uploadFileDir = str_replace('app\Helpers', 'storage\app\captures\\', $currentDir);
         $dest_path = $uploadFileDir . $newFileName;
-        echo "\n";
-        echo $currentDir;
-        echo "\n";
+
         echo $uploadFileDir;
 
         // Crear el directorio si no existe
@@ -35,9 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Mover el archivo al directorio
         if(move_uploaded_file($fileTmpPath, $dest_path)) {
             echo 'Archivo guardado exitosamente como ' . $newFileName;
-            echo "\n";
             echo $fileTmpPath;
-            echo "\n";
             echo $dest_path;
 
         } else {

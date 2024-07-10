@@ -28,9 +28,9 @@
                         <div style="background: url({{ relative_path() }}/public/images/select2.png) center;"></div>
                         <input type="hidden" name="subparts[{{ $product_part->id }}][color]" value="{{ $product_part->color }}" >
                     </div>
-                    @if($product_part->optional != 1 )
+                    @if($product_part->model_father != 0 )
                     <select name="model_father" id="model_father">
-                        <option value="0" >Select Model</option>
+                        <option value="0" >Select Model Father</option>
                         @foreach ($product->parts as $part)
                             <option value="{{ $part->id }}" @if($part->id == $product_part->model_father) selected @endif>{{ $part->title }}</option>
                         @endforeach

@@ -207,6 +207,14 @@
             @endif
 
 		</header>
+        <aside>
+            {{-- Include the screenshot --}}
+            @if(isset($screenshot_path))
+                <div class="screenshot">
+                    <img src="{{ $screenshot_path }}" alt="Screenshot" class="screenshot">
+                </div>
+            @endif
+        </aside>
 		<article>
 			<address contenteditable>
 				<h2>{{ tra("Products") }}</h2>
@@ -239,14 +247,7 @@
 				</tr>
 			</table>
 		</article>
-		 <aside>
-             {{-- Include the screenshot --}}
-             @if(isset($screenshot_path))
-                 <div class="screenshot">
-                     <img src="{{ $screenshot_path }}" alt="Screenshot" class="screenshot">
-                 </div>
-             @endif
-		</aside>
+
         <footer class="footer">
             <p>Email: ovlac@ovlac.com</p>
             <p>Phone: +34 979 761 011</p>

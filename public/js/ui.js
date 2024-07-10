@@ -9,188 +9,155 @@ function closeAllDetailPanel() {
 
 const Accordion = function(selector) {
     const obj = {
+        toggleImage: function(elementId, state) {
+            const imageSrc = state === 'on' ? 'toggle_on.png' : 'toggle_off.png';
+            $(`[data-closed-image="${elementId}"]`).attr('src', `${relative_path}/public/images/ovlac/${imageSrc}`);
+        },
+
+        updateInputValue: function(input, fatherValue, add) {
+            return add ? input.value + fatherValue : input.value.replace(fatherValue, '');
+        },
 
         openPanel: function(panel) {
-            panel.slideDown()
-            const id = panel[0].id
-            $(`[data-closed-image="panel-${id}"]`).attr('src', relative_path + '/public/images/ovlac/toggle_on.png');
+            panel.slideDown();
+            const id = panel[0].id;
+            this.toggleImage(`panel-${id}`, 'on');
         },
+
         closePanel: function(panel) {
-            closeAllDetailPanel()
-            panel.slideUp()
-            const id = panel[0].id
-            $(`[data-closed-image="panel-${id}"]`).attr('src', relative_path + '/public/images/ovlac/toggle_off.png');
-            panel.prev().find('[data-accordion-icon]').text("+")
-            panel.prev().find('[data-closed-image]').attr('src', relative_path + '/public/images/ovlac/toggle_off.png');
-
+            closeAllDetailPanel();
+            panel.slideUp();
+            const id = panel[0].id;
+            this.toggleImage(`panel-${id}`, 'off');
+            panel.prev().find('[data-accordion-icon]').text("+");
         },
-        togglePanel: function(id) {
-            const panel_father = $(`[data-accordion-button="${id}"]`);
-            //Este accesory es el panel de "Accesorios"
-            const accessory = $("[accessory]")
-            //Este subaccesory son los subaccesorios de "Accesorios"
-            const sub_accessory = $("[data-accessory]")
-            //Este numero asegura que no se cierre el panel principal ya que si i = 0, simboliza al panel padre absoluto
 
-            const sub_accessory_father_id = $("#"+id).attr('data-accessory')
-            console.log(sub_accessory_father_id)
+        handleModelFatherToggle: function(id, panelFather) {
+            console.log("Son iguales");
+            const optionSelected = document.getElementsByClassName('selected')[0];
+            const inputElement = optionSelected.children[0];
+            const inputValueFather = panelFather.children().last().attr('value');
 
-            if(id.substring(6) === panel_father.attr('model_father')) {
-                console.log("Son iguales")
+            console.log(`input_value_option: ${inputElement.value}`);
+            console.log(`input_value_father: ${inputValueFather}`);
 
-                let option_selected = document.getElementsByClassName('selected')
-                console.log(option_selected)
+            if (!inputElement) {
+                document.getElementById('message-selection').textContent = "Por favor, seleccione una opción.";
+                return;
+            }
 
-                let input_element = option_selected[0].children[0]
-                let input_value_option = input_element.value
-                let input_value_father = panel_father.children().last().attr('value')
-
-                console.log("input_value_option: "+input_value_option)
-                console.log("input_value_father: "+input_value_father)
-
-                if(input_element === undefined) {
-                    const h2MessageElement = document.getElementById('message-selection')
-                    h2MessageElement.textContent = "Por favor, seleccione una opción."
-                }
-
-                if(panel_father.hasClass('active')) {
-                    $(`[data-closed-image="${id}"]`).attr('src', relative_path + '/public/images/ovlac/toggle_off.png');
-                    input_value_option = input_value_option.replace(input_value_father, '');
-                    console.log("input_value_option: "+input_value_option)
-                    input_element.value = input_value_option;
-                    panel_father.removeClass('active');
-                    loadSelectedModels(input_value_option)
-
-                } else {
-                    $(`[data-closed-image="${id}"]`).attr('src', relative_path + '/public/images/ovlac/toggle_on.png');
-                    input_value_option = input_value_option + input_value_father
-                    console.log("input_value_option: "+input_value_option)
-                    input_element.value = input_value_option;
-                    panel_father.addClass('active');
-                    loadSelectedModels(input_value_option)
-
-                }
-            } else if(sub_accessory_father_id !== undefined){
-                const accessory_father = $(`[data-accessory="${sub_accessory_father_id}"]`);
-                $(accessory_father).not(panel_father).each(function() {
-                    const otherId = $(this).attr('data-accordion-button');
-                    console.log("otherId: "+otherId)
-                    if ($(this).hasClass('active')) {
-                        console.log("Llega a cerrar los demas paneles")
-                        $(`[data-closed-image="${otherId}"]`).attr('src', relative_path + '/public/images/ovlac/toggle_off.png');
-                        $(this).removeClass('active');
-                        const otherContentId = otherId.replace('panel-', '');
-                        console.log("otherContentId: "+otherContentId)
-                        const visor_body = $(`#body-${otherContentId}`)
-                        visor_body.removeClass('show');
-
-                    }
-                });
-
-                if(panel_father.hasClass('active')) {
-                    $(`[data-closed-image="${id}"]`).attr('src', relative_path + '/public/images/ovlac/toggle_off.png');
-                    panel_father.removeClass('active');
-                    let option = $('.selected')
-                    console.log(option)
-                    option.find('.overlay').css('background-color', '#B8B8B8');
-
-                    let radioImageFather = option.attr('radio-image-father');
-                    console.log(radioImageFather)
-
-                    let input_value_father = $("#"+radioImageFather).children().first().attr('value');
-                    console.log("input_value_father: "+input_value_father);
-                    $("#"+radioImageFather).find('.overlay').css('background-color', '#e52b38');
-                    loadSelectedModels(input_value_father)
-
-                } else {
-                    $(`[data-closed-image="${id}"]`).attr('src', relative_path + '/public/images/ovlac/toggle_on.png');
-                    panel_father.addClass('active');
-                }
+            if (panelFather.hasClass('active')) {
+                this.toggleImage(id, 'off');
+                inputElement.value = this.updateInputValue(inputElement, inputValueFather, false);
+                panelFather.removeClass('active');
             } else {
-                //Este id es el id del accessory
-                let id_accessory = accessory.children().first().attr('id');
+                this.toggleImage(id, 'on');
+                inputElement.value = this.updateInputValue(inputElement, inputValueFather, true);
+                panelFather.addClass('active');
+            }
 
-                let i = 0;
+            loadSelectedModels(inputElement.value);
+        },
 
-                //Este id es el id del data-accordion-button
-                id = id.substring(6)
+        handleSubAccessoryToggle: function(id, panelFather, subAccessoryFatherId) {
+            const accessoryFather = $(`[data-accessory="${subAccessoryFatherId}"]`);
 
-                console.log("id"+id)
-                console.log("id Acc:" + id_accessory)
-
-                //Si el id del data-accordion-button es diferente al id del accessory,
-                // entonces se cierra el panel de "Accesorios" menos los subaccesorios
-                if(id_accessory !== id ) {
-                    //Esta lista contiene los id de todos los subaccesorios
-                    let id_sub_accessory = [];
-
-                    sub_accessory.each(function() {
-                        console.log(sub_accessory)
-                    });
-
-
-                    //Si el id del data-accordion-button no esta en el array de los id de los subaccesorios,
-                    //entonces se cierran los demas paneles
-                    if (id_sub_accessory.indexOf(id) === -1){
-                        $('[data-accordion-button]').not(panel_father).each(function() {
-                            const otherId = $(this).attr('data-accordion-button');
-                            console.log("otherId: "+otherId)
-                            if ($(this).hasClass('active') && i !== 0 && otherId !== "panel-57") {
-                                console.log("Llega a cerrar los demas paneles")
-                                $(`[data-closed-image="${otherId}"]`).attr('src', relative_path + '/public/images/ovlac/toggle_off.png');
-                                $(this).removeClass('active');
-                                const otherContentId = otherId.replace('panel-', '');
-                                const visor_body = $(`#body-${otherContentId}`)
-                                visor_body.removeClass('show');
-                                accessory.addClass('d-none')
-                                let idAccessory = $("[accessory]").children().first().attr('id')
-                                $('#body-'+idAccessory).removeClass('show')
-                            } else{
-                                i++;
-                            }
-                            console.log("i: "+i)
-                        });
-                    }else{
-
-                    }
+            accessoryFather.not(panelFather).each((_, element) => {
+                const otherId = $(element).attr('data-accordion-button');
+                if ($(element).hasClass('active')) {
+                    console.log("Llega a cerrar los demas paneles");
+                    this.toggleImage(otherId, 'off');
+                    $(element).removeClass('active');
+                    $(`#body-${otherId.replace('panel-', '')}`).removeClass('show');
                 }
-                if(panel_father.hasClass('active')) {
-                    $(`[data-closed-image="panel-${id}"]`).attr('src', relative_path + '/public/images/ovlac/toggle_off.png');
-                    panel_father.removeClass('active');
-                } else {
-                    $(`[data-closed-image="panel-${id}"]`).attr('src', relative_path + '/public/images/ovlac/toggle_on.png');
-                    panel_father.addClass('active');
+            });
+
+            if (panelFather.hasClass('active')) {
+                this.toggleImage(id, 'off');
+                panelFather.removeClass('active');
+                const option = $('.selected');
+                option.find('.overlay').css('background-color', '#B8B8B8');
+
+                const radioImageFather = option.attr('radio-image-father');
+                const inputValueFather = $(`#${radioImageFather}`).children().first().attr('value');
+                $(`#${radioImageFather}`).find('.overlay').css('background-color', '#e52b38');
+                loadSelectedModels(inputValueFather);
+            } else {
+                this.toggleImage(id, 'on');
+                panelFather.addClass('active');
+            }
+        },
+
+        handleGeneralToggle: function(id, panelFather, accessory, subAccessory) {
+            const idAccessory = accessory.children().first().attr('id');
+            const panelId = id.substring(6);
+
+            console.log(`id: ${panelId}`);
+            console.log(`id Acc: ${idAccessory}`);
+
+            if (idAccessory !== panelId) {
+                const idSubAccessory = subAccessory.map(function() {
+                    return $(this).attr('id');
+                }).get();
+
+                if (!idSubAccessory.includes(panelId)) {
+                    this.closeOtherPanels(panelFather, accessory);
                 }
             }
 
+            if (panelFather.hasClass('active')) {
+                this.toggleImage(`panel-${panelId}`, 'off');
+                panelFather.removeClass('active');
+            } else {
+                this.toggleImage(`panel-${panelId}`, 'on');
+                panelFather.addClass('active');
+            }
         },
 
-        closeOtherPanels: function(openedPanel) {
-            const _t = this
-            $('[data-accordion-content]').each(function() {
-                const panelId = $(this).data('accordion-content')
-
-                if(panelId !== openedPanel) {
-                    _t.closePanel($(this))
+        closeOtherPanels: function(panelFather, accessory) {
+            $('[data-accordion-button]').not(panelFather).each((index, element) => {
+                const otherId = $(element).attr('data-accordion-button');
+                if (index !== 0 && otherId !== "panel-57" && $(element).hasClass('active')) {
+                    this.toggleImage(otherId, 'off');
+                    $(element).removeClass('active');
+                    $(`#body-${otherId.replace('panel-', '')}`).removeClass('show');
+                    accessory.addClass('d-none');
+                    const idAccessory = $("[accessory]").children().first().attr('id');
+                    $(`#body-${idAccessory}`).removeClass('show');
                 }
-            })
+            });
         },
-        setEvents: function() {
-            const _t = this
-            $(".visor-link").click(function() {
-                const id = $(this).attr("id")
-                _t.togglePanel(id)
-            })
-        },
-        init: function() {
-            // this.el = $(selector)
-            this.setEvents()
-        }
-    }
 
-    obj.init()
-    return obj
-}
+        togglePanel: function(id) {
+            const panelFather = $(`[data-accordion-button="${id}"]`);
+            const accessory = $("[accessory]");
+            const subAccessory = $("[data-accessory]");
+            const subAccessoryFatherId = $(`#${id}`).attr('data-accessory');
+
+            if (id.substring(6) === panelFather.attr('model_father')) {
+                this.handleModelFatherToggle(id, panelFather);
+            } else if (subAccessoryFatherId !== undefined) {
+                this.handleSubAccessoryToggle(id, panelFather, subAccessoryFatherId);
+            } else {
+                this.handleGeneralToggle(id, panelFather, accessory, subAccessory);
+            }
+        },
+
+        setEvents: function() {
+            $(".visor-link").click((event) => {
+                const id = $(event.currentTarget).attr("id");
+                this.togglePanel(id);
+            });
+        },
+
+        init: function() {
+            this.setEvents();
+        }
+    };
+
+    obj.init();
+    return obj;
+};
 $(document).ready(function() {
     const accordion1 = Accordion(".new_accordion")
 
@@ -206,6 +173,11 @@ $(document).ready(function() {
         });
 
         $(this).find('.overlay').css('background-color', '#e52b38');
+
+        let radioImageFather = $(this).attr('radio-image-father');
+        console.log(radioImageFather)
+
+        $("#"+radioImageFather).find('.overlay').css('background-color', '#e52b38');
         $(this).find('info-icon').attr('src', relative_path + '/public/images/ovlac/info_selected.png');
 
         var radio = $(this).prev('.hidden-radio')
@@ -403,19 +375,20 @@ function captureScreenshot() {
 
             // Parámetros de recorte individual para cada lado
             const cropMarginTop = 300;    // Recorte superior
-            const cropMarginBottom = 300; // Recorte inferior
-            const cropMarginLeft = 500;   // Recorte izquierdo
-            const cropMarginRight = 500;  // Recorte derecho
+            const cropMarginBottom = 200; // Recorte inferior
+            const cropMarginLeft = 150;   // Recorte izquierdo
+            const cropMarginRight = 150;  // Recorte derecho
 
             // Crear un nuevo canvas para el recorte
             const cropCanvas = document.createElement('canvas');
             const cropContext = cropCanvas.getContext('2d');
 
             // Configurar las dimensiones del canvas de recorte
-            cropCanvas.width = originalWidth;
-            cropCanvas.height = originalHeight;
+            cropCanvas.width = originalWidth - cropMarginLeft - cropMarginRight;
+            cropCanvas.height = originalHeight - cropMarginTop - cropMarginBottom;
 
             // Dibujar la imagen recortada en el nuevo canvas
+            cropContext.drawImage(canvas, cropMarginLeft, cropMarginTop, cropCanvas.width, cropCanvas.height, 0, 0, cropCanvas.width, cropCanvas.height);
 
             // Convertir el canvas recortado a un blob
             cropCanvas.toBlob(function (blob) {
