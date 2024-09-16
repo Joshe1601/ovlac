@@ -1,6 +1,52 @@
 var goblal_models_selected = []
 var id_selected = 0
 
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM fully loaded and parsed');
+    $('.radio-image-container').first().toggleClass('selected')
+    $('.radio-image-container').first().find('.overlay').css('background-color', '#e52b38');
+    $('[data-closed-image]').first().attr('src', relative_path + '/public/images/ovlac/toggle_on.png');
+    // $('.visor-body').second().find('.overlay').css('background-color', '#e52b38');
+    $('.visor-link').eq(1).addClass('active')
+    $('.visor-body').eq(1).addClass('show')
+    let value = $('.radio-image-container').children().first().attr('value')
+    loadSelectedModels(value)
+
+    let option = $('.selected')
+    console.log(option)
+    let radioFatherId = option.attr("id")
+    console.log('radioChild', $(`[radio-image-father="${radioFatherId}"]`))
+    let radioChildren = $(`[radio-image-father="${radioFatherId}"]`)
+
+    if(radioChildren.length > 0) {
+        $('[radio-image-father]').not(radioChildren).each(function() {
+            $(this).addClass('d-none')
+        });
+        radioChildren.removeClass('d-none')
+        console.log('input_value_father', option.children().first().attr('value'))
+        let input_value_father = option.children().first().attr('value')
+
+        if(input_value_father === ":[\"\\/storage\\/app\\/models\\/php1LuVm3\\/Bastidor normal.glb\",\"0.00\",\"\",54]"
+            || input_value_father === ":[\"\\/storage\\/app\\/models\\/phpGwIHOx\\/Bastidor laminas.glb\",\"0.00\",\"\",55]"){
+            radioChildren.each(function() {
+                let child = $(this).children().first();
+
+                console.log('child', child)
+                child.attr('value', child.attr('value').replace(input_value_father, ""));
+                child.attr('value', child.attr('value') + input_value_father);
+
+
+            }); }
+
+    }
+    $("[accessory]").removeClass('d-none')
+    let idAccessory = $("[accessory]").children().first().attr('id')
+    $('#body-'+idAccessory).addClass('show')
+
+    $('[data-toggle="popover"]').popover();
+
+});
+
 function closeAllDetailPanel() {
     $('.detail-panel').each(function() {
         $(this).hide()
@@ -104,6 +150,46 @@ const Accordion = function(selector) {
                     this.closeOtherPanels(panelFather, accessory);
                 }
             }
+            //panelFather.removeClass('active');
+            const option = $('.selected');
+            option.find('.overlay').css('background-color', '#B8B8B8');
+            loadSelectedModels('')
+            let firstRadio = $(`#${panelId}.mx-3`).first().children()
+            let inputFirstRadio = firstRadio.children().first().attr('value')
+            firstRadio.find('.overlay').css('background-color', '#e52b38');
+            //firstRadio.find('.info-icon').attr('src', relative_path + '/public/images/ovlac/info_selected.png');
+            //let radioFatherId = firstRadio.attr('radio-image-father')
+            /////////////////////////////////////
+            let radioFatherId = firstRadio.attr("id")
+            console.log('radioChild', $(`[radio-image-father="${radioFatherId}"]`))
+            let radioChildren = $(`[radio-image-father="${radioFatherId}"]`)
+
+            if(radioChildren.length > 0) {
+                $('[radio-image-father]').not(radioChildren).each(function() {
+                    $(this).addClass('d-none')
+                });
+                radioChildren.removeClass('d-none')
+                console.log('input_value_father', option.children().first().attr('value'))
+                let input_value_father = option.children().first().attr('value')
+
+                if(input_value_father === ":[\"\\/storage\\/app\\/models\\/php1LuVm3\\/Bastidor normal.glb\",\"0.00\",\"\",54]"
+                    || input_value_father === ":[\"\\/storage\\/app\\/models\\/phpGwIHOx\\/Bastidor laminas.glb\",\"0.00\",\"\",55]"){
+                    radioChildren.each(function() {
+                        let child = $(this).children().first();
+
+                        console.log('child', child)
+                        child.attr('value', child.attr('value').replace(input_value_father, ""));
+                        child.attr('value', child.attr('value') + input_value_father);
+
+
+                    }); }
+
+            }
+            $("[accessory]").removeClass('d-none')
+            $('#body-'+idAccessory).addClass('show')
+            //////////////////////////
+            loadSelectedModels(inputFirstRadio)
+
 
             if (panelFather.hasClass('active')) {
                 this.toggleImage(`panel-${panelId}`, 'off');
@@ -135,10 +221,13 @@ const Accordion = function(selector) {
             const subAccessoryFatherId = $(`#${id}`).attr('data-accessory');
 
             if (id.substring(6) === panelFather.attr('model_father')) {
+                console.log("Model Father Toggle");
                 this.handleModelFatherToggle(id, panelFather);
             } else if (subAccessoryFatherId !== undefined) {
+                console.log("Sub Accessory Toggle");
                 this.handleSubAccessoryToggle(id, panelFather, subAccessoryFatherId);
             } else {
+                console.log("General Toggle");
                 this.handleGeneralToggle(id, panelFather, accessory, subAccessory);
             }
         },
@@ -169,7 +258,7 @@ $(document).ready(function() {
 
         $('.radio-image-container').not(this).each(function() {
             $(this).find('.overlay').css('background-color', '#B8B8B8');
-            $(this).find('info-icon').attr('src', relative_path + '/public/images/ovlac/info.png');
+            $(this).find('.info-icon').attr('src', relative_path + '/public/images/ovlac/info.png');
         });
 
         $(this).find('.overlay').css('background-color', '#e52b38');
@@ -178,7 +267,7 @@ $(document).ready(function() {
         console.log(radioImageFather)
 
         $("#"+radioImageFather).find('.overlay').css('background-color', '#e52b38');
-        $(this).find('info-icon').attr('src', relative_path + '/public/images/ovlac/info_selected.png');
+        $(this).find('.info-icon').attr('src', relative_path + '/public/images/ovlac/info_selected.png');
 
         var radio = $(this).prev('.hidden-radio')
         radio.prop('checked', true)
@@ -204,13 +293,12 @@ $(document).ready(function() {
         console.log("input_value_option: "+input_value_option)
         input_value_option = input_value_option.replace(input_model_father, '');
         input_element.value = input_value_option;
-        loadSelectedModels(input_value_option)
         if(radioChildren.length > 0) {
             $('[radio-image-father]').not(radioChildren).each(function() {
                 $(this).addClass('d-none')
             });
             radioChildren.removeClass('d-none')
-            console.log('inputvalue', $(this).children().first().attr('value'))
+            console.log('input_value_father', $(this).children().first().attr('value'))
             let input_value_father = $(this).children().first().attr('value')
 
             if(input_value_father === ":[\"\\/storage\\/app\\/models\\/php1LuVm3\\/Bastidor normal.glb\",\"0.00\",\"\",54]"
@@ -225,7 +313,12 @@ $(document).ready(function() {
 
                 }); }
 
+        } else{
+            input_value_option = input_value_option.replace(':["\\/storage\\/app\\/models\\/php1ESCbL\\/RODILLO.glb","0.00","",5]', '');
+            console.log('input_value_option', input_value_option)
+            input_element.value = input_value_option;
         }
+        loadSelectedModels(input_value_option)
 
 
         $("[accessory]").removeClass('d-none')
@@ -323,7 +416,9 @@ function loadSelectedModels(selectedModels) {
     clean_scene_from_old_models()
 
     let items = selectedModels.split(':')
+    console.log('items', items)
     let clean_items = items.map( str => str.replaceAll( "\\", '').replaceAll('"', ''))
+    console.log('clean_items', clean_items)
     var models_collection = []
 
     for(let i = 0; i < clean_items.length; i++) {
@@ -445,7 +540,7 @@ function submit_form(custom) {
     captureScreenshot().then(fileName => {
         setTimeout(() => {
             createPDF(fileName);
-        }, 1000);
+        }, 500);
 
     }).catch(error => {
         console.error('Error capturing screenshot:', error);

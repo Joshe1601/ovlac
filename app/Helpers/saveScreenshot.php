@@ -20,6 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         // Directorio donde se guardará el archivo
         $currentDir = __DIR__;
+//        $uploadFileDir = str_replace('app/Helpers', 'storage/app/captures/', $currentDir);
         $uploadFileDir = str_replace('app\Helpers', 'storage\app\captures\\', $currentDir);
         $dest_path = $uploadFileDir . $newFileName;
 

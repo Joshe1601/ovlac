@@ -75,7 +75,9 @@
                                 class="form-control"
                                 placeholder="Description"
                             >
+{{--
                                 {{ $product->description }}
+--}}
                                 </textarea>
                         </div>
                         <div class="col-sm-6 d-flex flex-column">

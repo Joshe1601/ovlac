@@ -66,7 +66,7 @@ $categoryId = ''
     </div>
     @if($category->id != $category->model_father)
 
-    <div class="visor-body {{ $category->is_last_node == 1 ? ' ' : 'collapse' }} {{$counter == 0 ? 'show' : '' }}" id="body-{{$category->id }}" >
+    <div class="visor-body {{ $category->is_last_node == 1 ? ' ' : 'collapse' }} {{$counter == 0 ? 'show' : '' }}"  id="body-{{$category->id }}" >
         <x-frontend.category :category="$category" :models="$models" :collapsed="false" :categoryId="$categoryId" :counter="$counter" :optional="$optional"/>
     </div>
     @endif

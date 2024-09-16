@@ -51,7 +51,12 @@
 
             <div style="width:100px: height: auto;">
                 <a href="{{ relative_path() }}">
-                    <img src="{{ relative_path() }}/public/images/ovlac/logo_banner.png"
+{{--                    <img src="{{ relative_path() }}/public/images/ovlac/logo_banner.png"--}}
+{{--                         alt="logo banner ovlac"--}}
+{{--                         style="max-width:200px; height: auto;"--}}
+{{--                    />--}}
+
+                    <img src="{{ relative_path() }}/public/images/ovlac/LOGO-COMERCIAL%20OVLAC.png"
                          alt="logo banner ovlac"
                          style="max-width:200px; height: auto;"
                     />
@@ -74,7 +79,9 @@
 
                 <div id="wizard_title_dsk" class="ml-5">
                     <h4 class="ml-3 my-0 visor-title">{!! $product->get_red_title() !!}</h4>
+{{--
                     <h5 class="ml-3 font-weight-normal visor-description">{{ $product->description }}</h5>
+--}}
                     <span id="boton_option_menu">
                         <img src="{{ relative_path() }}/public/images/ovlac/opciones.png"
                              class="boton_opciones"
@@ -102,34 +109,53 @@
                 <img
                     src="{{ relative_path() }}/public/images/ovlac/vista.png"
                     style="width:32px"
-                    alt="">
+                    alt=""
+                    data-toggle="popover"
+                    data-placement="left"
+                    data-content="Volver a la vista normal"
+                    data-trigger="hover focus">
             </div>
             <div class="icon-vista" id="info-lateral-icon">
                 <img
                     src="{{ relative_path() }}/public/images/ovlac/infomenu.png"
                     style="width:32px"
-                    alt="">
+                    alt=""
+                    data-toggle="popover"
+                    data-placement="left"
+                    data-content="Información lateral"
+                    data-trigger="hover focus">
             </div>
             <div class="icon-vista">
                 <img
                     src="{{ relative_path() }}/public/images/ovlac/descarga.png"
                     style="width:32px"
                     onclick="submit_form(false)"
-                    alt="">
+                    alt=""
+                    data-toggle="popover"
+                    data-placement="left"
+                    data-content="Descargar pdf"
+                    data-trigger="hover focus">
             </div>
             <div class="icon-vista" id="openPopup">
                 <img
                     src="{{ relative_path() }}/public/images/ovlac/mail.png"
                     style="width:32px"
                     onclick="send_email(false)"
-
-                    alt="">
+                    alt=""
+                    data-toggle="popover"
+                    data-placement="left"
+                    data-content="Enviar por email"
+                    data-trigger="hover focus">
             </div>
             <div class="icon-vista" id="fullScreen">
                 <img
                     src="{{ relative_path() }}/public/images/ovlac/maximizar.png"
                     style="width:32px"
-                    alt="">
+                    alt=""
+                    data-toggle="popover"
+                    data-placement="left"
+                    data-content="Cambiar a pantalla completa"
+                    data-trigger="hover focus">
             </div>
 
         </div>
@@ -177,18 +203,20 @@
 </div>
 
 <div id="detail-lateral-panel">
-
     <div class="detail-panel-title text-center">
-        Información del modelo
+        {{$product->title}}
         <span id="detail-lateral-panel-close">x</span>
     </div>
     <div class="detail-panel-image">
-        <img src="/Configurador3D/storage/app/images/phpBA3A.tmp.png" alt="" style="width:245px;">
+        <?php if($product->id == 1): ?>
+        <img src="/Configurador3D/storage/app/images/xlander.jpg" alt="" style="width:245px;">
+        <?php else: ?>
+        <img src="/Configurador3D/storage/app/images/xperience.jpg" alt="" style="width:245px;">
+        <?php endif; ?>
     </div>
     <div class="detail-panel-description text-center">
-        Combinando las ventajas de cada una de las opciones anteriores, la preparación del suelo y el desmenuzamiento del mismo, mediante el rodillo.
+        {{$product->description}}
     </div>
-
 </div>
 
 {{--                <div id="wizard_footer">--}}

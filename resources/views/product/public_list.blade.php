@@ -10,7 +10,8 @@
         <div class="row mx-auto text-center m-5">
             <div>
                 <h1 class="col-md-12 mx-auto">
-                    <img src="{{ relative_path() }}/public/images/ovlac/Logo.png" alt="Ovlac Logo" class="" style="max-width: 400px"/>
+{{--                    <img src="{{ relative_path() }}/public/images/ovlac/Logo.png" alt="Ovlac Logo" class="" style="max-width: 400px"/>--}}
+                    <img src="{{ relative_path() }}/public/images/ovlac/LOGO-COMERCIAL%20OVLAC.png" alt="Ovlac Logo" class="" style="max-width: 400px"/>
                 </h1>
             </div>
         </div>
@@ -30,11 +31,15 @@
                                 href="{{ controller_path() }}{{ controller_sep() }}action=show&module=product&id={{ $product->id }}"
                                 target="_blank"
                                 type="button"
-                                class="py-2  "
+                                class="py-2"
                                 data-mdb-ripple-color="dark"
                             >
-                                <img src="{{ relative_path() }}{{ $product->image }}" alt="" class="card-img-top">
+                                <img src="{{ relative_path() }}{{ $product->image }}" alt="" class="card-img-top bg-light">
+                                <div class="main-image-title">
+                                    <h5 class="text-center">{!! $product->get_red_title() !!}</h5>
+                                </div>
                             </a>
+
                         </div>
 
                     </div>

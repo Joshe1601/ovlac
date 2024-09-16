@@ -164,9 +164,9 @@
             @page { margin: 0; }
 
             .screenshot {
-                width: 65%;
+                width: 90%;
                 margin: 0 auto;
-                max-height: 500px;
+                max-height: 550px;
                 overflow: hidden;
             }
 
@@ -176,6 +176,22 @@
                 object-fit: cover;
                 display: block;
                 margin: 0 auto;
+            }
+
+            .span-description{
+                font-size: 17px;
+            }
+
+            .span-inventory{
+                color: dimgray;
+                font-size: 16px;
+                letter-spacing: 10px;
+            }
+
+            .span-product_part{
+                color: black;
+                font-style: italic;
+                font-size: 22px;
             }
 
             .footer {
@@ -199,12 +215,24 @@
         </style>
 	</head>
 	<body>
+        @if(isset($relative_path))
+            <img src="{{ $relative_path . "/public/images/ovlac/logo_ovlac_fondo_blanco.jpg" }}" alt="" width="200px">
+        @endif
+        <br>
+        <br>
+        <br>
+        <span class="span-description">
+            Gracias por utilizar nuestro configurador de maquinaria agrícola. Adjuntamos la imagen del
+        modelo que ha configurado. Si necesita más información o tiene alguna pregunta, no dude
+        en ponerse en contacto con nosotros
+        </span>
+        <br>
+        <br>
+        <br>
 
 		<header>
+
             <h1>{{ $product->title }}</h1>
-            @if(isset($relative_path))
-                <img src="{{ $relative_path . "/public/images/ovlac/logo_ovlac_fondo_blanco.jpg" }}" alt="" width="200px">
-            @endif
 
 		</header>
         <aside>
@@ -216,43 +244,55 @@
             @endif
         </aside>
 		<article>
-			<address contenteditable>
+{{--			<address contenteditable>
 				<h2>{{ tra("Products") }}</h2>
-			</address>
+			</address>--}}
 
 			<table class="inventory">
 				<thead>
 					<tr>
-						<th><span contenteditable>{{ tra("Product") }}</span></th>
+						<th><span contenteditable class="span-inventory">{{ tra("CONFIGURACIÓN") }}</span></th>
+{{--
 						<th><span contenteditable>{{ tra("Price") }}</span></th>
+--}}
 					</tr>
 				</thead>
 				<tbody>
+                <br>
+                <td>
+
+                </td>
                     <tr>
-                        <td><span>{{ tra("Base Price") }}</span></td>
+                        <td><span class="span-product_part" style="font-weight: bold">{{ tra("- Base") }}</span></td>
+{{--
                         <td class="price"><span>{{ number_format($product->price, 2) }} €</span></td>
+--}}
                     </tr>
                     @foreach ($product_parts as $part)
                         <tr>
-                            <td><span>{{ $part->title_full() }}</span></td>
+                            <td><span class="span-product_part"> - {{ $part->title_full() }}</span></td>
+{{--
                             <td class="price"><span>{{ number_format($part->price_full(), 2) }} €</span></td>
+--}}
                         </tr>
                     @endforeach
 				</tbody>
 			</table>
-			<table class="balance">
-				<tr>
-					<th><span contenteditable>{{ tra("Total") }}</span></th>
-					<td><span>{{ number_format($total_price, 2) }} €</span></td>
-				</tr>
-			</table>
+{{--			<table class="balance">--}}
+{{--				<tr>--}}
+{{--					<th><span contenteditable>{{ tra("Total") }}</span></th>--}}
+{{--					<td><span>{{ number_format($total_price, 2) }} €</span></td>--}}
+{{--				</tr>--}}
+{{--			</table>--}}
 		</article>
 
         <footer class="footer">
-            <p>Email: ovlac@ovlac.com</p>
-            <p>Phone: +34 979 761 011</p>
-            <p>
-                Address: Pol. Ind. Venta de Baños Parcela 163 / 165
+            <p>Phone: +34 979 761 011 | Email: ovlac@ovlac.com</p>
+{{--            <p>Phone: +34 979 761 011</p>--}}
+            <p> <span style="font-weight: bold">
+                Address:
+                </span>
+                Pol. Ind. Venta de Baños Parcela 163 / 165
                 34200 Venta de Baños (Palencia) España
             </p>
         </footer>

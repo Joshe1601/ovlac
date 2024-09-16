@@ -39,6 +39,12 @@ canvas{
     background-color: #d2d2d2;
 }
 
+a.card-title{
+    text-decoration: none;
+    position: relative;
+    top: 10px;
+}
+
 #canvas_3d {
     /* height: 100% !important; */
     flex: 1 1 auto;
